@@ -1,0 +1,61 @@
+#| (defcfg
+        input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+        output (uinput-sink "My KMonad output")
+) |#
+
+#| (deflayer name
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _         _
+  _    _    _    _    _    _    _    _    _    _    _              _
+  _    _    _              _              _    _    _    _    _    _
+) |#
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft z    x    c    v    b    n    m    ,    .    /              rsft
+  lctl lmet lalt           spc            ralt rctl left up   down rght
+)
+
+(deflayer default
+  esc  mute vold volu _    _    _    brdn brup _    _    _    _    del
+  grv  _    _    _    _    _    _    _    _    _    _    _    _    bspc
+  tab  q    w    f    p    b    _    j    l    u    y    ;    '    \
+  bspc a    r    s    t    g    _    m    n    e    i    o         ret
+  @zsf x    c    d    v    [    ]    k    h    ,    .              @/sf
+  lctl lalt @spr           spc            @nav @ctl _    _    _    _
+)
+
+(deflayer qwerty
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  bspc a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft z    x    c    v    b    n    m    ,    .    /              rsft
+  lctl lmet lalt           spc            @nav @def left up   down rght
+)
+
+(deflayer navigation
+  @qwr f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    3    1    9    5    7    _    `    esc  pgup @ctl \\   _    _
+  _    4    2    0    6    8    _    left down up   rght end       _
+  _    _    _    -    =    \(   \)   home pgdn _    _              _
+  _    _    _              _              _    _    _    _    _    _
+)
+
+(defalias 
+  def (layer-switch default)
+  qwr (layer-switch qwerty)
+  nav (tap-next (layer-next navigation) (layer-toggle navigation))
+  
+  zsf (tap-next z lsft)
+  /sf (tap-next / rsft)
+
+  spr (tap-next (around-next lmet) lmet)
+  ctl (tap-next (around-next rctl) rctl)
+)
