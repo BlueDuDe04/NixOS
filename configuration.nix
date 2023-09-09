@@ -107,9 +107,8 @@
   virtualisation.docker.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.bluedude = {
+  users.users.mason = {
     isNormalUser = true;
-    # description = "";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };

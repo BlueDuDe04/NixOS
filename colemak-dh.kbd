@@ -25,16 +25,16 @@
 (defalias def (layer-switch default))
 
 #|(defalias
-  VUp (cmd-button "sudo -u bluedude XDG_RUNTIME_DIR=/run/user/1000 pamixer -i 10")
-  VDo (cmd-button "sudo -u bluedude XDG_RUNTIME_DIR=/run/user/1000 pamixer -d 10")
-  VMu (cmd-button "sudo -u bluedude XDG_RUNTIME_DIR=/run/user/1000 pamixer -t")
+  VUp (cmd-button "sudo -u mason XDG_RUNTIME_DIR=/run/user/1000 pamixer -i 10")
+  VDo (cmd-button "sudo -u mason XDG_RUNTIME_DIR=/run/user/1000 pamixer -d 10")
+  VMu (cmd-button "sudo -u mason XDG_RUNTIME_DIR=/run/user/1000 pamixer -t")
 )
 
 (defalias
   BrU (cmd-button "brightnessctl s +10%")
   BrD (cmd-button "brightnessctl s 10%-")
   Ter (cmd-button 
-	"sudo -u bluedude DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/1000 WAYLAND_DISPLAY=wayland-1 wezterm")
+	"sudo -u mason DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/1000 WAYLAND_DISPLAY=wayland-1 wezterm")
   Env (cmd-button "sudo env >> /tmp/kmonad_example.txt")
 )|#
 
