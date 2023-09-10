@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
       ./nixos-modules.nix
+      inputs.home-manager.nixosModules.home-manager
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -98,7 +99,7 @@
           };
 
           device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-          config = builtins.readFile ./colemak-dh-wide.kbd;
+          config = builtins.readFile ../kmonad/colemak-dh-wide.kbd;
         };
       };
     };
@@ -110,7 +111,14 @@
   users.users.mason = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [];
+    # packages = with pkgs; [];
+  };
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      mason = import ../home/mason.nix;
+    };
   };
 
   # Allow unfree packages
@@ -174,51 +182,6 @@
     #bspwm
     #sxhkd
     #nitrogen
-
-    # Apps
-    qutebrowser
-    python311Packages.adblock
-
-    firefox
-    librewolf
-    wezterm
-    pavucontrol
-    dbeaver
-    obs-studio
-    freetube
-    slack
-    discord
-
-    # Shells
-    fish
-    nushell
-    starship
-    zoxide
-
-    # Langs
-    zig
-    zls
-
-    gcc9
-    gnumake
-    clang
-    clang-tools
-    valgrind
-
-    lua
-    lua-language-server
-
-    typescript
-    nodePackages.typescript-language-server
-
-    rustc
-    cargo
-    rust-analyzer
-
-    go
-    gopls
-
-    rnix-lsp
 
     # Other
     docker
