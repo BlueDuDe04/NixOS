@@ -27,7 +27,7 @@
 
     homeConfigurations = {
       mason = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+        inherit inputs;
 
         modules = [
           ./home/mason.nix

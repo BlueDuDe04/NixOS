@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -36,37 +36,10 @@
     freetube
     slack
     discord
+    lapce
+    helix
 
-    # Shells
-    fish
-    nushell
-    starship
-    zoxide
-
-    # Langs
-    zig
-    zls
-
-    gcc
-    gnumake
-    #clang
-    #clang-tools
-    valgrind
-
-    lua
-    lua-language-server
-
-    typescript
-    nodePackages.typescript-language-server
-
-    rustc
-    cargo
-    rust-analyzer
-
-    go
-    gopls
-
-    rnix-lsp
+    nix-your-shell
   ] ++ [
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
 
@@ -109,4 +82,174 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.neovim = {
+    enable = true;
+
+    plugins = with pkgs.vimPlugins; [
+      # Dep
+      plenary-nvim
+      nvim-web-devicons # https://github.com/intel/intel-one-mono/issues/9
+
+      # Langs
+      nvim-lspconfig
+      fidget-nvim
+      neodev-nvim
+      nvim-treesitter.withAllGrammars
+      nvim-lint
+      comment-nvim
+      kmonad-vim
+
+      # Autocompletion
+      #--------------------
+      nvim-cmp
+      # Snippet Engine & its associated nvim-cmp source
+      luasnip
+      cmp_luasnip
+
+      # Adds LSP completion capabilities
+      cmp-nvim-lsp
+      cmp-nvim-lua
+
+      # Adds a number of user-friendly snippets
+      friendly-snippets
+
+      # cmdline
+      cmp-cmdline
+      cmp-buffer
+
+      cmp-path
+      #--------------------
+
+      # Neotest
+      neotest
+      FixCursorHold-nvim
+      neotest-jest
+
+      # Telescope
+      telescope-nvim
+
+      # Theme
+      tokyonight-nvim
+
+      # Git related plugins
+      vim-fugitive
+      vim-rhubarb
+      gitsigns-nvim
+
+      # Detect tabstop and shiftwidth automatically
+      vim-sleuth
+
+      # Extras
+      nvim-tree-lua
+      which-key-nvim
+      lualine-nvim
+      harpoon
+      refactoring-nvim
+      undotree
+      dashboard-nvim
+      neorg
+
+      # configuration
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "mason";
+        src = ../nvim;
+      })
+    ];
+
+    extraConfig = ''
+      lua << EOF
+        require 'mason'.init()
+      EOF
+    '';
+
+    extraPackages = with pkgs; [
+      # Langs
+      rustc
+      go
+      zig
+      lua
+      typescript
+
+      # LSPs
+      rust-analyzer
+      gopls
+      zls
+      lua-language-server
+      nodePackages.typescript-language-server
+      haskell-language-server
+      rnix-lsp
+      nil
+
+      # Formatters
+      rustfmt
+      gofumpt
+      golines
+      nixpkgs-fmt
+
+      # Tools
+      cargo
+      gcc
+      ghc
+      ripgrep
+      fd
+    ];
+  };
+
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    syntaxHighlighting.enable = true;
+
+    shellAliases = {
+      nv = "nvim";
+    };
+
+    initExtra = ''
+      if command -v nix-your-shell > /dev/null; then
+        nix-your-shell zsh | source /dev/stdin
+      fi
+    '';
+  };
+
+  programs.fish = {
+    enable = true;
+    # shellAbbrs = { nv = "nvim"; };
+    shellInit = ''
+      set fish_greeting
+
+      alias nv="nvim"
+
+      set -x DIRENV_LOG_FORMAT ""
+
+      if command -q nix-your-shell
+        nix-your-shell fish | source
+      end
+    '';
+  };
+
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    # enableFishIntegration = true;
+    enableZshIntegration = true;
+  };
+
+  programs.go = {
+    enable = true;
+    goPath = ".go";
+  };
 }

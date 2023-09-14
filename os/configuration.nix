@@ -145,10 +145,9 @@
     brightnessctl
     imagemagick
 
-    # Editors
+    # Apps
+    firefox
     neovim
-    lapce
-    helix
 
     # Wayland 
     wayland
