@@ -64,6 +64,8 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    ".config/sway/config".source = ./sway/config;
   };
 
   # You can also manage environment variables but you will have to manually
