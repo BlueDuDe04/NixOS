@@ -1,6 +1,8 @@
 local function init()
     vim.g.mapleader = " "
 
+    require('mason.gitsigns')
+    require('mason.lualine')
     require('mason.nvim-tree')
     require('mason.treesitter')
     require('mason.telescope')
@@ -9,8 +11,10 @@ local function init()
     require('mason.harpoon')
     require('mason.lint')
     require('mason.comment')
+    require('mason.dashboard')
     require('mason.neotest')
     require('mason.refactoring')
+    require('mason.neorg')
 
     require('mason.keymap')
 

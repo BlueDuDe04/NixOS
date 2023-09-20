@@ -39,7 +39,38 @@
     lapce
     helix
 
+    # Nix
     nix-your-shell
+
+    # Langs
+    rustc
+    go
+    zig
+    lua
+    typescript
+
+    # LSPs
+    rust-analyzer
+    gopls
+    zls
+    lua-language-server
+    nodePackages.typescript-language-server
+    haskell-language-server
+    rnix-lsp
+    nil
+
+    # Formatters
+    rustfmt
+    gofumpt
+    golines
+    nixpkgs-fmt
+
+    # Tools
+    cargo
+    gcc
+    ghc
+    ripgrep
+    fd
   ] ++ [
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
 
@@ -130,6 +161,7 @@
 
       # Telescope
       telescope-nvim
+      telescope-fzf-native-nvim
 
       # Theme
       tokyonight-nvim
@@ -165,37 +197,8 @@
       EOF
     '';
 
-    extraPackages = with pkgs; [
-      # Langs
-      rustc
-      go
-      zig
-      lua
-      typescript
-
-      # LSPs
-      rust-analyzer
-      gopls
-      zls
-      lua-language-server
-      nodePackages.typescript-language-server
-      haskell-language-server
-      rnix-lsp
-      nil
-
-      # Formatters
-      rustfmt
-      gofumpt
-      golines
-      nixpkgs-fmt
-
-      # Tools
-      cargo
-      gcc
-      ghc
-      ripgrep
-      fd
-    ];
+    # extraPackages = with pkgs; [
+    # ];
   };
 
   programs.zsh = {
