@@ -58,3 +58,9 @@ bind(--[[ only: normal ]] 'n', '<leader>r2', function() refactor('Inline Functio
 bind({ 'n', 'x' }, '<leader>ri', function() refactor('Inline Variable') end)
 bind(--[[ only: normal ]] 'n', '<leader>rb', function() refactor('Extract Block') end)
 bind(--[[ only: normal ]] 'n', '<leader>rB', function() refactor('Extract Block To File') end)
+
+-- ClipBoard
+bind('n', '<leader>ps', function() vim.cmd.normal('i' .. vim.fn.system('cliphist list | sed -n 2p | cliphist decode')) end)
+bind('n', '<leader>pt', function() vim.cmd.normal('i' .. vim.fn.system('cliphist list | sed -n 3p | cliphist decode')) end)
+bind('n', '<leader>pn', function() vim.cmd.normal('i' .. vim.fn.system('cliphist list | sed -n 4p | cliphist decode')) end)
+bind("n", "<leader>pe", function() vim.cmd.normal('i' .. vim.fn.system('cliphist list | sed -n 5p | cliphist decode')) end)

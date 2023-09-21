@@ -11,9 +11,8 @@ bindsym $mod+y exec --no-startup-id grim -g "$(slurp)" - | wl-copy
 bindsym $mod+Shift+p exec --no-startup-id wl-paste | swappy -f -
 
 bindsym $mod+Return exec wezterm
-bindsym $mod+n exec exit
-bindsym $mod+s exec wofi --show drun
-bindsym $mod+w exec luakit
+bindsym $mod+u exec wofi --show drun
+bindsym $mod+b exec luakit
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -28,18 +27,22 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 10%-
 
 exec_always --no-startup-id wl-paste --watch cliphist store
 
-bindsym $mod+Control+w exec --no-startup-id cliphist list | wofi -d | cliphist decode | wl-copy
-bindsym $mod+Control+d exec --no-startup-id cliphist list | wofi -d | cliphist delete
+bindsym $mod+w exec --no-startup-id cliphist list | wofi -d | cliphist decode | wl-copy
+bindsym $mod+Control+w exec --no-startup-id cliphist list | wofi -d | cliphist decode | wtype -
 
-bindsym $mod+Control+s exec --no-startup-id wtype "`cliphist list | sed -n 2p | cliphist decode`"
-bindsym $mod+Control+t exec --no-startup-id wtype "`cliphist list | sed -n 3p | cliphist decode`"
-bindsym $mod+Control+n exec --no-startup-id wtype "`cliphist list | sed -n 4p | cliphist decode`"
-bindsym $mod+Control+e exec --no-startup-id wtype "`cliphist list | sed -n 5p | cliphist decode`"
+bindsym $mod+d exec --no-startup-id cliphist list | wofi -d | cliphist delete
+bindsym $mod+Control+d exec --no-startup-id cliphist wipe
 
-bindsym $mod+Control+Shift+s exec --no-startup-id cliphist list | sed -n 2p | cliphist decode | wl-copy
-bindsym $mod+Control+Shift+t exec --no-startup-id cliphist list | sed -n 3p | cliphist decode | wl-copy
-bindsym $mod+Control+Shift+n exec --no-startup-id cliphist list | sed -n 4p | cliphist decode | wl-copy
-bindsym $mod+Control+Shift+e exec --no-startup-id cliphist list | sed -n 5p | cliphist decode | wl-copy
+bindsym $mod+r exec --no-startup-id wl-paste | wtype -
+bindsym $mod+s exec --no-startup-id cliphist list | sed -n 2p | cliphist decode | wtype -
+bindsym $mod+t exec --no-startup-id cliphist list | sed -n 3p | cliphist decode | wtype -
+bindsym $mod+n exec --no-startup-id cliphist list | sed -n 4p | cliphist decode | wtype -
+bindsym $mod+e exec --no-startup-id cliphist list | sed -n 5p | cliphist decode | wtype -
+
+bindsym $mod+Control+s exec --no-startup-id cliphist list | sed -n 2p | cliphist decode | wl-copy
+bindsym $mod+Control+t exec --no-startup-id cliphist list | sed -n 3p | cliphist decode | wl-copy
+bindsym $mod+Control+n exec --no-startup-id cliphist list | sed -n 4p | cliphist decode | wl-copy
+bindsym $mod+Control+e exec --no-startup-id cliphist list | sed -n 5p | cliphist decode | wl-copy
 
 gaps inner 10
 gaps outer 0

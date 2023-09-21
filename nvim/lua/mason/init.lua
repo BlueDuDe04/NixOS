@@ -34,10 +34,12 @@ local function init()
     vim.o.hlsearch = false
     vim.o.incsearch = true
 
+    vim.opt.clipboard = "unnamedplus"
+
     vim.cmd.colorscheme "tokyonight-night"
 
-    vim.keymap.set("n", "<leader>y", "\"+y")
-    vim.keymap.set("v", "<leader>y", "\"+y")
+    -- vim.keymap.set("n", "<leader>y", "\"+y")
+    -- vim.keymap.set("v", "<leader>y", "\"+y")
 
     vim.keymap.set("v", "<S-Down>", ":m '>+1<CR>gv=gv")
     vim.keymap.set("v", "<S-Up>", ":m '<-2<CR>gv=gv")
