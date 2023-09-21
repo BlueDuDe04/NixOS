@@ -1,0 +1,83 @@
+{
+	"layer": "top",
+	"modules-left": ["custom/launcher","cpu","memory","custom/wlClipboard"],
+	"modules-center": ["river/tags","sway/workspaces"],
+	"modules-right": ["backlight","pulseaudio","clock","battery"],
+	
+	"pulseaudio": {
+		"tooltip": false,
+		"scroll-step": 5,
+		"format": "{icon} {volume}%",
+		"format-muted": " ",
+		"on-click":"pamixer -t",
+		"format-icons": {
+			"default": [" ", " ", " "]
+		}
+	},
+
+    "river/tags": {
+		"num-tags": 9
+    },
+
+    "sway/workspaces": {
+        "format": "{name}",
+        "disable-scroll": true
+    },
+
+	"network": {
+		"tooltip": false,
+		"format-wifi": "  {essid}",
+		"format-ethernet": ""
+	},
+
+	"backlight": {
+		"tooltip": false,
+		"format": "{icon} {}%",
+		"interval":1,
+        	"format-icons": [" ", " "],
+        "on-scroll-up": "light -A 5",
+		"on-scroll-down": "light -U 5"
+	},
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": [" ", " ", " ", " ", " "]
+    },
+
+    "clock": {
+        "format": "{: %I:%M %p  󰃶 %d/%m/%Y}"
+    },
+
+    "cpu": {
+        "interval": 15,
+        "format": "  {}%",
+        "max-length": 10
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": "  {}%",
+        "max-length": 10
+    },
+
+    "custom/wlClipboard": {
+        "interval": 1,
+        "format": "󱘣 {}",
+        "exec": "cliphist list | sed -n 1p | sed 's/^[0-9]*\t//'",
+        "on-click": "cliphist list | wofi -d | cliphist decode | wl-copy"
+    },
+
+    "custom/launcher":{
+        "format": " ",
+        "on-click": "wofi --show drun",
+        "on-click-right": "killall wofi"
+    },
+}

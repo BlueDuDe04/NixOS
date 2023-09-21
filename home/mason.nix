@@ -28,6 +28,8 @@
     python311Packages.adblock
 
     firefox
+    chromium
+    luakit
     librewolf
     wezterm
     pavucontrol
@@ -71,6 +73,9 @@
     ghc
     ripgrep
     fd
+    fzf
+    cliphist
+    wtype
   ] ++ [
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
 
@@ -98,6 +103,7 @@
   };
 
   xdg.configFile."sway".source = ../sway;
+  xdg.configFile."waybar".source = ../waybar;
 
   # You can also manage environment variables but you will have to manually
   # source

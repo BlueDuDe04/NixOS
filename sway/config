@@ -7,7 +7,7 @@ exec_always --no-startup-id swaybg -o eDP-1 -m fill -i Pictures/PortalCakeGLaDOS
 exec_always --no-startup-id waybar
 # exec_always --no-startup-id eww open example
 
-bindsym $mod+y exec --no-startup-id grim -g \"\$(slurp)\" - | wl-copy
+bindsym $mod+y exec --no-startup-id grim -g "$(slurp)" - | wl-copy
 bindsym $mod+Shift+p exec --no-startup-id wl-paste | swappy -f -
 
 bindsym $mod+Return exec wezterm
@@ -25,6 +25,21 @@ bindsym XF86AudioMute exec --no-startup-id pamixer --toggle-mute
 
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s 10%+
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 10%-
+
+exec_always --no-startup-id wl-paste --watch cliphist store
+
+bindsym $mod+Control+w exec --no-startup-id cliphist list | wofi -d | cliphist decode | wl-copy
+bindsym $mod+Control+d exec --no-startup-id cliphist list | wofi -d | cliphist delete
+
+bindsym $mod+Control+s exec --no-startup-id wtype "`cliphist list | sed -n 2p | cliphist decode`"
+bindsym $mod+Control+t exec --no-startup-id wtype "`cliphist list | sed -n 3p | cliphist decode`"
+bindsym $mod+Control+n exec --no-startup-id wtype "`cliphist list | sed -n 4p | cliphist decode`"
+bindsym $mod+Control+e exec --no-startup-id wtype "`cliphist list | sed -n 5p | cliphist decode`"
+
+bindsym $mod+Control+Shift+s exec --no-startup-id cliphist list | sed -n 2p | cliphist decode | wl-copy
+bindsym $mod+Control+Shift+t exec --no-startup-id cliphist list | sed -n 3p | cliphist decode | wl-copy
+bindsym $mod+Control+Shift+n exec --no-startup-id cliphist list | sed -n 4p | cliphist decode | wl-copy
+bindsym $mod+Control+Shift+e exec --no-startup-id cliphist list | sed -n 5p | cliphist decode | wl-copy
 
 gaps inner 10
 gaps outer 0
