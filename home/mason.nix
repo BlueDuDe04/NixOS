@@ -50,6 +50,7 @@
     zig
     lua
     typescript
+    python311
 
     # LSPs
     rust-analyzer
@@ -60,6 +61,7 @@
     haskell-language-server
     rnix-lsp
     nil
+    python311Packages.python-lsp-server
 
     # Formatters
     rustfmt
