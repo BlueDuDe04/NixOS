@@ -56,5 +56,5 @@
   zsf (tap-next z lsft)
   /sf (tap-next / rsft)
 
-  spr (tap-next (around-next lmet) lmet)
+  spr (around-next lmet)
 )
