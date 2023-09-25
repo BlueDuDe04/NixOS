@@ -41,6 +41,11 @@
     lapce
     helix
 
+    blender
+    godot_4
+    krita
+    gimp
+
     # Nix
     nix-your-shell
 
