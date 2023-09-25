@@ -196,6 +196,7 @@
       undotree
       dashboard-nvim
       neorg
+      vim-be-good
 
       # configuration
       (pkgs.vimUtils.buildVimPlugin {
