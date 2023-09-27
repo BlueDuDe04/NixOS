@@ -65,6 +65,9 @@ input type:touchpad {
 
 output eDP-1 scale 1
 
+blur enable
+blur_passes 5
+blur_radius 4
 corner_radius 6
 
 # Use Mouse+$mod to drag floating windows to their wanted position

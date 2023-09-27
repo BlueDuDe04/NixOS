@@ -199,6 +199,11 @@
       neorg
       vim-be-good
 
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "transparent-nvim";
+        src = inputs.transparent-nvim;
+      })
+
       # configuration
       (pkgs.vimUtils.buildVimPlugin {
         name = "mason";

@@ -39,7 +39,24 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "transparent-nvim": "transparent-nvim"
+      }
+    },
+    "transparent-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1693733176,
+        "narHash": "sha256-1JyfwHBCtNCPmsOLzJRWBtg1u9uApQZY4fn2mTL3NZ4=",
+        "owner": "xiyaowong",
+        "repo": "transparent.nvim",
+        "rev": "3af6232c8d39d51062702e875ff6407c1eeb0391",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xiyaowong",
+        "repo": "transparent.nvim",
+        "type": "github"
       }
     }
   },
