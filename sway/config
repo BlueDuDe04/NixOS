@@ -2,7 +2,7 @@ set $mod Mod4
 
 exec_always --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway &
 
-exec_always --no-startup-id swaybg -o eDP-1 -m fill -i Pictures/PortalCakeGLaDOS.jpg 
+exec_always --no-startup-id swaybg -o eDP-1 -m fill -i Pictures/anime-girl-colorful-sky.jpg
 
 exec_always --no-startup-id waybar
 # exec_always --no-startup-id eww open example
