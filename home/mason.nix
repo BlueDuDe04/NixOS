@@ -111,6 +111,7 @@
 
   xdg.configFile."sway".source = ../sway;
   xdg.configFile."waybar".source = ../waybar;
+  xdg.configFile."starship.toml".source = ../starship.toml;
 
   # You can also manage environment variables but you will have to manually
   # source
@@ -269,6 +270,6 @@
 
   programs.go = {
     enable = true;
-    goPath = ".go";
+    goPath = "~/.go";
   };
 }
