@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    kmonad.url = "github:kmonad/kmonad?dir=nix";
+
     transparent-nvim = {
       url = "github:xiyaowong/transparent.nvim";
       flake = false;

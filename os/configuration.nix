@@ -4,7 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./nixos-modules.nix
+      inputs.kmonad.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
     ];
 
@@ -89,15 +89,8 @@
     
     kmonad = {
       enable = true;
-      package = (import ./kmonad.nix) pkgs;
       keyboards = {
         "laptop" = {
-          defcfg = {
-            enable = true;
-            compose.key = null;
-            fallthrough = false;
-          };
-
           device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
           config = builtins.readFile ../kmonad/colemak-dh-wide.kbd;
         };
