@@ -12,7 +12,7 @@ bindsym $mod+Shift+p exec --no-startup-id wl-paste | swappy -f -
 
 bindsym $mod+Return exec wezterm
 bindsym $mod+u exec wofi --show drun
-bindsym $mod+b exec luakit
+bindsym $mod+b exec librewolf
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
