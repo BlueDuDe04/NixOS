@@ -3,7 +3,8 @@ let
   font = pkgs.nerdfonts.override { fonts = ["FiraCode"]; };
 in {
   stylix.image = ./colorful-sky.jpg;
-  stylix.polarity = "dark";
+  # stylix.polarity = "dark";
+  stylix.base16Scheme = ./tokyonight.yaml;
 
   stylix.fonts = {
     serif = {

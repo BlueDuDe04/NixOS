@@ -112,6 +112,11 @@
     users = {
       mason = import ../home/mason.nix;
     };
+    sharedModules = [{
+      stylix.targets.wezterm.enable = false;
+      stylix.targets.fish.enable = false;
+      stylix.targets.vim.enable = false;
+    }];
   };
 
   # Allow unfree packages
