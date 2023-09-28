@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix.url = "github:danth/stylix";
+
     kmonad.url = "github:kmonad/kmonad?dir=nix";
 
     transparent-nvim = {
@@ -17,7 +19,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
@@ -28,6 +30,8 @@
 
         modules = [
           ./os/configuration.nix
+          stylix.nixosModules.stylix
+          ./stylix.nix
         ];
       };
     };
@@ -38,7 +42,9 @@
 
         modules = [
           ./home/mason.nix
-          { targets.genericLinux.enable = true; }
+          stylix.homeManagerModules.stylix
+          ./stylix.nix
+          # { targets.genericLinux.enable = true; }
         ];
       };
     };
