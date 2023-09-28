@@ -28,7 +28,7 @@
     python311Packages.adblock
 
     firefox
-    chromium
+    ungoogled-chromium
     luakit
     librewolf
     wezterm
