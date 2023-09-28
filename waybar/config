@@ -32,7 +32,7 @@
 
 	"backlight": {
 		"tooltip": false,
-		"format": "{icon} {}%",
+		"format": "{icon}{}%",
 		"interval":1,
         	"format-icons": [" ", " "],
         "on-scroll-up": "light -A 5",
