@@ -111,8 +111,8 @@ window#waybar.hidden {
 
 #workspaces button.focused {
 	/* color: #ABE9B3; */
-    border-top: 6px solid #7D36AB /* #ABE9B3 */;
-    border-bottom: 6px solid #7D36AB /* #ABE9B3 */;
+    border-top: 6px solid #AD8EE6 /* #ABE9B3 */;
+    border-bottom: 6px solid #AD8EE6 /* #ABE9B3 */;
 }
 
 #workspaces button.urgent {
