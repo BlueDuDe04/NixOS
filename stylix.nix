@@ -4,7 +4,7 @@ let
 in {
   stylix.image = ./colorful-sky.jpg;
   # stylix.polarity = "dark";
-  stylix.base16Scheme = ./tokyonight.yaml;
+  stylix.base16Scheme = ./tokyonight-night.yaml;
 
   stylix.fonts = {
     serif = {

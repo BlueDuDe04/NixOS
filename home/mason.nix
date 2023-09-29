@@ -198,6 +198,7 @@
       dashboard-nvim
       neorg
       vim-be-good
+      nvim-colorizer-lua
 
       (pkgs.vimUtils.buildVimPlugin {
         name = "transparent-nvim";

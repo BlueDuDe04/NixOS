@@ -15,6 +15,7 @@ local function init()
     require('mason.neotest')
     require('mason.refactoring')
     require('mason.neorg')
+    require('mason.colorizer')
 
     require('mason.keymap')
 
