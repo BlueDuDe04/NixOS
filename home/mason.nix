@@ -40,6 +40,7 @@
     discord
     lapce
     helix
+    gnome.gnome-calculator
 
     blender
     godot_4
