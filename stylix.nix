@@ -6,20 +6,22 @@ in {
   # stylix.polarity = "dark";
   stylix.base16Scheme = ./tokyonight-night.yaml;
 
+  stylix.opacity.terminal = 0.9;
+
   stylix.fonts = {
     serif = {
       package = font;
-      name = "Firacode Nerd Font";
+      name = "Firacode Nerd Font Mono:style=Bold";
     };
 
     sansSerif = {
       package = font;
-      name = "Firacode Nerd Font";
+      name = "Firacode Nerd Font Mono:style=Bold";
     };
 
     monospace = {
       package = font;
-      name = "Firacode Nerd Font";
+      name = "Firacode Nerd Font Mono:style=Bold";
     };
 
     emoji = {

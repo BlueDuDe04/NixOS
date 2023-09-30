@@ -10,7 +10,7 @@ exec_always --no-startup-id waybar
 bindsym $mod+y exec --no-startup-id grim -g "$(slurp)" - | wl-copy
 bindsym $mod+Shift+p exec --no-startup-id wl-paste | swappy -f -
 
-bindsym $mod+Return exec wezterm
+bindsym $mod+Return exec kitty
 bindsym $mod+u exec wofi --show drun
 bindsym $mod+b exec librewolf
 

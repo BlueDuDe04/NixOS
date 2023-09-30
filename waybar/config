@@ -7,7 +7,7 @@
 	"pulseaudio": {
 		"tooltip": false,
 		"scroll-step": 5,
-		"format": "{icon}{volume}%",
+		"format": "{icon} {volume}%",
 		"format-muted": " ",
 		"on-click":"pamixer -t",
 		"format-icons": {
@@ -43,7 +43,7 @@
 
 	"backlight": {
 		"tooltip": false,
-		"format": "{icon}{}%",
+		"format": "{icon} {}%",
 		"interval":1,
         	"format-icons": [" ", " "],
         "on-scroll-up": "light -A 5",
@@ -56,7 +56,7 @@
             "warning": 30,
             "critical": 20
         },
-        "format": "{icon} {capacity}%",
+        "format": "{icon}  {capacity}%",
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
@@ -69,13 +69,13 @@
 
     "cpu": {
         "interval": 15,
-        "format": " {}%",
+        "format": "  {}%",
         "max-length": 10
     },
 
     "memory": {
         "interval": 30,
-        "format": " {}%",
+        "format": "  {}%",
         "max-length": 10
     },
 

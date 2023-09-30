@@ -150,6 +150,25 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.kitty = {
+    enable = true;
+
+    theme = "Tokyo Night";
+
+    font = {
+      name = "FiraCode Nerd Font Bold";
+      size = 12;
+    };
+
+    extraConfig = ''
+      shell fish
+      background_opacity 0.9
+      cursor_blink_interval 0
+      touch_scroll_multiplier 10.0
+      window_padding_width 0 6
+    '';
+  };
+
   programs.neovim = {
     enable = true;
 
