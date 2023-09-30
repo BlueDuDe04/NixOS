@@ -128,6 +128,23 @@
     EDITOR = "nvim";
   };
 
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 32;
+
+    gtk.enable = false;
+    x11.enable = true;
+  };
+
+  gtk = {
+    cursorTheme = {
+      name = "Bibata-Modern-Ice";
+      package = pkgs.bibata-cursors;
+      size = 24;
+    };
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
