@@ -71,6 +71,9 @@ blur_passes 5
 blur_radius 4
 corner_radius 6
 
+for_window [app_id="org.gnome.Nautilus"] floating enable
+bindsym $mod+Shift+f exec nautilus
+
 for_window [app_id="org.gnome.Calculator"] floating enable
 bindsym $mod+period exec gnome-calculator
 
