@@ -192,6 +192,7 @@
           title = "New Tab";
           url = "chrome://browser/content/blanktab.html";
         }];
+        "browser.toolbars.bookmarks.visibility" = "never";
         "dom.security.https_only_mode" = true;
       };
 
