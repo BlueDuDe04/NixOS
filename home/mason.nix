@@ -187,6 +187,11 @@
       settings = {
         "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
+        "browser.newtabpage.pinned" = [{
+          title = "New Tab";
+          url = "chrome://browser/content/blanktab.html";
+        }];
         "dom.security.https_only_mode" = true;
       };
 
