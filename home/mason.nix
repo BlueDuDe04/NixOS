@@ -169,6 +169,63 @@
     '';
   };
 
+  programs.firefox = {
+    enable = true;
+
+    profiles.mason = {
+      extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+       ublock-origin 
+       darkreader
+       bitwarden
+       libredirect
+       vimium
+       sidebery
+      ];
+
+      userChrome = builtins.readFile ../userChrome.css;
+
+      settings = {
+        "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "dom.security.https_only_mode" = true;
+      };
+
+      search = {
+        default = "DuckDuckGo";
+
+        force = true;
+
+        order = [
+          "DuckDuckGo"
+          "Nix Packages"
+          "NixOs Wiki"
+        ];
+
+        engines = {
+          "Nix Packages" = {
+            urls = [{
+              template = "https://search.nixos.org/packages";
+              params = [
+                { name = "type"; value = "packages"; }
+                { name = "query"; value = "{searchTerms}"; }
+              ];
+            }];
+
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@np" ];
+          };
+
+          "NixOS Wiki" = {
+            urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+            iconUpdateURL = "https://nixos.wiki/favicon.png";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            definedAliases = [ "@nw" ];
+          };
+        };
+      };
+    };
+  };
+
   programs.neovim = {
     enable = true;
 

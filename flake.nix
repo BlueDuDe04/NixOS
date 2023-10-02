@@ -13,6 +13,9 @@
 
     transparent-nvim.url = "github:xiyaowong/transparent.nvim";
     transparent-nvim.flake = false;
+
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: 
