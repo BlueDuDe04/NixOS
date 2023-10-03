@@ -1,0 +1,71 @@
+keymap:
+- name: Bindings
+  remap:
+    super-a:
+      remap:
+        a:
+          launch: ["wofi", "--show", "drun"]
+        t:
+          launch: ["kitty"]
+        w:
+          launch: ["firefox"]
+        c:
+          launch: ["gnome-calculator"]
+        f:
+          launch: ["nautilus"]
+        d:
+          launch: ["discord"]
+        v:
+          launch: ["pavucontrol"]
+        y:
+          launch: ["freetube"]
+    super-w:
+      remap:
+        w:
+          launch: ["swaymsg", "workspace", "number", "1"]
+        s:
+          launch: ["swaymsg", "workspace", "number", "2"]
+        t:
+          launch: ["swaymsg", "workspace", "number", "3"]
+        f:
+          launch: ["swaymsg", "workspace", "number", "4"]
+        p:
+          launch: ["swaymsg", "workspace", "number", "5"]
+        n:
+          launch: ["swaymsg", "workspace", "number", "6"]
+        e:
+          launch: ["swaymsg", "workspace", "number", "7"]
+        u:
+          launch: ["swaymsg", "workspace", "number", "8"]
+        i:
+          launch: ["swaymsg", "workspace", "number", "9"]
+    super-m:
+      remap:
+        w:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 1"]
+        s:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 2"]
+        t:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 3"]
+        f:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 4"]
+        p:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 5"]
+        n:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 6"]
+        e:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 7"]
+        u:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 8"]
+        i:
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 9"]
+    super-p:
+      remap:
+        p:
+          launch: ["bash", "-c", "~/.config/xremap/paste.sh"]
+        l:
+          launch: ["bash", "-c", "~/.config/xremap/pasteLast.sh"]
+        s:
+          launch: ["bash", "-c", "~/.config/xremap/pasteSearch.sh"]
+        y:
+          launch: ["bash", "-c", "~/.config/xremap/yankSearch.sh"]

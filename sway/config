@@ -2,15 +2,18 @@ set $mod Mod4
 
 exec_always --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway &
 
-exec_always --no-startup-id xremap --device kmonad-laptop --watch ~/.config/xremap/xremap-config.yaml
+exec_always --no-startup-id xremap --device kmonad-laptop --watch ~/.config/xremap/config.yaml
+
+exec_always --no-startup-id wl-paste --watch cliphist store
 
 exec_always --no-startup-id swaybg -o eDP-1 -m fill -i Pictures/anime-girl-colorful-sky.jpg
 
 exec_always --no-startup-id waybar
+
 # exec_always --no-startup-id eww open example
 
 bindsym $mod+y exec --no-startup-id grim -g "$(slurp)" - | wl-copy
-bindsym $mod+Shift+p exec --no-startup-id wl-paste | swappy -f -
+# bindsym $mod+Shift+p exec --no-startup-id wl-paste | swappy -f -
 
 bindsym $mod+Return exec kitty
 bindsym $mod+u exec wofi --show drun
@@ -27,24 +30,22 @@ bindsym XF86AudioMute exec --no-startup-id pamixer --toggle-mute
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s 10%+
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 10%-
 
-exec_always --no-startup-id wl-paste --watch cliphist store
-
-bindsym $mod+w exec --no-startup-id cliphist list | wofi -d | cliphist decode | wl-copy
-bindsym $mod+Control+w exec --no-startup-id cliphist list | wofi -d | cliphist decode | wtype -
-
-bindsym $mod+d exec --no-startup-id cliphist list | wofi -d | cliphist delete
-bindsym $mod+Control+d exec --no-startup-id cliphist wipe
-
-bindsym $mod+r exec --no-startup-id wl-paste | wtype -
-bindsym $mod+s exec --no-startup-id cliphist list | sed -n 2p | cliphist decode | wtype -
-bindsym $mod+t exec --no-startup-id cliphist list | sed -n 3p | cliphist decode | wtype -
-bindsym $mod+n exec --no-startup-id cliphist list | sed -n 4p | cliphist decode | wtype -
-bindsym $mod+e exec --no-startup-id cliphist list | sed -n 5p | cliphist decode | wtype -
-
-bindsym $mod+Control+s exec --no-startup-id cliphist list | sed -n 2p | cliphist decode | wl-copy
-bindsym $mod+Control+t exec --no-startup-id cliphist list | sed -n 3p | cliphist decode | wl-copy
-bindsym $mod+Control+n exec --no-startup-id cliphist list | sed -n 4p | cliphist decode | wl-copy
-bindsym $mod+Control+e exec --no-startup-id cliphist list | sed -n 5p | cliphist decode | wl-copy
+# bindsym $mod+w exec --no-startup-id cliphist list | wofi -d | cliphist decode | wl-copy
+# bindsym $mod+Control+w exec --no-startup-id cliphist list | wofi -d | cliphist decode | wtype -
+#
+# bindsym $mod+d exec --no-startup-id cliphist list | wofi -d | cliphist delete
+# bindsym $mod+Control+d exec --no-startup-id cliphist wipe
+#
+# bindsym $mod+r exec --no-startup-id wl-paste | wtype -
+# bindsym $mod+s exec --no-startup-id cliphist list | sed -n 2p | cliphist decode | wtype -
+# bindsym $mod+t exec --no-startup-id cliphist list | sed -n 3p | cliphist decode | wtype -
+# bindsym $mod+n exec --no-startup-id cliphist list | sed -n 4p | cliphist decode | wtype -
+# bindsym $mod+e exec --no-startup-id cliphist list | sed -n 5p | cliphist decode | wtype -
+#
+# bindsym $mod+Control+s exec --no-startup-id cliphist list | sed -n 2p | cliphist decode | wl-copy
+# bindsym $mod+Control+t exec --no-startup-id cliphist list | sed -n 3p | cliphist decode | wl-copy
+# bindsym $mod+Control+n exec --no-startup-id cliphist list | sed -n 4p | cliphist decode | wl-copy
+# bindsym $mod+Control+e exec --no-startup-id cliphist list | sed -n 5p | cliphist decode | wl-copy
 
 gaps inner 10
 gaps outer 0
@@ -93,7 +94,7 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # focus the parent container
-bindsym $mod+p focus parent
+bindsym $mod+Shift+p focus parent
 bindsym $mod+c focus child
 
 # alternatively, you can use the cursor keys:
