@@ -2,6 +2,8 @@ set $mod Mod4
 
 exec_always --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway &
 
+exec_always --no-startup-id xremap --device kmonad-laptop --watch ~/.config/xremap/xremap-config.yaml
+
 exec_always --no-startup-id swaybg -o eDP-1 -m fill -i Pictures/anime-girl-colorful-sky.jpg
 
 exec_always --no-startup-id waybar
@@ -53,7 +55,8 @@ default_border pixel 5
 default_floating_border pixel 5
 client.focused "#AD8EE6" "#AD8EE6" "#AD8EE6"
 
-input 4661:22137:kmonad-laptop {
+# 4661:22137:kmonad-laptop {
+input type:keyboard {
   repeat_delay 200
   repeat_rate 60
 }

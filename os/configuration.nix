@@ -101,9 +101,10 @@
   virtualisation.docker.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  hardware.uinput.enable = true;
   users.users.mason = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "input" "uinput" ];
     # packages = with pkgs; [];
   };
 

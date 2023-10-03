@@ -23,6 +23,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    inputs.xremap.packages.${system}.xremap-sway
+
     # Apps
     qutebrowser
     python311Packages.adblock
@@ -113,6 +115,7 @@
   };
 
   xdg.configFile."sway".source = ../sway;
+  xdg.configFile."xremap".source = ../xremap;
   xdg.configFile."waybar".source = ../waybar;
   xdg.configFile."starship.toml".source = ../starship.toml;
 

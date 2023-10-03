@@ -11,6 +11,8 @@
 
     kmonad.url = "github:kmonad/kmonad?dir=nix";
 
+    xremap.url = "github:xremap/nix-flake";
+
     transparent-nvim.url = "github:xiyaowong/transparent.nvim";
     transparent-nvim.flake = false;
 
@@ -29,21 +31,20 @@
 
         modules = [
           ./os/configuration.nix
-          stylix.nixosModules.stylix
-          ./stylix.nix
+
+          stylix.nixosModules.stylix ./stylix.nix
         ];
       };
     };
 
     homeConfigurations = {
       mason = home-manager.lib.homeManagerConfiguration {
-        inherit inputs;
+        inherit inputs system;
 
         modules = [
-          ./home/mason.nix
-          stylix.homeManagerModules.stylix
-          ./stylix.nix
-          # { targets.genericLinux.enable = true; }
+          ./home/mason.nix { targets.genericLinux.enable = true; }
+
+          stylix.homeManagerModules.stylix ./stylix.nix
         ];
       };
     };
