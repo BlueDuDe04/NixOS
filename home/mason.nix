@@ -88,6 +88,7 @@
     fzf
     cliphist
     wtype
+    python311Packages.pip
   ] ++ [
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
 
