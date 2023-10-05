@@ -48,6 +48,7 @@
 
 
   services = {
+    gvfs.enable = true;
     xserver = {
 
       # xkbOptions = "compose:ralt";
@@ -81,6 +82,7 @@
     
     pipewire = {
       enable = true;
+      audio.enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
@@ -101,6 +103,16 @@
   virtualisation.docker.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-ocl
+      vaapiIntel
+      libglvnd
+    ];
+  };
   hardware.uinput.enable = true;
   users.users.mason = {
     isNormalUser = true;
