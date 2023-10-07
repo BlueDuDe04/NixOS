@@ -1,5 +1,6 @@
 local function init()
-    vim.g.mapleader = " "
+    vim.g.mapleader = ' '
+    vim.g.maplocalleader = ','
 
     require('mason.gitsigns')
     require('mason.lualine')
