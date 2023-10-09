@@ -20,3 +20,4 @@ lspconfig.rust_analyzer.setup {}
 lspconfig.nil_ls.setup {}
 lspconfig.zls.setup {}
 lspconfig.pylsp.setup {}
+lspconfig.glslls.setup {}

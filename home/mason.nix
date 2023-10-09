@@ -72,6 +72,7 @@
     rnix-lsp
     nil
     python311Packages.python-lsp-server
+    glslls
 
     # Formatters
     rustfmt

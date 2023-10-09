@@ -31,8 +31,11 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
   
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    polkit.enable = true;
+    pam.services.mason.updateWtmp = true;
+  };
 
   programs.river = {
     enable = true;
@@ -156,6 +159,7 @@
     pamixer
     brightnessctl
     imagemagick
+    acct
 
     # Apps
     firefox
