@@ -23,7 +23,7 @@
   outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: 
   let
     system = "x86_64-linux";
-    # pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs { inherit system; };
   in {
     nixosConfigurations = {
       NixOS = nixpkgs.lib.nixosSystem {
@@ -39,12 +39,14 @@
 
     homeConfigurations = {
       mason = home-manager.lib.homeManagerConfiguration {
-        inherit inputs system;
+        inherit pkgs;
+
+        extraSpecialArgs = { inherit inputs system; };
 
         modules = [
           ./home/mason.nix { targets.genericLinux.enable = true; }
 
-          stylix.homeManagerModules.stylix ./stylix.nix
+          # stylix.homeManagerModules.stylix ./stylix.nix
         ];
       };
     };
