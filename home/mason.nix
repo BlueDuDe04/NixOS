@@ -24,6 +24,9 @@
   # environment.
   home.packages = with pkgs; [
     inputs.xremap.packages.${system}.xremap-sway
+    waybar
+    wl-clipboard
+    wofi
 
     # Apps
     qutebrowser
@@ -163,6 +166,12 @@
 
   programs.kitty = {
     enable = true;
+
+    package = pkgs.writeShellScriptBin "kitty" ''
+      #!/bin/sh
+
+      ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
+    '';
 
     theme = "Tokyo Night";
 
@@ -305,7 +314,7 @@
       nvim-tree-lua
       which-key-nvim
       lualine-nvim
-      harpoon
+      # harpoon
       refactoring-nvim
       undotree
       dashboard-nvim

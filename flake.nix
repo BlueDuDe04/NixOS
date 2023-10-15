@@ -7,6 +7,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixgl.url = "github:guibou/nixGL";
+
     stylix.url = "github:danth/stylix";
 
     kmonad.url = "github:kmonad/kmonad?dir=nix";
@@ -23,7 +25,10 @@
   outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: 
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [ inputs.nixgl.overlay ];
+    };
   in {
     nixosConfigurations = {
       NixOS = nixpkgs.lib.nixosSystem {

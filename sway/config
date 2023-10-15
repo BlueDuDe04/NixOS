@@ -70,10 +70,10 @@ input type:touchpad {
 
 output eDP-1 scale 1.2
 
-blur enable
-blur_passes 5
-blur_radius 4
-corner_radius 6
+# blur enable
+# blur_passes 5
+# blur_radius 4
+# corner_radius 6
 
 for_window [app_id="org.gnome.Nautilus"] floating enable
 bindsym $mod+Shift+f exec nautilus
