@@ -30,7 +30,7 @@
 
     # Apps
     qutebrowser
-    python311Packages.adblock
+      # python311Packages.adblock
 
     firefox
     ungoogled-chromium
@@ -45,11 +45,12 @@
     discord
     lapce
     helix
+    ranger
 
     gnome.gnome-calculator
     gnome.nautilus
 
-    blender
+      # blender
     godot_4
     krita
     gimp
@@ -63,7 +64,7 @@
     zig
     lua
     typescript
-    python311
+      # python311
 
     # LSPs
     rust-analyzer
@@ -74,7 +75,7 @@
     haskell-language-server
     rnix-lsp
     nil
-    python311Packages.python-lsp-server
+      # python311Packages.python-lsp-server
     glslls
 
     # Formatters
@@ -92,7 +93,7 @@
     fzf
     cliphist
     wtype
-    python311Packages.pip
+      # python311Packages.pip
   ] ++ [
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
 
@@ -167,11 +168,12 @@
   programs.kitty = {
     enable = true;
 
-    package = pkgs.writeShellScriptBin "kitty" ''
-      #!/bin/sh
-
-      ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
-    '';
+    # package = pkgs.writeShellScriptBin "kitty" ''
+    #   #!/bin/sh
+    #
+    #   ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
+    # '';
+    package = pkgs.hello;
 
     theme = "Tokyo Night";
 

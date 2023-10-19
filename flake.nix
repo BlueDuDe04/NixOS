@@ -51,7 +51,12 @@
         modules = [
           ./home/mason.nix { targets.genericLinux.enable = true; }
 
-          # stylix.homeManagerModules.stylix ./stylix.nix
+          stylix.homeManagerModules.stylix ./stylix.nix {
+            stylix.targets.wezterm.enable = false;
+            stylix.targets.kitty.enable = false;
+            stylix.targets.fish.enable = false;
+            stylix.targets.vim.enable = false;
+          }
         ];
       };
     };

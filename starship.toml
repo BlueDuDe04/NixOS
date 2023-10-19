@@ -10,6 +10,9 @@ success_symbol = "[ ](bold blue)[ ❯](bold cyan)"
 [cmd_duration]
 format = "[󰥔 $duration]($style)"
 
+[directory]
+truncate_to_repo = false
+
 [aws]
 disabled = true
 symbol = ' '
