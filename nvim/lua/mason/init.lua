@@ -41,6 +41,9 @@ local function init()
 
     vim.cmd.colorscheme "tokyonight-night"
 
+    vim.keymap.set("n", "<PageUp>", "<PageUp>zz")
+    vim.keymap.set("n", "<PageDown>", "<PageDown>zz")
+
     -- vim.keymap.set("n", "<leader>y", "\"+y")
     -- vim.keymap.set("v", "<leader>y", "\"+y")
 
