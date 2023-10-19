@@ -15,6 +15,9 @@
 
     xremap.url = "github:xremap/nix-flake";
 
+    harpoon-nvim.url = "github:ThePrimeagen/harpoon";
+    harpoon-nvim.flake = false;
+
     transparent-nvim.url = "github:xiyaowong/transparent.nvim";
     transparent-nvim.flake = false;
 

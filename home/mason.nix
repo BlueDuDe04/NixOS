@@ -215,6 +215,12 @@
           url = "chrome://browser/content/blanktab.html";
         }];
         "browser.toolbars.bookmarks.visibility" = "never";
+        "signon.rememberSignons" = false;
+        "browser.download.useDownloadDir" = false;
+
+        # Not sure it works
+        "extensions.allowPrivateBrowsingByDefault" = true;
+
         "dom.security.https_only_mode" = true;
       };
 
@@ -316,13 +322,17 @@
       nvim-tree-lua
       which-key-nvim
       lualine-nvim
-      # harpoon
       refactoring-nvim
       undotree
       dashboard-nvim
       neorg
       vim-be-good
       nvim-colorizer-lua
+
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "harpoon";
+        src = inputs.harpoon-nvim;
+      })
 
       (pkgs.vimUtils.buildVimPlugin {
         name = "transparent-nvim";
