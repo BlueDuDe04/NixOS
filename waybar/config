@@ -1,7 +1,7 @@
 {
 	"layer": "top",
 	"modules-left": ["custom/launcher","cpu","memory","custom/wlClipboard"],
-	"modules-center": ["river/tags","sway/workspaces"],
+	"modules-center": ["sway/workspaces"],
 	"modules-right": ["backlight","pulseaudio","clock","battery"],
 	
 	"pulseaudio": {
