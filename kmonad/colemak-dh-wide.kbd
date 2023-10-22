@@ -27,7 +27,7 @@
   tab  q    w    f    p    b    _    j    l    u    y    ;    '    \
   bspc a    r    s    t    g    _    m    n    e    i    o         ret
   @zsf x    c    d    v    [    ]    k    h    ,    .              @/sf
-  lctl lalt @spr           spc            @lay rctl _    _    _    _
+  lctl lalt lmet           spc            @nav @sbl _    _    _    _
 )
 
 (deflayer qwerty
@@ -36,25 +36,64 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   bspc a    s    d    f    g    h    j    k    l    ;    '         ret
   lsft z    x    c    v    b    n    m    ,    .    /              rsft
-  lctl lmet lalt           spc            @lay @def left up   down rght
+  lctl lmet lalt           spc            @nav @def left up   down rght
 )
 
-(deflayer layer
+(deflayer navigation
+  @qwr f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    @cmd esc  _    _    _    _    _    pgup _    _    _    _
+  _    _    home del  end  ret  _    left down up   rght _         _
+  _    _    _    caps -    _    _    =    pgdn _    _              _
+  _    _    _              _              _    _    _    _    _    _
+)
+
+(deflayer cmdLayer
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    @C-x @C-c @C-v _    _    _    @C-r @C-z @C-d _         _
+  _    _    _    _    _    _    _    _    _    _    _              _
+  _    _    _              _              _    _    _    _    _    _
+)
+
+(deflayer symbols
   _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    3    1    9    5    7    _    `    esc  pgup \\   @qwr _    _
-  _    4    2    0    6    8    _    left down up   rght end       _
-  _    _    _    -    =    \(   \)   home pgdn _    _              _
-  _    _    lctl           _              _    _    _    _    _    _
+  _    _    @oSb {    #    _    _    _    @    \(   [    _    _    _
+  _    9    5    0    3    7    _    6    2    1    4    8         _
+  _    _    _    *    &    _    _    |    !    _    _              _
+  _    _    _              _              _    _    _    _    _    _
+)
+
+(deflayer otherSymbols
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    $    }    \\   _    _    _    %    \)   ]    _    _    _
+  _    f9   f5   f10  f3   f7   _    f6   f2   f1   f4   f8        _
+  _    _    _    f11  ^    _    _    _    f12  _    _              _
+  _    _    _              _              _    _    _    _    _    _
 )
 
 (defalias 
   def (layer-switch default)
   qwr (layer-switch qwerty)
-  lay (tap-next (layer-next layer) (layer-toggle layer))
+
+  nav (tap-next (layer-next navigation) (layer-toggle navigation))
+  cmd (layer-next cmdLayer)
+
+  sbl (tap-next (layer-next symbols) (layer-toggle symbols))
+  oSb (layer-next otherSymbols)
   
   zsf (tap-next z lsft)
   /sf (tap-next / rsft)
 
-  spr (around-next lmet)
+  C-c (around lctl c)
+  C-v (around lctl v)
+  C-x (around lctl x)
+  C-z (around lctl z)
+  C-d (around lctl d)
+  C-r (around lctl r)
+
+  ;; spr (around-next lmet)
 )
