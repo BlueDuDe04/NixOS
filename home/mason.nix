@@ -52,7 +52,7 @@
 
       # blender
     godot_4
-    krita
+      # krita
     gimp
 
     # Nix

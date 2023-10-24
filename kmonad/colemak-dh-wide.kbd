@@ -1,6 +1,6 @@
 (defcfg
         input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
-        output (uinput-sink "kmonad-laptop")
+        output (uinput-sink "kmonad")
 )
 
 #| (deflayer name
@@ -27,7 +27,7 @@
   tab  q    w    f    p    b    _    j    l    u    y    ;    '    \
   bspc a    r    s    t    g    _    m    n    e    i    o         ret
   @zsf x    c    d    v    [    ]    k    h    ,    .              @/sf
-  lctl lalt lmet           spc            @nav @sbl _    _    _    _
+  lctl lalt @spr           spc            @nav @sbl _    _    _    _
 )
 
 (deflayer qwerty
@@ -43,8 +43,8 @@
   @qwr f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    @cmd esc  _    _    _    _    _    pgup _    _    _    _
-  _    _    home del  end  ret  _    left down up   rght _         _
-  _    _    _    caps -    _    _    =    pgdn _    _              _
+  _    _    home del  end  caps _    left down up   rght _         _
+  _    _    _    -    _    _    _    =    pgdn _    _              _
   _    _    _              _              _    _    _    _    _    _
 )
 
@@ -61,7 +61,7 @@
   _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    @oSb {    #    _    _    _    @    \(   [    _    _    _
-  _    9    5    0    3    7    _    6    2    1    4    8         _
+  _    9    5    1    3    7    _    6    2    0    4    8         _
   _    _    _    *    &    _    _    |    !    _    _              _
   _    _    _              _              _    _    _    _    _    _
 )
@@ -88,12 +88,12 @@
   zsf (tap-next z lsft)
   /sf (tap-next / rsft)
 
+  spr (around-next lmet)
+
   C-c (around lctl c)
   C-v (around lctl v)
   C-x (around lctl x)
   C-z (around lctl z)
   C-d (around lctl d)
   C-r (around lctl r)
-
-  ;; spr (around-next lmet)
 )
