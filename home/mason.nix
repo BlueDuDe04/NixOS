@@ -26,6 +26,7 @@
     inputs.xremap.packages.${system}.xremap-sway
     waybar
     wl-clipboard
+    clipboard-jh
     wofi
 
     # Apps
@@ -356,6 +357,53 @@
     # ];
   };
 
+  xdg.configFile."lf/icons".source = ../lf/icons;
+
+  programs.lf = {
+    enable = true;
+
+    settings = {
+      preview = true;
+      hidden = true;
+      drawbox = true;
+      icons = true;
+      ignorecase = true;
+    };
+
+    # commands = {
+    # };
+
+    keybindings = {
+      "<esc>" = '':quit'';
+    };
+
+    extraConfig = 
+    let 
+      previewer = 
+        pkgs.writeShellScriptBin "pv.sh" ''
+        file=$1
+        w=$2
+        h=$3
+        x=$4
+        y=$5
+        
+        if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
+            ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+            exit 1
+        fi
+        
+        ${pkgs.pistol}/bin/pistol "$file"
+      '';
+
+      cleaner = pkgs.writeShellScriptBin "clean.sh" ''
+        ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
+      '';
+    in ''
+      set cleaner ${cleaner}/bin/clean.sh
+      set previewer ${previewer}/bin/pv.sh
+    '';
+  };
+
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
@@ -380,12 +428,15 @@
       set fish_greeting
 
       alias nv="nvim"
+      alias lf="lfcd"
 
       set -x DIRENV_LOG_FORMAT ""
 
       if command -q nix-your-shell
         nix-your-shell fish | source
       end
+
+      bind \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
 
       # TokyoNight Color Palette
       set -l foreground c0caf5
@@ -423,6 +474,8 @@
       set -g fish_pager_color_selected_background --background=$selection
     '';
   };
+
+  xdg.configFile."fish/functions/lfcd.fish".source = ../lf/lfcd.fish;
 
   programs.starship = {
     enable = true;
