@@ -21,54 +21,122 @@ keymap:
           launch: ["freetube"]
     super-w:
       remap:
-        '1':
-          launch: ["swaymsg", "workspace", "number", "1"]
-        '2':
-          launch: ["swaymsg", "workspace", "number", "2"]
-        '3':
-          launch: ["swaymsg", "workspace", "number", "3"]
-        '4':
-          launch: ["swaymsg", "workspace", "number", "4"]
-        '5':
-          launch: ["swaymsg", "workspace", "number", "5"]
-        '6':
-          launch: ["swaymsg", "workspace", "number", "6"]
-        '7':
-          launch: ["swaymsg", "workspace", "number", "7"]
-        '8':
-          launch: ["swaymsg", "workspace", "number", "8"]
-        '9':
+        a: # 9
           launch: ["swaymsg", "workspace", "number", "9"]
+        r: # 5
+          launch: ["swaymsg", "workspace", "number", "5"]
+        s: # 1
+          launch: ["swaymsg", "workspace", "number", "1"]
+        t: # 3
+          launch: ["swaymsg", "workspace", "number", "3"]
+        g: # 7
+          launch: ["swaymsg", "workspace", "number", "7"]
+        m: # 6
+          launch: ["swaymsg", "workspace", "number", "6"]
+        n: # 2
+          launch: ["swaymsg", "workspace", "number", "2"]
+        e: # 0
+          launch: ["swaymsg", "workspace", "number", "0"]
+        i: # 4
+          launch: ["swaymsg", "workspace", "number", "4"]
+        o: # 8
+          launch: ["swaymsg", "workspace", "number", "8"]
+    super-g:
+      remap:
+        a: # 9
+          launch: ["swaymsg", "move", "workspace", "number", "9"]
+        r: # 5
+          launch: ["swaymsg", "move", "workspace", "number", "5"]
+        s: # 1
+          launch: ["swaymsg", "move", "workspace", "number", "1"]
+        t: # 3
+          launch: ["swaymsg", "move", "workspace", "number", "3"]
+        g: # 7
+          launch: ["swaymsg", "move", "workspace", "number", "7"]
+        m: # 6
+          launch: ["swaymsg", "move", "workspace", "number", "6"]
+        n: # 2
+          launch: ["swaymsg", "move", "workspace", "number", "2"]
+        e: # 0
+          launch: ["swaymsg", "move", "workspace", "number", "0"]
+        i: # 4
+          launch: ["swaymsg", "move", "workspace", "number", "4"]
+        o: # 8
+          launch: ["swaymsg", "move", "workspace", "number", "8"]
     super-m:
       remap:
-        '1':
-          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 1"]
-        '2':
-          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 2"]
-        '3':
-          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 3"]
-        '4':
-          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 4"]
-        '5':
-          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 5"]
-        '6':
-          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 6"]
-        '7':
-          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 7"]
-        '8':
-          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 8"]
-        '9':
+        a: # 9
           launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 9"]
+        r: # 5
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 5"]
+        s: # 1
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 1"]
+        t: # 3
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 3"]
+        g: # 7
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 7"]
+        m: # 6
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 6"]
+        n: # 2
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 2"]
+        e: # 0
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 0"]
+        i: # 4
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 4"]
+        o: # 8
+          launch: ["bash", "-c", "~/.config/xremap/moveWorkspace.sh 8"]
+    super-y:
+      remap:
+        y:
+          launch: ["bash", "-c", "~/.config/xremap/yankSearch.sh"]
+        a: # 9
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 9"]
+        r: # 5
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 5"]
+        s: # 1
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 1"]
+        t: # 3
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 3"]
+        g: # 7
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 7"]
+        m: # 6
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 6"]
+        n: # 2
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 2"]
+        e: # 0
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 0"]
+        i: # 4
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 4"]
+        o: # 8
+          launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 8"]
     super-p:
       remap:
         p:
           launch: ["bash", "-c", "~/.config/xremap/paste.sh"]
         l:
           launch: ["bash", "-c", "~/.config/xremap/pasteLast.sh"]
-        s:
+        f:
           launch: ["bash", "-c", "~/.config/xremap/pasteSearch.sh"]
-        y:
-          launch: ["bash", "-c", "~/.config/xremap/yankSearch.sh"]
+        a: # 9
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 9"]
+        r: # 5
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 5"]
+        s: # 1
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 1"]
+        t: # 3
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 3"]
+        g: # 7
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 7"]
+        m: # 6
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 6"]
+        n: # 2
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 2"]
+        e: # 0
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 0"]
+        i: # 4
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 4"]
+        o: # 8
+          launch: ["bash", "-c", "~/.config/xremap/pasteFrom.sh 8"]
     super-s:
       remap:
         s:

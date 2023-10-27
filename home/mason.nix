@@ -138,6 +138,9 @@
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     EDITOR = "nvim";
+    BROWSER = "firefox";
+    DIRENV_LOG_FORMAT = "";
+    CLIPBOARD_NOGUI = 1;
   };
 
   home.pointerCursor = {
@@ -427,10 +430,13 @@
     shellInit = ''
       set fish_greeting
 
+      set -Ux EDITOR nvim
+      set -Ux BROWSER firefox
+      set -Ux DIRENV_LOG_FORMAT ""
+      set -Ux CLIPBOARD_NOGUI 1
+
       alias nv="nvim"
       alias lf="lfcd"
-
-      set -x DIRENV_LOG_FORMAT ""
 
       if command -q nix-your-shell
         nix-your-shell fish | source
