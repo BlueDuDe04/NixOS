@@ -24,7 +24,7 @@
   # environment.
   home.packages = with pkgs; [
     inputs.xremap.packages.${system}.xremap-sway
-    (pkgs.writeShellScriptBin "nv" ''nvim --cmd ":lua require 'mason'.init()" $@'')
+    (pkgs.writeShellScriptBin "nv" ''nvim --cmd ":lua require 'mason'.init()" "$@"'')
     waybar
     wl-clipboard
     clipboard-jh
