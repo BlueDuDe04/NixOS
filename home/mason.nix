@@ -29,6 +29,7 @@
     wl-clipboard
     clipboard-jh
     wofi
+    bottles
 
     # Apps
     qutebrowser
