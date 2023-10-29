@@ -24,7 +24,7 @@
   # environment.
   home.packages = with pkgs; [
     inputs.xremap.packages.${system}.xremap-sway
-    (pkgs.writeShellScriptBin "nv" ''nvim --cmd ":lua require 'mason'.init()" "$@"'')
+    # (pkgs.writeShellScriptBin "nv" ''nvim --cmd ":lua require 'mason'.init()" "$@"'')
     waybar
     wl-clipboard
     clipboard-jh
@@ -160,6 +160,48 @@
       package = pkgs.bibata-cursors;
       size = 24;
     };
+  };
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+
+    # package = pkgs.hello;
+
+    settings = {};
+
+    extraConfig = ''
+      $mod = SUPER
+
+      bind = $mod, RET, exec, kitty
+      bind = $mod, C, killactive, 
+      bind = $mod, M, exit, 
+      bind = $mod, V, togglefloating, 
+      bind = $mod, P, pseudo, # dwindle
+      bind = $mod, J, togglesplit, # dwindle
+
+      # Move focus with $mod + arrow keys
+      bind = $mod, left, movefocus, l
+      bind = $mod, right, movefocus, r
+      bind = $mod, up, movefocus, u
+      bind = $mod, down, movefocus, d
+
+      # workspaces
+      # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+      ${builtins.concatStringsSep "\n" (builtins.genList (
+          x: let
+            ws = let
+              c = (x + 1) / 10;
+            in
+              builtins.toString (x + 1 - (c * 10));
+          in ''
+            bind = $mod, ${ws}, workspace, ${toString (x + 1)}
+            bind = $mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
+          ''
+        )
+        10)}
+
+      # ...
+    '';
   };
 
   # Let Home Manager install and manage itself.
@@ -354,11 +396,11 @@
       })
     ];
 
-    # extraConfig = ''
-    #   lua << EOF
-    #     require 'mason'.init()
-    #   EOF
-    # '';
+    extraConfig = ''
+      lua << EOF
+        require 'mason'.init()
+      EOF
+    '';
 
     # extraPackages = with pkgs; [
     # ];
