@@ -24,6 +24,7 @@
   # environment.
   home.packages = with pkgs; [
     inputs.xremap.packages.${system}.xremap-sway
+    (pkgs.writeShellScriptBin "nv" ''nvim --cmd ":lua require 'mason'.init()" $@'')
     waybar
     wl-clipboard
     clipboard-jh
@@ -267,6 +268,8 @@
   programs.neovim = {
     enable = true;
 
+    # package = pkgs.writeShellScriptBin "nv" ''${pkgs.neovim}/bin/nvim --cmd ":lua require 'mason'.init()" $@'';
+
     plugins = with pkgs.vimPlugins; [
       # Dep
       plenary-nvim
@@ -350,11 +353,11 @@
       })
     ];
 
-    extraConfig = ''
-      lua << EOF
-        require 'mason'.init()
-      EOF
-    '';
+    # extraConfig = ''
+    #   lua << EOF
+    #     require 'mason'.init()
+    #   EOF
+    # '';
 
     # extraPackages = with pkgs; [
     # ];
@@ -435,7 +438,7 @@
       set -Ux DIRENV_LOG_FORMAT ""
       set -Ux CLIPBOARD_NOGUI 1
 
-      alias nv="nvim"
+      # alias nv="nvim"
       alias lf="lfcd"
 
       if command -q nix-your-shell
