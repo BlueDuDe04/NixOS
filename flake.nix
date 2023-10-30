@@ -54,6 +54,8 @@
         modules = [
           ./home/mason.nix { targets.genericLinux.enable = true; }
 
+          ./home/hypr.nix
+
           stylix.homeManagerModules.stylix ./stylix.nix {
             stylix.targets.wezterm.enable = false;
             stylix.targets.kitty.enable = false;

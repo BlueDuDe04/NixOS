@@ -162,48 +162,6 @@
     };
   };
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-
-    # package = pkgs.hello;
-
-    settings = {};
-
-    extraConfig = ''
-      $mod = SUPER
-
-      bind = $mod, RET, exec, kitty
-      bind = $mod, C, killactive, 
-      bind = $mod, M, exit, 
-      bind = $mod, V, togglefloating, 
-      bind = $mod, P, pseudo, # dwindle
-      bind = $mod, J, togglesplit, # dwindle
-
-      # Move focus with $mod + arrow keys
-      bind = $mod, left, movefocus, l
-      bind = $mod, right, movefocus, r
-      bind = $mod, up, movefocus, u
-      bind = $mod, down, movefocus, d
-
-      # workspaces
-      # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-      ${builtins.concatStringsSep "\n" (builtins.genList (
-          x: let
-            ws = let
-              c = (x + 1) / 10;
-            in
-              builtins.toString (x + 1 - (c * 10));
-          in ''
-            bind = $mod, ${ws}, workspace, ${toString (x + 1)}
-            bind = $mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
-          ''
-        )
-        10)}
-
-      # ...
-    '';
-  };
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -481,7 +439,7 @@
       set -Ux DIRENV_LOG_FORMAT ""
       set -Ux CLIPBOARD_NOGUI 1
 
-      # alias nv="nvim"
+      alias nv="nvim"
       alias lf="lfcd"
 
       if command -q nix-your-shell
