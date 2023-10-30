@@ -41,7 +41,6 @@
     librewolf
     wezterm
     pavucontrol
-    dbeaver
     obs-studio
     freetube
     slack
@@ -49,6 +48,16 @@
     lapce
     helix
     ranger
+    (pkgs.writeShellScriptBin "dbeaver" ''GDK_BACKEND=x11 GTK_THEME=Adwaita ${dbeaver}/bin/dbeaver'')
+    (makeDesktopItem {
+      name = "dbeaver";
+      exec = "dbeaver";
+      icon = "dbeaver";
+      desktopName = "dbeaver";
+      comment = "SQL Integrated Development Environment";
+      genericName = "SQL Integrated Development Environment";
+      categories = [ "Development" ];
+    })
 
     gnome.gnome-calculator
     gnome.nautilus
