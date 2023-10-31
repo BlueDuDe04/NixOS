@@ -27,6 +27,8 @@
     # (pkgs.writeShellScriptBin "nv" ''nvim --cmd ":lua require 'mason'.init()" "$@"'')
     waybar
     wl-clipboard
+    grim
+    slurp
     clipboard-jh
     wofi
     bottles

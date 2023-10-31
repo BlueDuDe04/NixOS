@@ -89,6 +89,8 @@ keymap:
       remap:
         y:
           launch: ["bash", "-c", "~/.config/xremap/yankSearch.sh"]
+        c:
+          launch: ["bash", "-c", "~/.config/xremap/yankScreen.sh"]
         a: # 9
           launch: ["bash", "-c", "~/.config/xremap/copyTo.sh 9"]
         r: # 5
