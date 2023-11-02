@@ -467,7 +467,6 @@
       set -Ux CLIPBOARD_NOGUI 1
 
       alias nv="nvim"
-      alias lf="lfcd"
 
       if command -q nix-your-shell
         nix-your-shell fish | source
