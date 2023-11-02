@@ -8,6 +8,12 @@ in {
 
   stylix.opacity.terminal = 0.9;
 
+  stylix.cursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 32;
+  };
+
   stylix.fonts = {
     serif = {
       package = font;

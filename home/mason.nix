@@ -38,15 +38,11 @@
       # python311Packages.adblock
 
     firefox
-    ungoogled-chromium
     luakit
     librewolf
     wezterm
     pavucontrol
     obs-studio
-    freetube
-    slack
-    discord
     lapce
     helix
     ranger
@@ -59,6 +55,26 @@
       comment = "SQL Integrated Development Environment";
       genericName = "SQL Integrated Development Environment";
       categories = [ "Development" ];
+    })
+
+    chromium
+    # Discord
+    (pkgs.writeShellScriptBin "discord" ''chromium --app=https://discord.com/channels/@me'')
+    (makeDesktopItem {
+      name = "discord";
+      exec = "discord";
+      icon = "discord";
+      desktopName = "discord";
+      comment = "All-in-one cross-platform voice and text chat for gamers";
+    })
+    # Slack
+    (pkgs.writeShellScriptBin "slack" ''chromium --app=https://app.slack.com/client/T7C5M4HRS/C014RKD8T3R'')
+    (makeDesktopItem {
+      name = "slack";
+      exec = "slack";
+      icon = "slack";
+      desktopName = "slack";
+      comment = "All-in-one cross-platform voice and text chat for gamers";
     })
 
     gnome.gnome-calculator
@@ -156,22 +172,22 @@
     CLIPBOARD_NOGUI = 1;
   };
 
-  home.pointerCursor = {
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
-    size = 32;
-
-    gtk.enable = false;
-    x11.enable = true;
-  };
-
-  gtk = {
-    cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = pkgs.bibata-cursors;
-      size = 24;
-    };
-  };
+  # home.pointerCursor = {
+  #   name = "Bibata-Modern-Ice";
+  #   package = pkgs.bibata-cursors;
+  #   size = 32;
+  #
+  #   gtk.enable = false;
+  #   x11.enable = true;
+  # };
+  #
+  # gtk = {
+  #   cursorTheme = {
+  #     name = "Bibata-Modern-Ice";
+  #     package = pkgs.bibata-cursors;
+  #     size = 24;
+  #   };
+  # };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
