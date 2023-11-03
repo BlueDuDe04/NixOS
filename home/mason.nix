@@ -293,104 +293,6 @@
     };
   };
 
-  programs.neovim = {
-    enable = true;
-
-    # package = pkgs.writeShellScriptBin "nv" ''${pkgs.neovim}/bin/nvim --cmd ":lua require 'mason'.init()" $@'';
-
-    plugins = with pkgs.vimPlugins; [
-      # Dep
-      plenary-nvim
-      nvim-web-devicons # https://github.com/intel/intel-one-mono/issues/9
-
-      # Langs
-      nvim-lspconfig
-      fidget-nvim
-      neodev-nvim
-      nvim-treesitter.withAllGrammars
-      nvim-lint
-      comment-nvim
-      kmonad-vim
-
-      # Autocompletion
-      #--------------------
-      nvim-cmp
-      # Snippet Engine & its associated nvim-cmp source
-      luasnip
-      cmp_luasnip
-
-      # Adds LSP completion capabilities
-      cmp-nvim-lsp
-      cmp-nvim-lua
-
-      # Adds a number of user-friendly snippets
-      friendly-snippets
-
-      # cmdline
-      cmp-cmdline
-      cmp-buffer
-
-      cmp-path
-      #--------------------
-
-      # Neotest
-      neotest
-      FixCursorHold-nvim
-      neotest-jest
-
-      # Telescope
-      telescope-nvim
-      telescope-fzf-native-nvim
-
-      # Theme
-      tokyonight-nvim
-
-      # Git related plugins
-      vim-fugitive
-      vim-rhubarb
-      gitsigns-nvim
-
-      # Detect tabstop and shiftwidth automatically
-      vim-sleuth
-
-      # Extras
-      nvim-tree-lua
-      which-key-nvim
-      lualine-nvim
-      refactoring-nvim
-      undotree
-      dashboard-nvim
-      neorg
-      vim-be-good
-      nvim-colorizer-lua
-
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "harpoon";
-        src = inputs.harpoon-nvim;
-      })
-
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "transparent-nvim";
-        src = inputs.transparent-nvim;
-      })
-
-      # configuration
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "mason";
-        src = ../nvim;
-      })
-    ];
-
-    extraConfig = ''
-      lua << EOF
-        require 'mason'.init()
-      EOF
-    '';
-
-    # extraPackages = with pkgs; [
-    # ];
-  };
-
   xdg.configFile."lf/icons".source = ../lf/icons;
 
   programs.lf = {
@@ -466,7 +368,7 @@
       set -Ux DIRENV_LOG_FORMAT ""
       set -Ux CLIPBOARD_NOGUI 1
 
-      alias nv="nvim"
+      # alias nv="nvim"
 
       if command -q nix-your-shell
         nix-your-shell fish | source

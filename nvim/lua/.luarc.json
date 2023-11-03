@@ -1,8 +1,0 @@
-{
-    "workspace.library": [
-        "/nix/store/vpikskl881sn11cl958424cxcj4cv29h-vimplugin-neodev.nvim-2023-09-15/types/stable",
-        "/nix/store/1b4pbg130cdq5pjyi7vxqqrf7nqh63a5-neovim-unwrapped-0.9.2/share/nvim/runtime/lua",
-        "/home/mason/git/NixOS-Flake/nvim/lua",
-        "${3rd}/luv/library"
-    ]
-}
