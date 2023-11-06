@@ -15,7 +15,7 @@ in ''
   plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
 
   bind = SUPER, Q, killactive, 
-  bind = SUPER, M, exit, 
+  bind = SUPER_SHIFT, M, exit, 
   bind = SUPER, V, togglefloating, 
   bind = SUPER, P, pseudo, # dwindle
   bind = SUPER, J, togglesplit, # dwindle

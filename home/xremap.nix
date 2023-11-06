@@ -53,6 +53,18 @@ in ''
 keymap:
 - name: default mode
   remap:
+    volumeup:
+      launch: ["pamixer", "-i", "10"]
+    volumedown:
+      launch: ["pamixer", "-d", "10"]
+    mute:
+      launch: ["pamixer", "--toggle-mute"]
+
+    brightnessup:
+      launch: ["brightnessctl", "s", "10%+"]
+    brightnessdown:
+      launch: ["brightnessctl", "s", "10%-"]
+
     super-l:
       remap:
         l:
