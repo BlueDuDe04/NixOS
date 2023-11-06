@@ -110,16 +110,32 @@ window#waybar.hidden {
 	border-bottom: 6px solid #AD8EE6 /* #ABE9B3 */;
 }
 
+#workspaces button.active {
+	color: #AD8EE6;
+	border-top: 6px solid #AD8EE6 /* #ABE9B3 */;
+	border-bottom: 6px solid #AD8EE6 /* #ABE9B3 */;
+}
+
 #workspaces button.urgent {
 	color: rgba(238, 46, 36, 1);
 }
 
-#workspaces button.persistent {
+/* #workspaces button.persistent { */
+/* 	color: #D3D3D3; */
+/* 	font-size: 16px; */
+/* } */
+/**/
+/* #workspaces button.persistent:hover { */
+/* 	transition: none; */
+/* 	color: #FAE3B0; */
+/* } */
+
+#workspaces button.empty {
 	color: #D3D3D3;
 	font-size: 16px;
 }
 
-#workspaces button.persistent:hover {
+#workspaces button.empty:hover {
 	transition: none;
 	color: #FAE3B0;
 }

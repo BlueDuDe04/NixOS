@@ -15,6 +15,8 @@
 
     xremap.url = "github:xremap/nix-flake";
 
+    hy3.url = "github:outfoxxed/hy3?ref=hl0.30.0";
+
     harpoon-nvim.url = "github:ThePrimeagen/harpoon";
     harpoon-nvim.flake = false;
 
@@ -53,8 +55,6 @@
 
         modules = [
           ./home/mason.nix { targets.genericLinux.enable = true; }
-
-          ./home/hypr.nix
 
           stylix.homeManagerModules.stylix ./stylix.nix {
             stylix.targets.wezterm.enable = false;

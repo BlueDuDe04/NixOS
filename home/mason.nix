@@ -1,18 +1,9 @@
 { inputs, config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "mason";
   home.homeDirectory = "/home/mason";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
   # Allow unfree packages
@@ -20,12 +11,10 @@
     allowUnfree = true;
   };
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = with pkgs; [
     inputs.xremap.packages.${system}.xremap-wlroots
     # (pkgs.writeShellScriptBin "nv" ''nvim --cmd ":lua require 'mason'.init()" "$@"'')
-    waybar
+    # waybar
     wl-clipboard
     grim
     slurp
@@ -124,46 +113,24 @@
     cliphist
     wtype
       # python311Packages.pip
-  ] ++ [
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
   };
 
   xdg.configFile."sway".source = ../sway;
-  xdg.configFile."xremap.yaml".text = ((import ./xremap.nix) pkgs);
+  xdg.configFile."hypr/hyprland.conf".text = (import ./hypr.nix) inputs;
+  xdg.configFile."xremap.yaml".text = (import ./xremap.nix) pkgs;
   xdg.configFile."waybar".source = ../waybar;
   xdg.configFile."starship.toml".source = ../starship.toml;
 
   # You can also manage environment variables but you will have to manually
   # source
-  #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
   # or
-  #
   #  /etc/profiles/per-user/mason/etc/profile.d/hm-session-vars.sh
-  #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -171,23 +138,6 @@
     DIRENV_LOG_FORMAT = "";
     CLIPBOARD_NOGUI = 1;
   };
-
-  # home.pointerCursor = {
-  #   name = "Bibata-Modern-Ice";
-  #   package = pkgs.bibata-cursors;
-  #   size = 32;
-  #
-  #   gtk.enable = false;
-  #   x11.enable = true;
-  # };
-  #
-  # gtk = {
-  #   cursorTheme = {
-  #     name = "Bibata-Modern-Ice";
-  #     package = pkgs.bibata-cursors;
-  #     size = 24;
-  #   };
-  # };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -210,17 +160,17 @@
 
     theme = "Tokyo Night";
 
-    font = {
-      name = "FiraCode Nerd Font Bold";
-      size = 12;
-    };
-
     extraConfig = ''
       shell fish
       background_opacity 0.9
       cursor_blink_interval 0
       touch_scroll_multiplier 10.0
       window_padding_width 0 6
+
+      font_family FiraCode Nerd Font SemBd
+      bold_font FiraCode Nerd Font Bold
+      bold_italic_font FiraCode Nerd Font Bold
+      font_size 12
     '';
   };
 

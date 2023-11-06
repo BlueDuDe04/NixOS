@@ -1,7 +1,7 @@
 {
 	"layer": "top",
 	"modules-left": ["custom/launcher","cpu","memory","custom/wlClipboard"],
-	"modules-center": ["sway/workspaces"],
+	"modules-center": ["hyprland/workspaces","sway/workspaces"],
 	"modules-right": ["backlight","pulseaudio","clock","battery"],
 	
 	"pulseaudio": {
@@ -31,6 +31,23 @@
             "7": [],
             "8": [],
             "9": [],
+        },
+        "disable-scroll": true
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+            "0": [],
         },
         "disable-scroll": true
     },

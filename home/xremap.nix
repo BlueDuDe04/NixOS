@@ -20,9 +20,9 @@ let
 
   numRowBinds = func: builtins.concatStringsSep "\n" (builtins.map func numRowList);
 
-  moveWorkspace = pkgs.writeShellScriptBin "run" ''
-    swaymsg move workspace number $1 && swaymsg workspace number $1
-  '';
+  # moveWorkspace = pkgs.writeShellScriptBin "run" ''
+  #   swaymsg move workspace number $1 && swaymsg workspace number $1
+  # '';
 
   yankSearch = pkgs.writeShellScriptBin "run" ''
     cliphist list | wofi -d | cliphist decode | wl-copy
@@ -51,7 +51,7 @@ let
   '';
 in ''
 keymap:
-- name: Bindings
+- name: default mode
   remap:
     super-l:
       remap:
@@ -74,23 +74,27 @@ keymap:
 
     super-w:
       remap:
+        c:
+          { set_mode: workspace }
 ${numRowBinds (x: let tabs = 4; in ''
   ${tab tabs}${x.key}: # ${toString x.num}
-    ${tab tabs}launch: ["swaymsg", "workspace", "number", "${toString x.num}"]''
+    ${tab tabs}launch: ["hyprctl", "dispatch", "workspace", "${toString x.num}"]''
+)}
+
+    super-m:
+      remap:
+        c:
+          { set_mode: move }
+${numRowBinds (x: let tabs = 4; in ''
+  ${tab tabs}${x.key}: # ${toString x.num}
+    ${tab tabs}launch: ["hyprctl", "dispatch", "movetoworkspace", "${toString x.num}"]''
 )}
 
     super-g:
       remap:
 ${numRowBinds (x: let tabs = 4; in ''
   ${tab tabs}${x.key}: # ${toString x.num}
-    ${tab tabs}launch: ["swaymsg", "move", "workspace", "number", "${toString x.num}"]''
-)}
-
-    super-m:
-      remap:
-${numRowBinds (x: let tabs = 4; in ''
-  ${tab tabs}${x.key}: # ${toString x.num}
-    ${tab tabs}launch: ["${bashExec}", "${moveWorkspace}/bin/run ${toString x.num}"]''
+    ${tab tabs}launch: ["hyprctl", "dispatch", "movetoworkspacesilent", "${toString x.num}"]''
 )}
 
     super-y:
@@ -121,4 +125,25 @@ ${numRowBinds (x: let tabs = 4; in ''
       remap:
         s:
           launch: ["${bashExec}", "${bitwardenSearch}/bin/run"]
+  mode: default
+
+- name: workspace mode
+  remap:
+    Enter:
+      { set_mode: default }
+    right:
+      launch: ["hyprctl", "dispatch", "workspace", "r+1"]
+    left:
+      launch: ["hyprctl", "dispatch", "workspace", "r-1"]
+  mode: workspace
+
+- name: move mode
+  remap:
+    Enter:
+      { set_mode: default }
+    right:
+      launch: ["hyprctl", "dispatch", "movetoworkspace", "r+1"]
+    left:
+      launch: ["hyprctl", "dispatch", "movetoworkspace", "r-1"]
+  mode: move
 ''
