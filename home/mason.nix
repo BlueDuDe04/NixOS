@@ -47,15 +47,15 @@
     })
 
     chromium
-    # Discord
-    (pkgs.writeShellScriptBin "discord" ''chromium --app=https://discord.com/channels/@me'')
-    (makeDesktopItem {
-      name = "discord";
-      exec = "discord";
-      icon = "discord";
-      desktopName = "discord";
-      comment = "All-in-one cross-platform voice and text chat for gamers";
-    })
+    discord
+    # (pkgs.writeShellScriptBin "discord" ''chromium --app=https://discord.com/channels/@me'')
+    # (makeDesktopItem {
+    #   name = "discord";
+    #   exec = "discord";
+    #   icon = "discord";
+    #   desktopName = "discord";
+    #   comment = "All-in-one cross-platform voice and text chat for gamers";
+    # })
     # Slack
     (pkgs.writeShellScriptBin "slack" ''chromium --app=https://app.slack.com/client/T7C5M4HRS/C014RKD8T3R'')
     (makeDesktopItem {

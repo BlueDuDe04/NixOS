@@ -136,4 +136,8 @@ in ''
     enable_swallow = true
     swallow_regex = ^(kitty)$
   }
+
+  xwayland {
+    force_zero_scaling = true
+  }
 ''
