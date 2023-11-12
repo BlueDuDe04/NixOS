@@ -17,12 +17,6 @@
 
     hy3.url = "github:outfoxxed/hy3?ref=hl0.30.0";
 
-    harpoon-nvim.url = "github:ThePrimeagen/harpoon";
-    harpoon-nvim.flake = false;
-
-    transparent-nvim.url = "github:xiyaowong/transparent.nvim";
-    transparent-nvim.flake = false;
-
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
   };
