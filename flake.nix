@@ -36,7 +36,14 @@
         modules = [
           ./os/configuration.nix
 
-          stylix.nixosModules.stylix ./stylix.nix
+          stylix.nixosModules.stylix ./stylix.nix {
+            home-manager.sharedModules = [{
+              stylix.targets.wezterm.enable = false;
+              stylix.targets.kitty.enable = false;
+              stylix.targets.fish.enable = false;
+              stylix.targets.vim.enable = false;
+            }];
+          }
         ];
       };
     };
