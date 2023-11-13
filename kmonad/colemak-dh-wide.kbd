@@ -63,8 +63,8 @@
 
   spr (around-next lmet)
   spc (tap-hold 150 spc (layer-toggle number))
-  nav (tap-next bspc (layer-toggle navigation))
+  nav (layer-toggle navigation)
 
-  zsf (tap-hold 150 z lsft)
-  /sf (tap-hold 150 / rsft)
+  zsf (tap-next z lsft)
+  /sf (tap-next / rsft)
 )

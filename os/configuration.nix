@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  networking.hostName = "NixOS"; # Define your hostname.
+  networking.hostName = "NixOS";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -53,24 +53,10 @@
   services = {
     gvfs.enable = true;
     xserver = {
-
-      # xkbOptions = "compose:ralt";
-      # layout = "us";
-      # xkbVariant = ",colemak_dh";
-      # xkbOptions = "grp:alt_space_toggle";
-
       libinput = {
         enable = true;
         touchpad.naturalScrolling = true;
       };
-
-      # displayManager.startx.enable = true;
-      # enable = true;
-      # displayManager = {
-      #   lightdm.enable = true;
-      #   defaultSession = "none+bspwm";
-      # };
-      # windowManager.bspwm.enable = true;
     };
 
     greetd ={
@@ -105,18 +91,22 @@
   
   virtualisation.docker.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      intel-ocl
-      vaapiIntel
-      libglvnd
-    ];
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-ocl
+        vaapiIntel
+        libglvnd
+      ];
+    };
+
+    uinput.enable = true;
   };
-  hardware.uinput.enable = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mason = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "docker" "input" "uinput" ];
@@ -135,8 +125,6 @@
     allowUnfree = true;
   };
   
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     # CLI
     git
@@ -182,14 +170,6 @@
 
     hyprland
 
-    # X11
-    #rofi
-    #picom
-    #polybar
-    #bspwm
-    #sxhkd
-    #nitrogen
-
     # Other
     docker
     docker-compose
@@ -212,31 +192,6 @@
     options = "--delete-older-than 7d";
   };
 
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # Do not change unless you know what you are doing!
   system.stateVersion = "22.11"; # Did you read the comment?
 }
