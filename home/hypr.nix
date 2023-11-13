@@ -12,7 +12,7 @@ in ''
 
   exec-once = waybar -c ~/.config/waybar/config -s ~/.config/waybar/style.css
 
-  plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
+  # plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
 
   bind = SUPER, Q, killactive, 
   bind = SUPER_SHIFT, M, exit, 

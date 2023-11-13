@@ -8,7 +8,16 @@
       inputs.home-manager.nixosModules.home-manager
     ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+
+    substituters = [
+      "https://hyprland.cachix.org"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -37,6 +46,8 @@
     pam.services.mason.updateWtmp = true;
   };
 
+  programs.xwayland.enable = true;
+
   programs.river = {
     enable = true;
   };
@@ -46,7 +57,10 @@
     enable = true;
     wlr.enable = true;
     # gtk portal needed to make gtk apps happy
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      inputs.hyprland.packages."x86_64-linux".xdg-desktop-portal-hyprland
+    ];
   };
 
   services = {

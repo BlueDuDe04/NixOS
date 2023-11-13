@@ -119,7 +119,7 @@
   };
 
   xdg.configFile."sway".source = ../sway;
-  xdg.configFile."hypr/hyprland.conf".text = (import ./hypr.nix) inputs;
+  # xdg.configFile."hypr/hyprland.conf".text = (import ./hypr.nix) inputs;
   xdg.configFile."xremap.yaml".text = (import ./xremap.nix) pkgs;
   xdg.configFile."waybar".source = ../waybar;
   xdg.configFile."starship.toml".source = ../starship.toml;
@@ -144,6 +144,18 @@
     enable = true;
     userName = "BlueDuDe04";
     userEmail = "Bennettmason04@gmail.com";
+  };
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+
+    package = inputs.hyprland.packages."x86_64-linux".hyprland;
+
+    plugins = [
+      inputs.hy3.packages."x86_64-linux".hy3
+    ];
+
+    extraConfig = (import ./hypr.nix) inputs;
   };
 
   programs.kitty = {

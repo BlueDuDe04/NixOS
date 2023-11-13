@@ -15,7 +15,9 @@
 
     xremap.url = "github:xremap/nix-flake";
 
-    hy3.url = "github:outfoxxed/hy3?ref=hl0.30.0";
+    hyprland.url = "github:hyprwm/Hyprland";
+    hy3.url = "github:outfoxxed/hy3";
+    hy3.inputs.hyprland.follows = "hyprland";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
@@ -38,6 +40,7 @@
 
           stylix.nixosModules.stylix ./stylix.nix {
             home-manager.sharedModules = [{
+              stylix.targets.hyprland.enable = false;
               stylix.targets.wezterm.enable = false;
               stylix.targets.kitty.enable = false;
               stylix.targets.fish.enable = false;
