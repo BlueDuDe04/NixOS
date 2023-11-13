@@ -155,11 +155,6 @@
     imagemagick
     acct
 
-    # Apps
-    firefox
-    wezterm
-    neovim
-
     # Wayland 
     wayland
     xwayland
@@ -203,8 +198,6 @@
     mesa
     glxinfo
     openssl
-    
-    # (builtins.getFlake "path:/home/bluedude/Documents/code/dwl").packages.x86_64-linux.default
   ];
 
   fonts.packages = with pkgs; [
