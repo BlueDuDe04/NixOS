@@ -13,8 +13,6 @@
 
   home.packages = with pkgs; [
     inputs.xremap.packages.${system}.xremap-wlroots
-    # (pkgs.writeShellScriptBin "nv" ''nvim --cmd ":lua require 'mason'.init()" "$@"'')
-    # waybar
     wl-clipboard
     grim
     slurp
@@ -152,11 +150,8 @@
     enable = true;
 
     # package = pkgs.writeShellScriptBin "kitty" ''
-    #   #!/bin/sh
-    #
     #   ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
     # '';
-    package = pkgs.hello;
 
     theme = "Tokyo Night";
 
