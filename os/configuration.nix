@@ -185,7 +185,7 @@
     river-luatile
     river-tag-overlay
 
-    Hyprland
+    hyprland
 
     # X11
     #rofi
