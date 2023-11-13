@@ -187,17 +187,13 @@
       settings = {
         "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
         "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
-        "browser.newtabpage.pinned" = [{
-          title = "New Tab";
-          url = "chrome://browser/content/blanktab.html";
-        }];
+        "browser.newtabpage.enabled" = false;
+
         "browser.toolbars.bookmarks.visibility" = "never";
         "signon.rememberSignons" = false;
         "browser.download.useDownloadDir" = false;
-
-        # Not sure it works
-        "extensions.allowPrivateBrowsingByDefault" = true;
 
         "dom.security.https_only_mode" = true;
       };
