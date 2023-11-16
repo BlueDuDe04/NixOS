@@ -15,8 +15,8 @@
 
     xremap.url = "github:xremap/nix-flake";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-    hy3.url = "github:outfoxxed/hy3";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.32.0";
+    hy3.url = "github:outfoxxed/hy3?ref=hl0.32.0";
     hy3.inputs.hyprland.follows = "hyprland";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
