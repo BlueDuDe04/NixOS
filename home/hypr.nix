@@ -16,26 +16,35 @@ in ''
 
   bind = SUPER, Q, killactive, 
   bind = SUPER_SHIFT, M, exit, 
-  bind = SUPER, V, togglefloating, 
-  bind = SUPER, P, pseudo, # dwindle
-  bind = SUPER, J, togglesplit, # dwindle
+  bind = SUPER_SHIFT, F, togglefloating, 
+  # bind = SUPER, P, pseudo, # dwindle
+  # bind = SUPER, J, togglesplit, # dwindle
+  bind = SUPER, F, fullscreen 
 
   bindm = SUPER,mouse:272,movewindow
   bindm = SUPER,mouse:273,resizewindow
 
   # Move focus with $SUPER + arrow keys
-  bind = SUPER, left, hy3:movefocus, l
-  bind = SUPER, right, hy3:movefocus, r
-  bind = SUPER, up, hy3:movefocus, u
-  bind = SUPER, down, hy3:movefocus, d
+  bind = SUPER, left, hy3:movefocus, l, visible
+  bind = SUPER, right, hy3:movefocus, r, visible
+  bind = SUPER, up, hy3:movefocus, u, visible
+  bind = SUPER, down, hy3:movefocus, d, visible
 
-  bind = SUPER_SHIFT, left, hy3:movewindow, l
-  bind = SUPER_SHIFT, right, hy3:movewindow, r
-  bind = SUPER_SHIFT, up, hy3:movewindow, u
-  bind = SUPER_SHIFT, down, hy3:movewindow, d
+  bind = SUPER_SHIFT, left, hy3:movewindow, l, once, visible
+  bind = SUPER_SHIFT, right, hy3:movewindow, r, once, visible
+  bind = SUPER_SHIFT, up, hy3:movewindow, u, once, visible
+  bind = SUPER_SHIFT, down, hy3:movewindow, d, once, visible
 
-  bind = SUPER, h, hy3:makegroup, v
-  bind = SUPER, o, hy3:makegroup, h
+  bind = SUPER, H, hy3:makegroup, v
+  bind = SUPER, O, hy3:makegroup, h
+  bind = SUPER, T, hy3:makegroup, tab
+
+  bind = SUPER_SHIFT, O, hy3:changegroup, opposite
+  bind = SUPER_SHIFT, T, hy3:changegroup, toggletab
+
+  bind = SUPER_CONTROL, E, hy3:focustab, l, wrap
+  bind = SUPER_CONTROL, N, hy3:focustab, r, wrap
+  bindn = , mouse:272, hy3:focustab, mouse
 
   # Workspaces
   ${workspaces (x: let

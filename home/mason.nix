@@ -18,6 +18,7 @@
     slurp
     clipboard-jh
     wofi
+    hyprpicker
     bottles
 
     # Apps

@@ -28,9 +28,11 @@ let
     cliphist list | wofi -d | cliphist decode | wl-copy
   '';
 
-  yankScreen = pkgs.writeShellScriptBin "run" ''
+  yankDisplay = pkgs.writeShellScriptBin "run" ''
     grim -g "$(slurp)" - | wl-copy
   '';
+
+  yankColor = pkgs.writeShellScriptBin "run" ''hyprpicker | wl-copy'';
 
   copyTo = pkgs.writeShellScriptBin "run" ''wl-paste -n | cb cp$1'';
 
@@ -113,8 +115,10 @@ ${numRowBinds (x: let tabs = 4; in ''
       remap:
         y:
           launch: ["${bashExec}", "${yankSearch}/bin/run"]
+        d:
+          launch: ["${bashExec}", "${yankDisplay}/bin/run"]
         c:
-          launch: ["${bashExec}", "${yankScreen}/bin/run"]
+          launch: ["${bashExec}", "${yankColor}/bin/run"]
 ${numRowBinds (x: let tabs = 4; in ''
   ${tab tabs}${x.key}: # ${toString x.num}
     ${tab tabs}launch: ["${bashExec}", "${copyTo}/bin/run ${toString x.num}"]''
