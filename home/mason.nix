@@ -45,7 +45,6 @@
       categories = [ "Development" ];
     })
 
-    chromium
     discord
     # (pkgs.writeShellScriptBin "discord" ''chromium --app=https://discord.com/channels/@me'')
     # (makeDesktopItem {
@@ -245,6 +244,29 @@
         };
       };
     };
+  };
+
+  programs.chromium = {
+    enable = true;
+
+    # package = pkgs.ungoogled-chromium;
+
+    commandLineArgs = [
+      "--ozone-platform-hint=auto"
+    ];
+
+    extensions = [
+      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
+      { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
+    ];
+  };
+
+  programs.google-chrome = {
+    enable = true;
+
+    commandLineArgs = [
+      "--ozone-platform-hint=auto"
+    ];
   };
 
   xdg.configFile."lf/icons".source = ../lf/icons;
