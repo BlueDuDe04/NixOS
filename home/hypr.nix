@@ -26,14 +26,21 @@ in ''
 
   # Move focus with $SUPER + arrow keys
   bind = SUPER, left, hy3:movefocus, l, visible
-  bind = SUPER, right, hy3:movefocus, r, visible
-  bind = SUPER, up, hy3:movefocus, u, visible
   bind = SUPER, down, hy3:movefocus, d, visible
+  bind = SUPER, up, hy3:movefocus, u, visible
+  bind = SUPER, right, hy3:movefocus, r, visible
 
   bind = SUPER_SHIFT, left, hy3:movewindow, l, once, visible
-  bind = SUPER_SHIFT, right, hy3:movewindow, r, once, visible
-  bind = SUPER_SHIFT, up, hy3:movewindow, u, once, visible
   bind = SUPER_SHIFT, down, hy3:movewindow, d, once, visible
+  bind = SUPER_SHIFT, up, hy3:movewindow, u, once, visible
+  bind = SUPER_SHIFT, right, hy3:movewindow, r, once, visible
+
+  bind = SUPER_ALT, left, hy3:focustab, l, wrap
+  bind = SUPER_ALT, down, hy3:changefocus, lower
+  bind = SUPER_ALT, up, hy3:changefocus, raise
+  bind = SUPER_ALT, right, hy3:focustab, r, wrap
+
+  bindn = , mouse:272, hy3:focustab, mouse
 
   bind = SUPER, H, hy3:makegroup, v
   bind = SUPER, O, hy3:makegroup, h
@@ -41,10 +48,6 @@ in ''
 
   bind = SUPER_SHIFT, O, hy3:changegroup, opposite
   bind = SUPER_SHIFT, T, hy3:changegroup, toggletab
-
-  bind = SUPER_CONTROL, E, hy3:focustab, l, wrap
-  bind = SUPER_CONTROL, N, hy3:focustab, r, wrap
-  bindn = , mouse:272, hy3:focustab, mouse
 
   # Workspaces
   ${workspaces (x: let
