@@ -11,6 +11,7 @@
   home.packages = with pkgs; [
     inputs.xremap.packages.${system}.xremap-wlroots
     inputs.nixgl.packages.${system}.nixGLIntel
+    swaybg
     wl-clipboard
     grim
     slurp
@@ -74,7 +75,7 @@
     nix-your-shell
 
     # Langs
-    rustc
+    # rustc
     go
     zig
     lua
@@ -101,7 +102,7 @@
 
     # Tools
     cargo
-    gcc
+    # gcc
     ghc
     ripgrep
     fd
@@ -160,7 +161,7 @@
     enable = true;
 
     # package = pkgs.writeShellScriptBin "kitty" ''
-    #   ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
+    #   ${inputs.nixgl.packages.${system}.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
     # '';
 
     theme = "Tokyo Night";
