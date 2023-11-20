@@ -1,9 +1,6 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, system, config, pkgs, ... }:
 
 {
-  home.username = "mason";
-  home.homeDirectory = "/home/mason";
-
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
   # Allow unfree packages
@@ -13,6 +10,7 @@
 
   home.packages = with pkgs; [
     inputs.xremap.packages.${system}.xremap-wlroots
+    inputs.nixgl.packages.${system}.nixGLIntel
     wl-clipboard
     grim
     slurp
@@ -258,14 +256,6 @@
     extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
       { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
-    ];
-  };
-
-  programs.google-chrome = {
-    enable = true;
-
-    commandLineArgs = [
-      "--ozone-platform-hint=auto"
     ];
   };
 

@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, system, config, pkgs, ... }:
 
 {
   imports =
@@ -127,10 +127,15 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs system; };
+
     users = {
-      mason = import ../home/mason.nix;
+      mason = import ../home;
     };
+
+    sharedModules = [
+      { home.username = "mason"; home.homeDirectory = "/home/mason"; }
+    ];
   };
 
   # Allow unfree packages

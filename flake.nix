@@ -28,7 +28,13 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
-      overlays = [ inputs.nixgl.overlay ];
+    };
+    stylixIgnore = {
+      stylix.targets.hyprland.enable = false;
+      stylix.targets.wezterm.enable = false;
+      stylix.targets.kitty.enable = false;
+      stylix.targets.fish.enable = false;
+      stylix.targets.vim.enable = false;
     };
   in {
     nixosConfigurations = {
@@ -39,13 +45,7 @@
           ./os/configuration.nix
 
           stylix.nixosModules.stylix ./stylix.nix {
-            home-manager.sharedModules = [{
-              stylix.targets.hyprland.enable = false;
-              stylix.targets.wezterm.enable = false;
-              stylix.targets.kitty.enable = false;
-              stylix.targets.fish.enable = false;
-              stylix.targets.vim.enable = false;
-            }];
+            home-manager.sharedModules = [ stylixIgnore ];
           }
         ];
       };
@@ -58,14 +58,35 @@
         extraSpecialArgs = { inherit inputs system; };
 
         modules = [
-          ./home/mason.nix { targets.genericLinux.enable = true; }
+          { home.username = "mason";
+            home.homeDirectory = "/home/mason";
+            targets.genericLinux.enable = true;
+          } ./home
 
-          stylix.homeManagerModules.stylix ./stylix.nix {
-            stylix.targets.wezterm.enable = false;
-            stylix.targets.kitty.enable = false;
-            stylix.targets.fish.enable = false;
-            stylix.targets.vim.enable = false;
-          }
+          stylix.homeManagerModules.stylix ./stylix.nix stylixIgnore 
+        ];
+      };
+
+      work = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        extraSpecialArgs = { inherit inputs system; };
+
+        modules = [
+          { home.username = "work";
+            home.homeDirectory = "/home/work";
+            targets.genericLinux.enable = true;
+
+            programs.google-chrome = {
+              enable = true;
+
+              commandLineArgs = [
+                "--ozone-platform-hint=auto"
+              ];
+            };
+          } ./home
+
+          stylix.homeManagerModules.stylix ./stylix.nix stylixIgnore
         ];
       };
     };
