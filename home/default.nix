@@ -1,7 +1,31 @@
 { inputs, system, config, pkgs, ... }:
 
 {
-  home.stateVersion = "22.11"; # Please read the comment before changing.
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  home = {
+    stateVersion = "22.11"; # Please read the comment before changing.
+
+    sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "firefox";
+      DIRENV_LOG_FORMAT = "";
+      CLIPBOARD_NOGUI = 1;
+    };
+
+    file = {};
+  };
+
+  xdg.configFile = {
+    "sway".source = ../sway;
+    # "hypr/hyprland.conf".text = (import ./hypr.nix) inputs;
+    "xremap.yaml".text = (import ./xremap.nix) pkgs;
+    "waybar".source = ../waybar;
+    "starship.toml".source = ../starship.toml;
+    "lf/icons".source = ../lf/icons;
+    "fish/functions/lfcd.fish".source = ../lf/lfcd.fish;
+  };
 
   # Allow unfree packages
   nixpkgs.config = {
@@ -9,30 +33,49 @@
   };
 
   home.packages = with pkgs; [
+    # System
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
     inputs.xremap.packages.${system}.xremap-wlroots
     inputs.nixgl.packages.${system}.nixGLIntel
+
+    # Wayland
     swaybg
-    wl-clipboard
-    grim
-    slurp
-    clipboard-jh
     wofi
     hyprpicker
-    bottles
+
+    grim
+    slurp
+
+    clipboard-jh
+    wl-clipboard
+    cliphist
+
+    wtype
+
+    # Tools
+    ripgrep
+    fd
+    fzf
 
     # Apps
-    qutebrowser
-      # python311Packages.adblock
-
-    firefox
+    bottles
     luakit
-    librewolf
     wezterm
     pavucontrol
     obs-studio
     lapce
     helix
     ranger
+
+    blender
+    godot_4
+    krita
+    gimp
+
+    gnome.gnome-calculator
+    gnome.nautilus
+
+    # Dbeaver
     (pkgs.writeShellScriptBin "dbeaver" ''GDK_BACKEND=x11 GTK_THEME=Adwaita ${dbeaver}/bin/dbeaver'')
     (makeDesktopItem {
       name = "dbeaver";
@@ -44,15 +87,16 @@
       categories = [ "Development" ];
     })
 
-    discord
-    # (pkgs.writeShellScriptBin "discord" ''chromium --app=https://discord.com/channels/@me'')
-    # (makeDesktopItem {
-    #   name = "discord";
-    #   exec = "discord";
-    #   icon = "discord";
-    #   desktopName = "discord";
-    #   comment = "All-in-one cross-platform voice and text chat for gamers";
-    # })
+    # Discord
+    (pkgs.writeShellScriptBin "discord" ''chromium --app=https://discord.com/channels/@me'')
+    (makeDesktopItem {
+      name = "discord";
+      exec = "discord";
+      icon = "discord";
+      desktopName = "discord";
+      comment = "All-in-one cross-platform voice and text chat for gamers";
+    })
+
     # Slack
     (pkgs.writeShellScriptBin "slack" ''chromium --app=https://app.slack.com/client/T7C5M4HRS/C014RKD8T3R'')
     (makeDesktopItem {
@@ -60,84 +104,9 @@
       exec = "slack";
       icon = "slack";
       desktopName = "slack";
-      comment = "All-in-one cross-platform voice and text chat for gamers";
+      comment = "All-in-one cross-platform voice and text chat for work";
     })
-
-    gnome.gnome-calculator
-    gnome.nautilus
-
-      # blender
-    godot_4
-      # krita
-    gimp
-
-    # Nix
-    nix-your-shell
-
-    # Langs
-    # rustc
-    go
-    zig
-    lua
-    typescript
-      # python311
-
-    # LSPs
-    rust-analyzer
-    gopls
-    zls
-    lua-language-server
-    nodePackages.typescript-language-server
-    haskell-language-server
-    rnix-lsp
-    nil
-      # python311Packages.python-lsp-server
-    glslls
-
-    # Formatters
-    rustfmt
-    gofumpt
-    golines
-    nixpkgs-fmt
-
-    # Tools
-    cargo
-    # gcc
-    ghc
-    ripgrep
-    fd
-    fzf
-    cliphist
-    wtype
-      # python311Packages.pip
-
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
-
-  home.file = {
-  };
-
-  xdg.configFile."sway".source = ../sway;
-  # xdg.configFile."hypr/hyprland.conf".text = (import ./hypr.nix) inputs;
-  xdg.configFile."xremap.yaml".text = (import ./xremap.nix) pkgs;
-  xdg.configFile."waybar".source = ../waybar;
-  xdg.configFile."starship.toml".source = ../starship.toml;
-
-  # You can also manage environment variables but you will have to manually
-  # source
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  # or
-  #  /etc/profiles/per-user/mason/etc/profile.d/hm-session-vars.sh
-  # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    BROWSER = "firefox";
-    DIRENV_LOG_FORMAT = "";
-    CLIPBOARD_NOGUI = 1;
-  };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
   programs.git = {
     enable = true;
@@ -159,10 +128,6 @@
 
   programs.kitty = {
     enable = true;
-
-    # package = pkgs.writeShellScriptBin "kitty" ''
-    #   ${inputs.nixgl.packages.${system}.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
-    # '';
 
     theme = "Tokyo Night";
 
@@ -260,8 +225,6 @@
     ];
   };
 
-  xdg.configFile."lf/icons".source = ../lf/icons;
-
   programs.lf = {
     enable = true;
 
@@ -318,28 +281,17 @@
     };
 
     initExtra = ''
-      if command -v nix-your-shell > /dev/null; then
-        nix-your-shell zsh | source /dev/stdin
-      fi
+      ${pkgs.nix-your-shell}/bin/nix-your-shell zsh | source /dev/stdin
     '';
   };
 
   programs.fish = {
     enable = true;
-    # shellAbbrs = { nv = "nvim"; };
+
     shellInit = ''
       set fish_greeting
 
-      set -Ux EDITOR nvim
-      set -Ux BROWSER firefox
-      set -Ux DIRENV_LOG_FORMAT ""
-      set -Ux CLIPBOARD_NOGUI 1
-
-      # alias nv="nvim"
-
-      if command -q nix-your-shell
-        nix-your-shell fish | source
-      end
+      ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
 
       bind \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
 
@@ -379,8 +331,6 @@
       set -g fish_pager_color_selected_background --background=$selection
     '';
   };
-
-  xdg.configFile."fish/functions/lfcd.fish".source = ../lf/lfcd.fish;
 
   programs.starship = {
     enable = true;
