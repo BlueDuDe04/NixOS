@@ -35,6 +35,11 @@ in ''
   bind = SUPER_SHIFT, up, hy3:movewindow, u, once, visible
   bind = SUPER_SHIFT, right, hy3:movewindow, r, once, visible
 
+  bind = SUPER_CONTROL, right, resizeactive, 30 0
+  bind = SUPER_CONTROL, down, resizeactive, 0 30
+  bind = SUPER_CONTROL, up, resizeactive, 0 -30
+  bind = SUPER_CONTROL, left, resizeactive, -30 0
+
   bind = SUPER_ALT, left, hy3:focustab, l, wrap
   bind = SUPER_ALT, down, hy3:changefocus, lower
   bind = SUPER_ALT, up, hy3:changefocus, raise
