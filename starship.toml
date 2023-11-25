@@ -11,7 +11,7 @@ success_symbol = "[ ](bold blue)[ ❯](bold cyan)"
 format = "[󰥔 $duration]($style)"
 
 [directory]
-truncate_to_repo = false
+truncate_to_repo = true
 
 [aws]
 disabled = true

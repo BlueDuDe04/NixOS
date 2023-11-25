@@ -89,8 +89,8 @@ in ''
       gaps_in = 10
       gaps_out = 10
       border_size = 5
-      col.active_border = rgba(AD8EE6ee) rgba(33ccffee) 45deg
-      col.inactive_border = rgba(595959aa)
+      col.active_border = rgba(AD8EE6FF) rgba(33ccffFF) 45deg
+      col.inactive_border = rgba(595959FF)
 
       layout = hy3
   }
@@ -106,7 +106,7 @@ in ''
           passes = 5
       }
 
-      drop_shadow = yes
+      drop_shadow = no
       shadow_range = 4
       shadow_render_power = 3
       col.shadow = rgba(1a1a1aee)
@@ -156,5 +156,21 @@ in ''
 
   xwayland {
     force_zero_scaling = true
+  }
+
+  plugin {
+    hy3 {
+      no_gaps_when_only = true
+
+      tabs {
+        height = 18
+        text_font = "FiraCode Nerd Font Bold"
+        text_height = 10
+        text_padding = 4
+
+        col.active = rgba(AD8EE6FF)
+        col.inactive = rgba(595959FF)
+      }
+    }
   }
 ''

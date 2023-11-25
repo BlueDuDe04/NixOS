@@ -153,6 +153,7 @@
        ublock-origin 
        darkreader
        bitwarden
+       adsum-notabs
        libredirect
        vimium
        sidebery
