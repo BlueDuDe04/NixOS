@@ -1,14 +1,12 @@
-inputs: let
+inputs: screens: let
   workspaces = func: builtins.concatStringsSep "\n\n" (builtins.genList (x: func (x + 1)) 10);
 in ''
-  monitor=eDP-1,2256x1504@59.999,0x0,1.3
+  ${screens}
   monitor=,highres,auto,1
 
   exec-once = wl-paste --watch cliphist store
 
   exec-once = xremap --device kmonad --watch ~/.config/xremap.yaml
-
-  exec-once = swaybg -o eDP-1 -m fill -i ~/git/NixOS/colorful-sky.jpg
 
   exec-once = waybar -c ~/.config/waybar/config -s ~/.config/waybar/style.css
 

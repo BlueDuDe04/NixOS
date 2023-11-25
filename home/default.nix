@@ -108,22 +108,12 @@
     })
   ];
 
+  services.syncthing.enable = true;
+
   programs.git = {
     enable = true;
     userName = "BlueDuDe04";
     userEmail = "Bennettmason04@gmail.com";
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-
-    package = inputs.hyprland.packages."x86_64-linux".hyprland;
-
-    plugins = [
-      inputs.hy3.packages."x86_64-linux".hy3
-    ];
-
-    extraConfig = (import ./hypr.nix) inputs;
   };
 
   programs.kitty = {

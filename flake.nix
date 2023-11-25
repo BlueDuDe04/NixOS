@@ -38,14 +38,83 @@
     };
   in {
     nixosConfigurations = {
-      NixOS = nixpkgs.lib.nixosSystem {
+      Desktop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs system; };
 
         modules = [
-          ./os/configuration.nix
+          ./os/configuration.nix { 
+            services.kmonad = {
+              enable = true;
+              keyboards = {
+                keyboard = {
+                  device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd";
+                  config = builtins.readFile kmonad/colemak-dh-wide.kbd;
+                };
+              };
+            };
+          }
 
           stylix.nixosModules.stylix ./stylix.nix {
-            home-manager.sharedModules = [ stylixIgnore ];
+            home-manager.sharedModules = [
+              stylixIgnore
+              { wayland.windowManager.hyprland = {
+                  enable = true;
+
+                  package = inputs.hyprland.packages.${system}.hyprland;
+
+                  plugins = [
+                    inputs.hy3.packages.${system}.hy3
+                  ];
+
+                  extraConfig = (import ./home/hypr.nix) inputs ''
+                    monitor=DP-1,2560x1440@59.95100,0x0,1
+                    monitor=HDMI-A-1,2560x1440@59.95100,2560x-545,1,transform,3
+
+                    exec-once = swaybg -o DP-1 -m stretch -i ~/git/NixOS/colorful-sky.jpg
+                  '';
+                };
+              }
+            ];
+          }
+        ];
+      };
+
+      Laptop = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; };
+
+        modules = [
+          ./os/configuration.nix { 
+            services.kmonad = {
+              enable = true;
+              keyboards = {
+                framework = {
+                  device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+                  config = builtins.readFile kmonad/colemak-dh-wide.kbd;
+                };
+              };
+            };
+          }
+
+          stylix.nixosModules.stylix ./stylix.nix {
+            home-manager.sharedModules = [
+              stylixIgnore
+              { wayland.windowManager.hyprland = {
+                  enable = true;
+
+                  package = inputs.hyprland.packages.${system}.hyprland;
+
+                  plugins = [
+                    inputs.hy3.packages.${system}.hy3
+                  ];
+
+                  extraConfig = (import ./home/hypr.nix) inputs ''
+                    monitor=eDP-1,2256x1504@59.999,0x0,1.3
+
+                    exec-once = swaybg -o eDP-1 -m fill -i ~/git/NixOS/colorful-sky.jpg
+                  '';
+                };
+              }
+            ];
           }
         ];
       };
@@ -61,6 +130,22 @@
           { home.username = "mason";
             home.homeDirectory = "/home/mason";
             targets.genericLinux.enable = true;
+
+            wayland.windowManager.hyprland = {
+              enable = true;
+
+              package = inputs.hyprland.packages.${system}.hyprland;
+
+              plugins = [
+                inputs.hy3.packages.${system}.hy3
+              ];
+
+              extraConfig = (import ./home/hypr.nix) inputs ''
+                monitor=eDP-1,2256x1504@59.999,0x0,1.3
+
+                exec-once = swaybg -o eDP-1 -m fill -i ~/git/NixOS/colorful-sky.jpg
+              '';
+            };
           } ./home
 
           stylix.homeManagerModules.stylix ./stylix.nix stylixIgnore 
@@ -76,6 +161,22 @@
           { home.username = "work";
             home.homeDirectory = "/home/work";
             targets.genericLinux.enable = true;
+
+            wayland.windowManager.hyprland = {
+              enable = true;
+
+              package = inputs.hyprland.packages.${system}.hyprland;
+
+              plugins = [
+                inputs.hy3.packages.${system}.hy3
+              ];
+
+              extraConfig = (import ./home/hypr.nix) inputs ''
+                monitor=eDP-1,2256x1504@59.999,0x0,1.3
+
+                exec-once = swaybg -o eDP-1 -m fill -i ~/git/NixOS/colorful-sky.jpg
+              '';
+            };
 
             programs.google-chrome = {
               enable = true;
