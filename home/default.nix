@@ -108,6 +108,8 @@
     })
   ];
 
+  services.syncthing.enable = true;
+
   programs.git = {
     enable = true;
     userName = "BlueDuDe04";
