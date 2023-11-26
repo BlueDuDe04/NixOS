@@ -109,17 +109,6 @@
     # packages = with pkgs; [];
   };
 
-  home-manager = {
-    extraSpecialArgs = { inherit inputs system; };
-
-    users.server = {
-      home.username = "mason";
-      home.homeDirectory = "/home/mason";
-
-    };
-  };
-
-
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
