@@ -152,31 +152,13 @@
     acct
 
     # Wayland 
-    wayland
-    xwayland
-    xdg-desktop-portal-wlr
-
-    eww-wayland
-    wlr-randr
-    waybar
-    wofi
-    swww
-    grim
-    slurp
-    swappy
-    wl-clipboard
-    wf-recorder
-
     swayfx
     swaybg
     swaylock
     swayidle
 
-    river
     river-luatile
     river-tag-overlay
-
-    hyprland
 
     # Other
     docker

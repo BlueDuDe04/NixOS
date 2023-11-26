@@ -39,16 +39,19 @@
     inputs.nixgl.packages.${system}.nixGLIntel
 
     # Wayland
+    waybar
     swaybg
     wofi
     hyprpicker
 
     grim
     slurp
+    swappy
+    wf-recorder
 
-    clipboard-jh
     wl-clipboard
     cliphist
+    clipboard-jh
 
     wtype
 
