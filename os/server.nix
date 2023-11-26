@@ -1,22 +1,13 @@
 { inputs, system, config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      inputs.kmonad.nixosModules.default
-      inputs.home-manager.nixosModules.home-manager
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    inputs.kmonad.nixosModules.default
+  ];
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
-
-    substituters = [
-      "https://hyprland.cachix.org"
-    ];
-    trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
   };
 
   # Bootloader.
@@ -46,42 +37,9 @@
     pam.services.mason.updateWtmp = true;
   };
 
-  programs.xwayland.enable = true;
-
-  programs.river = {
-    enable = true;
-  };
-
   services.dbus.enable = true;
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      inputs.hyprland.packages."x86_64-linux".xdg-desktop-portal-hyprland
-    ];
-  };
 
   services = {
-    gvfs.enable = true;
-    xserver = {
-      libinput = {
-        enable = true;
-        touchpad.naturalScrolling = true;
-      };
-    };
-
-    greetd ={
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-          user = "greeter";
-       };
-      };
-    };
-    
     pipewire = {
       enable = true;
       audio.enable = true;
@@ -90,9 +48,43 @@
       pulse.enable = true;
       jack.enable = true;
     };
+
+    kmonad = {
+      enable = true;
+      keyboards = {
+        keyboard = {
+          device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd";
+          config = builtins.readFile ../kmonad/colemak-dh-wide.kbd;
+        };
+      };
+    };
+
+    nginx = {
+      enable = true;
+      virtualHosts."HomeServer.com" =  {
+        locations = {
+          "/".proxyPass = "http://127.0.0.1:8384";
+          # "/".proxyPass = "http://127.0.0.1:8096";
+          # "/gameyfin".proxyPass = "http://127.0.0.1:xxxx";
+        };
+      };
+    };
+
+    openssh.enable = true;
+
+    syncthing = {
+      enable = true;
+      user = "server";
+    };
+
+    jellyfin.enable = true;
   };
   
   virtualisation.docker.enable = true;
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
 
   hardware = {
     opengl = {
@@ -100,9 +92,10 @@
       driSupport = true;
       extraPackages = with pkgs; [
         intel-media-driver
-        intel-ocl
         vaapiIntel
-        libglvnd
+        vaapiVdpau
+        libvdpau-va-gl
+        intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
       ];
     };
 
@@ -110,22 +103,10 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.mason = {
+  users.users.server = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "docker" "input" "uinput" ];
     # packages = with pkgs; [];
-  };
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs system; };
-
-    users = {
-      mason = import ../home;
-    };
-
-    sharedModules = [
-      { home.username = "mason"; home.homeDirectory = "/home/mason"; }
-    ];
   };
 
   # Allow unfree packages
@@ -140,7 +121,6 @@
     wget
     zip
     unzip
-    mpv
     killall
     htop
     openvpn
@@ -148,25 +128,11 @@
     evtest
     pamixer
     brightnessctl
-    imagemagick
     acct
-
-    # Wayland 
-    swayfx
-    swaybg
-    swaylock
-    swayidle
-
-    river-luatile
-    river-tag-overlay
 
     # Other
     docker
     docker-compose
-    seatd
-    polkit
-    mesa
-    glxinfo
     openssl
   ];
 
