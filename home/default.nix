@@ -39,7 +39,7 @@
     inputs.nixgl.packages.${system}.nixGLIntel
 
     # Wayland
-    waybar
+    # waybar
     swaybg
     wofi
     hyprpicker
