@@ -118,6 +118,14 @@
           }
         ];
       };
+
+      Server = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; };
+
+        modules = [
+          ./os/server.nix
+        ];
+      };
     };
 
     homeConfigurations = {
