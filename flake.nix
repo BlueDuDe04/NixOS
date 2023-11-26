@@ -15,8 +15,8 @@
 
     xremap.url = "github:xremap/nix-flake";
 
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.31.0";
-    hy3.url = "github:outfoxxed/hy3?ref=hl0.31.0";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.32.3";
+    hy3.url = "github:outfoxxed/hy3?ref=hl0.32.0";
     hy3.inputs.hyprland.follows = "hyprland";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -60,7 +60,7 @@
               { wayland.windowManager.hyprland = {
                   enable = true;
 
-                  package = inputs.hyprland.packages.${system}.hyprland;
+                  # package = inputs.hyprland.packages.${system}.hyprland;
 
                   plugins = [
                     inputs.hy3.packages.${system}.hy3
