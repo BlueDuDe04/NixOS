@@ -125,7 +125,7 @@
               { wayland.windowManager.hyprland = {
                   enable = true;
 
-                  package = inputs.hyprland.packages.${system}.hyprland;
+                  # package = inputs.hyprland.packages.${system}.hyprland;
 
                   plugins = [
                     inputs.hy3.packages.${system}.hy3
@@ -166,7 +166,7 @@
             wayland.windowManager.hyprland = {
               enable = true;
 
-              package = inputs.hyprland.packages.${system}.hyprland;
+              # package = inputs.hyprland.packages.${system}.hyprland;
 
               plugins = [
                 inputs.hy3.packages.${system}.hy3
@@ -197,7 +197,7 @@
             wayland.windowManager.hyprland = {
               enable = true;
 
-              package = inputs.hyprland.packages.${system}.hyprland;
+              # package = inputs.hyprland.packages.${system}.hyprland;
 
               plugins = [
                 inputs.hy3.packages.${system}.hy3
