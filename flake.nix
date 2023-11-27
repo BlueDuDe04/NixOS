@@ -52,6 +52,16 @@
                 };
               };
             };
+            services.xserver.videoDrivers = [ "nvidia" ];
+            hardware.nvidia = {
+              nvidiaSettings = true;
+              modesetting.enable = true;
+              powerManagement.enable = true;
+            };
+            environment.sessionVariables = {
+              WLR_NO_HARDWARE_CURSORS = "1";
+              NIXOS_OZONE_WL = "1";
+            };
           }
 
           stylix.nixosModules.stylix ./stylix.nix {
@@ -59,6 +69,7 @@
               stylixIgnore
               { wayland.windowManager.hyprland = {
                   enable = true;
+                  enableNvidiaPatches = true;
 
                   # package = inputs.hyprland.packages.${system}.hyprland;
 
