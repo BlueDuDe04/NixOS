@@ -61,6 +61,7 @@
     fzf
 
     # Apps
+    freetube
     bottles
     luakit
     wezterm

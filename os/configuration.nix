@@ -153,6 +153,7 @@
     acct
 
     # Wayland 
+    waybar
     swayfx
     swaybg
     swaylock
