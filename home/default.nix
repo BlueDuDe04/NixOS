@@ -43,6 +43,7 @@
     swaybg
     waylock
     fuzzel
+    nwg-drawer
     wofi
     hyprpicker
 
