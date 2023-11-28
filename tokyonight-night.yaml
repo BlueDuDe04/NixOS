@@ -1,17 +1,17 @@
 scheme: "tokyonight-night"
-base00: "1A1B26"
-base01: "232433"
-base02: "2A2B3D"
-base03: "32344A"
-base04: "3B3D57"
-base05: "A9B1D6"
-base06: "A9B1D6"
-base07: "A9B1D6"
-base08: "F7768E"
-base09: "FF9E64"
-base0A: "AD8EE6"
-base0B: "9ECE6A"
-base0C: "7DCFFF"
-base0D: "7AA2F7"
-base0E: "E0AF68"
-base0F: "E0AF68"
+base00: "1A1B26" #1A1B26
+base01: "232433" #232433
+base02: "2A2B3D" #2A2B3D
+base03: "32344A" #32344A
+base04: "3B3D57" #3B3D57
+base05: "A9B1D6" #A9B1D6
+base06: "A9B1D6" #A9B1D6
+base07: "A9B1D6" #A9B1D6
+base08: "F7768E" #F7768E
+base09: "FF9E64" #FF9E64
+base0A: "AD8EE6" #AD8EE6
+base0B: "9ECE6A" #9ECE6A
+base0C: "7DCFFF" #7DCFFF
+base0D: "7AA2F7" #7AA2F7
+base0E: "E0AF68" #E0AF68
+base0F: "E0AF68" #E0AF68
