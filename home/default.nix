@@ -41,6 +41,7 @@
     # Wayland
     # waybar
     swaybg
+    waylock
     fuzzel
     wofi
     hyprpicker
