@@ -62,6 +62,8 @@
     ripgrep
     fd
     fzf
+    remmina
+    openfortivpn
 
     # Apps
     freetube
