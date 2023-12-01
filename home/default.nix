@@ -64,6 +64,7 @@
     fzf
     remmina
     openfortivpn
+    gnome.zenity
 
     # Apps
     freetube

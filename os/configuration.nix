@@ -56,10 +56,13 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    config.common.default = "*";
+
     # gtk portal needed to make gtk apps happy
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
-      inputs.hyprland.packages."x86_64-linux".xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-hyprland
+      # inputs.hyprland.packages."x86_64-linux".xdg-desktop-portal-hyprland
     ];
   };
 
@@ -135,6 +138,9 @@
   };
   
   environment.systemPackages = with pkgs; [
+    # Deps
+    xdg-utils
+
     # CLI
     git
     lazygit
