@@ -73,11 +73,11 @@
         forceSSL = false;
         locations = {
           "/" = {
-            proxyPass = "http://127.0.0.1:8384";
+            # proxyPass = "http://127.0.0.1:8384";
+            proxyPass = "http://127.0.0.1:8096";
+            # "/gameyfin".proxyPass = "http://127.0.0.1:xxxx";
             proxyWebsockets = true;
           };
-          # "/".proxyPass = "http://127.0.0.1:8096";
-          # "/gameyfin".proxyPass = "http://127.0.0.1:xxxx";
         };
       };
     };
