@@ -93,6 +93,14 @@
       pulse.enable = true;
       jack.enable = true;
     };
+
+    printing.enable = true;
+
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      openFirewall = true;
+    };
   };
   
   virtualisation.docker.enable = true;
