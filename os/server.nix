@@ -91,6 +91,8 @@
 
     jellyfin.enable = true;
   };
+
+  security.acme.acceptTerms = true;
   
   virtualisation.docker.enable = true;
 
