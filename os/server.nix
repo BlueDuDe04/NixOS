@@ -71,14 +71,14 @@
       virtualHosts."192.168.0.40" =  {
         enableACME = false;
         forceSSL = false;
-        # locations = {
-        #   "/" = {
-        #     proxyPass = "http://127.0.0.1:8384";
-        #     proxyWebsockets = true;
-        #   };
-        #   # "/".proxyPass = "http://127.0.0.1:8096";
-        #   # "/gameyfin".proxyPass = "http://127.0.0.1:xxxx";
-        # };
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:8384";
+            proxyWebsockets = true;
+          };
+          # "/".proxyPass = "http://127.0.0.1:8096";
+          # "/gameyfin".proxyPass = "http://127.0.0.1:xxxx";
+        };
       };
     };
 
