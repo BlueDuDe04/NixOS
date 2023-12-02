@@ -16,6 +16,7 @@
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
+  boot.loader.grub.device = "/dev/sda";
 
   networking.hostName = "NixOS";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -55,7 +56,7 @@
       enable = true;
       keyboards = {
         keyboard = {
-          device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd";
+          device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-kbd";
           config = builtins.readFile ../kmonad/colemak-dh-wide.kbd;
         };
       };
@@ -63,7 +64,7 @@
 
     nginx = {
       enable = true;
-      virtualHosts."HomeServer.com" =  {
+      virtualHosts."192.168.0.40" =  {
         locations = {
           "/".proxyPass = "http://127.0.0.1:8384";
           # "/".proxyPass = "http://127.0.0.1:8096";
