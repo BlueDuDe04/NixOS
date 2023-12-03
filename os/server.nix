@@ -72,10 +72,13 @@
         enableACME = false;
         forceSSL = false;
         locations = {
-          "/" = {
-            # proxyPass = "http://127.0.0.1:8384";
+          "/jellyfin" = {
             proxyPass = "http://127.0.0.1:8096";
-            # "/gameyfin".proxyPass = "http://127.0.0.1:xxxx";
+            proxyWebsockets = true;
+          };
+
+          "/syncthing" = {
+            proxyPass = "http://127.0.0.1:8384";
             proxyWebsockets = true;
           };
         };
@@ -86,7 +89,7 @@
 
     syncthing = {
       enable = true;
-      user = "server";
+      # user = "server";
     };
 
     jellyfin.enable = true;
