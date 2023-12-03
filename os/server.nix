@@ -78,7 +78,7 @@
         };
       };
 
-      virtualHosts."example.com" =  {
+      virtualHosts."192.168.0.39" =  {
         locations = {
           "/" = {
             # proxyPass = "http://127.0.0.1:8384";
