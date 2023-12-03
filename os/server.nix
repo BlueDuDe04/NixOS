@@ -17,7 +17,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sdb";
 
-  networking.hostName = "NixOS";
+  networking.hostName = "Server";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
