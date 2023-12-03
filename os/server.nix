@@ -15,7 +15,6 @@
   # boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sdb";
 
   networking.hostName = "NixOS";
@@ -69,27 +68,24 @@
       recommendedTlsSettings = true;
 
       virtualHosts."192.168.0.40" =  {
-        locations = {
-          "/" = {
-            proxyPass = "http://127.0.0.1:8384";
-            # proxyPass = "http://127.0.0.1:8096";
-            proxyWebsockets = true;
-          };
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8384";
+          proxyWebsockets = true;
         };
       };
 
-      virtualHosts."127.16.100.17" =  {
-        locations = {
-          "/" = {
-            # proxyPass = "http://127.0.0.1:8384";
-            proxyPass = "http://127.0.0.1:8096";
-            proxyWebsockets = true;
-          };
+      virtualHosts."192.168.0.3" =  {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8096";
+          proxyWebsockets = true;
         };
       };
     };
 
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings.PermitRootLogin = "yes";
+    };
 
     # Set: <insecureSkipHostcheck>true</insecureSkipHostcheck> in <gui>...</gui>
     # In: /var/lib/syncthing/.config/syncthing/config.xml
