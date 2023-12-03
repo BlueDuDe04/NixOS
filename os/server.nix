@@ -68,7 +68,7 @@
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
-      virtualHosts."192.168.0.40/syncthing" =  {
+      virtualHosts."files.192.168.0.40" =  {
         locations = {
           "/" = {
             proxyPass = "http://127.0.0.1:8384";
