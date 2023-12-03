@@ -43,6 +43,7 @@
 
         modules = [
           ./os/configuration.nix { 
+            networking.hostName = "Desktop";
             services.kmonad = {
               enable = true;
               keyboards = {
@@ -108,6 +109,7 @@
 
         modules = [
           ./os/configuration.nix { 
+            networking.hostName = "Laptop";
             services.kmonad = {
               enable = true;
               keyboards = {
