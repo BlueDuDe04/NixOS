@@ -69,29 +69,32 @@
       recommendedTlsSettings = true;
 
       virtualHosts."192.168.0.40" =  {
-        enableACME = false;
-        forceSSL = false;
         locations = {
           "/" = {
             proxyPass = "http://127.0.0.1:8384";
             # proxyPass = "http://127.0.0.1:8096";
             proxyWebsockets = true;
           };
+        };
+      };
 
-          # "/syncthing" = {
-          #   proxyPass = "http://127.0.0.1:8384";
-          #   proxyWebsockets = true;
-          # };
+      virtualHosts."jellyfin.my" =  {
+        locations = {
+          "/" = {
+            # proxyPass = "http://127.0.0.1:8384";
+            proxyPass = "http://127.0.0.1:8096";
+            proxyWebsockets = true;
+          };
         };
       };
     };
 
     openssh.enable = true;
 
-    syncthing = {
-      enable = true;
-      # user = "server";
-    };
+    # Set: <insecureSkipHostcheck>true</insecureSkipHostcheck> in <gui>...</gui>
+    # In: /var/lib/syncthing/.config/syncthing/config.xml
+    # https://docs.syncthing.net/users/faq.html#why-do-i-get-host-check-error-in-the-gui-api
+    syncthing.enable = true;
 
     jellyfin.enable = true;
   };
