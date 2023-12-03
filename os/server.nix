@@ -70,7 +70,7 @@
 
       virtualHosts."192.168.0.40" =  {
         locations = {
-          ":8384/" = {
+          "/" = {
             proxyPass = "http://127.0.0.1:8384";
             # proxyPass = "http://127.0.0.1:8096";
             proxyWebsockets = true;
@@ -78,15 +78,15 @@
         };
       };
 
-      # virtualHosts."192.168.0.39" =  {
-      #   locations = {
-      #     "/" = {
-      #       # proxyPass = "http://127.0.0.1:8384";
-      #       proxyPass = "http://127.0.0.1:8096";
-      #       proxyWebsockets = true;
-      #     };
-      #   };
-      # };
+      virtualHosts."172.16.100.17" =  {
+        locations = {
+          "/" = {
+            # proxyPass = "http://127.0.0.1:8384";
+            proxyPass = "http://127.0.0.1:8096";
+            proxyWebsockets = true;
+          };
+        };
+      };
     };
 
     openssh.enable = true;
