@@ -15,9 +15,9 @@
   # boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
+  boot.loader.grub.device = "/dev/sdb";
 
-  networking.hostName = "NixOS";
+  networking.hostName = "Server";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -55,7 +55,7 @@
       enable = true;
       keyboards = {
         keyboard = {
-          device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd";
+          device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.0-event-kbd";
           config = builtins.readFile ../kmonad/colemak-dh-wide.kbd;
         };
       };
@@ -63,23 +63,45 @@
 
     nginx = {
       enable = true;
-      virtualHosts."HomeServer.com" =  {
-        locations = {
-          "/".proxyPass = "http://127.0.0.1:8384";
-          # "/".proxyPass = "http://127.0.0.1:8096";
-          # "/gameyfin".proxyPass = "http://127.0.0.1:xxxx";
+
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+
+      virtualHosts."192.168.0.40" =  {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8384";
+          proxyWebsockets = true;
+        };
+      };
+
+      virtualHosts."192.168.0.3" =  {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8096";
+          proxyWebsockets = true;
         };
       };
     };
 
-    openssh.enable = true;
-
-    syncthing = {
+    openssh = {
       enable = true;
-      user = "server";
+      settings.PermitRootLogin = "yes";
     };
 
+    # Set: <insecureSkipHostcheck>true</insecureSkipHostcheck> in <gui>...</gui>
+    # In: /var/lib/syncthing/.config/syncthing/config.xml
+    # https://docs.syncthing.net/users/faq.html#why-do-i-get-host-check-error-in-the-gui-api
+    syncthing.enable = true;
+
     jellyfin.enable = true;
+  };
+
+  networking.firewall = {
+    enable = false;
+    allowedTCPPorts = [ 80 443 22067 ];
+    allowedUDPPortRanges = [
+      { from = 4000; to = 4007; }
+      { from = 8000; to = 9010; }
+    ];
   };
   
   virtualisation.docker.enable = true;
