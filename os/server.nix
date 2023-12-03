@@ -92,6 +92,8 @@
     # https://docs.syncthing.net/users/faq.html#why-do-i-get-host-check-error-in-the-gui-api
     syncthing.enable = true;
 
+    # Set: sudo setfacl -m u:jellyfin:rx /media/*
+    # https://www.reddit.com/r/jellyfin/comments/gaojft/the_path_could_not_be_found_please_ensure_the/
     jellyfin.enable = true;
   };
 
