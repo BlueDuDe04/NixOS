@@ -10,13 +10,6 @@
     experimental-features = [ "nix-command" "flakes" ];
   };
 
-  # Bootloader.
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sdb";
-
   networking.hostName = "Server";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

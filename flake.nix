@@ -37,122 +37,68 @@
       stylix.targets.vim.enable = false;
     };
   in {
-    nixosConfigurations = {
-      Desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; };
+    nixosConfigurations = let 
+      buildNixosSystems = name: config: {
+        "${name}" = nixpkgs.lib.nixosSystem (config // { 
+          modules = config.modules ++ [{
+            boot.loader.systemd-boot.enable = true;
+            boot.loader.efi.canTouchEfiVariables = true;
+            boot.loader.efi.efiSysMountPoint = "/boot/efi";
+          }];
+        });
+
+        "${name}-no-efi" = nixpkgs.lib.nixosSystem (config // {
+          modules = config.modules ++ [{
+            boot.loader.grub.enable = true;
+            boot.loader.grub.device = "/dev/sdb";
+          }];
+        });
+      };
+    in
+      (buildNixosSystems "Desktop" {
+        specialArgs = { inherit inputs system stylixIgnore; };
 
         modules = [
-          ./os/configuration.nix { 
-            networking.hostName = "Desktop";
-            services.kmonad = {
-              enable = true;
-              keyboards = {
-                keyboard = {
-                  device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd";
-                  config = builtins.readFile kmonad/colemak-dh-wide.kbd;
-                };
-              };
-            };
-            services.xserver.videoDrivers = [ "nvidia" ];
-            hardware.nvidia = {
-              nvidiaSettings = true;
-              modesetting.enable = true;
-              powerManagement.enable = true;
-            };
-            environment.sessionVariables = {
-              WLR_NO_HARDWARE_CURSORS = "1";
-              NIXOS_OZONE_WL = "1";
-            };
-          }
+          ./os ./os/desktop.nix
 
-          stylix.nixosModules.stylix ./stylix.nix {
-            home-manager.sharedModules = [
-              stylixIgnore
-              { wayland.windowManager.hyprland = {
-                  enable = true;
-                  enableNvidiaPatches = true;
-
-                  # package = inputs.hyprland.packages.${system}.hyprland;
-
-                  plugins = [
-                    inputs.hy3.packages.${system}.hy3
-                  ];
-
-                  extraConfig = (import ./home/hypr.nix) inputs ''
-                    monitor=DP-3,2560x1440@59.95100,0x0,1
-                    monitor=HDMI-A-1,2560x1440@59.95100,2560x-545,1,transform,3
-
-                    exec-once = swaybg -o DP-3 -m stretch -i ~/git/NixOS/colorful-sky.jpg
-                    exec-once = swaybg -o HDMI-A-1 -m fill -i ~/git/NixOS/Colorful-Sky-Vertical.jpg
-
-                    workspace = DP-3, 9
-                    workspace = DP-3, 5
-                    workspace = DP-3, 1
-                    workspace = DP-3, 3
-                    workspace = DP-3, 7
-
-                    workspace = HDMI-A-1, 6
-                    workspace = HDMI-A-1, 2
-                    workspace = HDMI-A-1, 0
-                    workspace = HDMI-A-1, 4
-                    workspace = HDMI-A-1, 8
-                  '';
-                };
-              }
-            ];
-          }
+          stylix.nixosModules.stylix ./stylix.nix
         ];
-      };
+      })
 
-      Laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; };
+      //
+
+      (buildNixosSystems "Laptop" {
+        specialArgs = { inherit inputs system stylixIgnore; };
 
         modules = [
-          ./os/configuration.nix { 
-            networking.hostName = "Laptop";
-            services.kmonad = {
-              enable = true;
-              keyboards = {
-                framework = {
-                  device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-                  config = builtins.readFile kmonad/colemak-dh-wide.kbd;
-                };
-              };
-            };
-          }
+          ./os ./os/laptop.nix
 
-          stylix.nixosModules.stylix ./stylix.nix {
-            home-manager.sharedModules = [
-              stylixIgnore
-              { wayland.windowManager.hyprland = {
-                  enable = true;
-
-                  # package = inputs.hyprland.packages.${system}.hyprland;
-
-                  plugins = [
-                    inputs.hy3.packages.${system}.hy3
-                  ];
-
-                  extraConfig = (import ./home/hypr.nix) inputs ''
-                    monitor=eDP-1,2256x1504@59.999,0x0,1.3
-
-                    exec-once = swaybg -o eDP-1 -m fill -i ~/git/NixOS/colorful-sky.jpg
-                  '';
-                };
-              }
-            ];
-          }
+          stylix.nixosModules.stylix ./stylix.nix
         ];
-      };
+      })
 
-      Server = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; };
+      # //
+      #
+      # (buildNixosSystems "Tv" {
+      #   specialArgs = { inherit inputs system stylixIgnore; };
+      #
+      #   modules = [
+      #     ./os ./os/tv.nix
+      #
+      #     stylix.nixosModules.stylix ./stylix.nix
+      #   ];
+      # })
+
+      //
+
+      (buildNixosSystems "Server" {
+        specialArgs = { inherit inputs system stylixIgnore; };
 
         modules = [
           ./os/server.nix
         ];
-      };
-    };
+      })
+    ;
 
     homeConfigurations = {
       mason = home-manager.lib.homeManagerConfiguration {
@@ -161,26 +107,7 @@
         extraSpecialArgs = { inherit inputs system; };
 
         modules = [
-          { home.username = "mason";
-            home.homeDirectory = "/home/mason";
-            targets.genericLinux.enable = true;
-
-            wayland.windowManager.hyprland = {
-              enable = true;
-
-              # package = inputs.hyprland.packages.${system}.hyprland;
-
-              plugins = [
-                inputs.hy3.packages.${system}.hy3
-              ];
-
-              extraConfig = (import ./home/hypr.nix) inputs ''
-                monitor=eDP-1,2256x1504@59.999,0x0,1.3
-
-                exec-once = swaybg -o eDP-1 -m fill -i ~/git/NixOS/colorful-sky.jpg
-              '';
-            };
-          } ./home
+          ./home ./home/mason.nix
 
           stylix.homeManagerModules.stylix ./stylix.nix stylixIgnore 
         ];
@@ -192,34 +119,7 @@
         extraSpecialArgs = { inherit inputs system; };
 
         modules = [
-          { home.username = "work";
-            home.homeDirectory = "/home/work";
-            targets.genericLinux.enable = true;
-
-            wayland.windowManager.hyprland = {
-              enable = true;
-
-              # package = inputs.hyprland.packages.${system}.hyprland;
-
-              plugins = [
-                inputs.hy3.packages.${system}.hy3
-              ];
-
-              extraConfig = (import ./home/hypr.nix) inputs ''
-                monitor=eDP-1,2256x1504@59.999,0x0,1.3
-
-                exec-once = swaybg -o eDP-1 -m fill -i ~/git/NixOS/colorful-sky.jpg
-              '';
-            };
-
-            programs.google-chrome = {
-              enable = true;
-
-              commandLineArgs = [
-                "--ozone-platform-hint=auto"
-              ];
-            };
-          } ./home
+          ./home ./home/work.nix
 
           stylix.homeManagerModules.stylix ./stylix.nix stylixIgnore
         ];
