@@ -77,22 +77,20 @@
         ];
       })
 
-      # //
-      #
-      # (buildNixosSystems "Tv" {
-      #   specialArgs = { inherit inputs system stylixIgnore; };
-      #
-      #   modules = [
-      #     ./os ./os/tv.nix
-      #
-      #     stylix.nixosModules.stylix ./stylix.nix
-      #   ];
-      # })
+      //
+
+      (buildNixosSystems "Tv" {
+        specialArgs = { inherit inputs system; };
+
+        modules = [
+          ./os/tv.nix
+        ];
+      })
 
       //
 
       (buildNixosSystems "Server" {
-        specialArgs = { inherit inputs system stylixIgnore; };
+        specialArgs = { inherit inputs system; };
 
         modules = [
           ./os/server.nix
