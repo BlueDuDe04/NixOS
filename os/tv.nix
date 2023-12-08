@@ -46,7 +46,7 @@
     };
 
     xserver.displayManager = {
-      defaultSession = "none+Hyprland";
+      defaultSession = "none+hyprland";
 
       lightdm = {
         enable = true;
