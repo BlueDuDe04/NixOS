@@ -33,7 +33,10 @@
 
   services.dbus.enable = true;
 
-  programs.kdeconnect.enable = true;
+  programs = {
+    xwayland.enable = true;
+    kdeconnect.enable = true;
+  };
 
   services = {
     pipewire = {
@@ -45,13 +48,13 @@
       jack.enable = true;
     };
 
-    xserver.displayManager = {
-      defaultSession = "hyprland";
-
-      lightdm = {
-        enable = true;
-        autoLogin.enable = true;
-        autoLogin.user = "tv";
+    greetd ={
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+          user = "greeter";
+       };
       };
     };
 
