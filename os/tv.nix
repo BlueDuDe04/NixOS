@@ -115,6 +115,8 @@
         extraConfig = ''
           # exec_always "xrandr --output HDMI-1 --mode 1920x1080 --scale 0.8"
 
+          exec_always xremap --watch ~/.config/xremap.yaml
+
           exec_always nitrogen --restore
 
           workspace_layout tabbed
