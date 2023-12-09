@@ -45,9 +45,10 @@
       jack.enable = true;
     };
 
-    displaymanager.startx.enable = true;
-
-    xserver.windowManager.i3.enable = true;
+    xserver = {
+      displaymanager.startx.enable = true;
+      windowManager.i3.enable = true;
+    };
 
     getty = {
       loginProgram = "startx";
