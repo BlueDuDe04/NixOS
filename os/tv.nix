@@ -45,14 +45,13 @@
       jack.enable = true;
     };
 
-    xserver.displayManager = {
-      defaultSession = "none+i3";
+    displaymanager.startx.enable = true;
 
-      lightdm = {
-        enable = true;
-        autoLogin.enable = true;
-        autoLogin.user = "tv";
-      };
+    xserver.windowManager.i3.enable = true;
+
+    getty = {
+      loginProgram = "startx";
+      autologinUser = "tv";
     };
 
     openssh = {
