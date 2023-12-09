@@ -110,7 +110,7 @@
       xsession.windowManager.i3 = {
         enable = true;
 
-        packages = pkgs.i3-rounded;
+        package = pkgs.i3-rounded;
 
         extraConfig = ''
           # exec_always "xrandr --output HDMI-1 --mode 1920x1080 --scale 0.8"
