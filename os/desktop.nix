@@ -1,5 +1,7 @@
 { inputs, system, stylixIgnore, ... }: {
+
   networking.hostName = "Desktop";
+
   services.kmonad = {
     enable = true;
     keyboards = {
@@ -9,12 +11,15 @@
       };
     };
   };
+
   services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.nvidia = {
     nvidiaSettings = true;
     modesetting.enable = true;
     powerManagement.enable = true;
   };
+
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
