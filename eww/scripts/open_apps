@@ -1,0 +1,42 @@
+#!/bin/sh
+
+## Open Applications
+# FILE="$HOME/.cache/eww_launch.dashboard"
+# CFG="$HOME/.config/eww/dashboard"
+# EWW=`which eww`
+
+# close_dash() {
+# 	${EWW} --config "$CFG" close \
+# 					background profile system clock uptime music github \
+# 					reddit twitter youtube weather apps mail logout sleep reboot poweroff folders
+# 	rm -rf "$FILE"
+# }
+
+if [[ "$1" == "--ff" ]]; then
+	firefox &
+
+elif [[ "$1" == "--tg" ]]; then
+	telegram-desktop &
+
+elif [[ "$1" == "--dc" ]]; then
+	discord &
+
+elif [[ "$1" == "--tr" ]]; then
+	kitty &
+
+elif [[ "$1" == "--fm" ]]; then
+	thunar ~ &
+
+elif [[ "$1" == "--ge" ]]; then
+	geany &
+
+elif [[ "$1" == "--cd" ]]; then
+	code &
+
+elif [[ "$1" == "--gp" ]]; then
+	gimp &
+
+elif [[ "$1" == "--vb" ]]; then
+	virtualbox &
+
+fi

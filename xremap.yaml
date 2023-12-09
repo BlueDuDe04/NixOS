@@ -1,0 +1,24 @@
+modmap:
+  - name: Global
+    remap:
+      Super_L: brightnessup
+
+keymap:   
+- name: default mode
+  remap:
+    brightnessup:
+      [ { set_mode: workspace },
+      { launch: ["firefox"] } ]
+  mode: default
+
+- name: workspace mode
+  remap:
+    Enter:
+      [ { set_mode: default },
+      { launch: ["kitty"] } ]
+    right:
+      launch: ["hyprctl", "dispatch", "workspace", "r+1"]
+    left:
+      launch: ["hyprctl", "dispatch", "workspace", "r-1"]
+  mode: workspace
+

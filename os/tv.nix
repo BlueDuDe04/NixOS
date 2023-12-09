@@ -33,10 +33,7 @@
 
   services.dbus.enable = true;
 
-  programs = {
-    xwayland.enable = true;
-    kdeconnect.enable = true;
-  };
+  programs.kdeconnect.enable = true;
 
   services = {
     pipewire = {
@@ -48,13 +45,13 @@
       jack.enable = true;
     };
 
-    greetd ={
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-          user = "greeter";
-       };
+    xserver.displayManager = {
+      defaultSession = "none+i3";
+
+      lightdm = {
+        enable = true;
+        autoLogin.enable = true;
+        autoLogin.user = "tv";
       };
     };
 
@@ -108,77 +105,35 @@
 
       home.stateVersion = "22.11"; # Please read the comment before changing.
 
-      wayland.windowManager.hyprland = {
+      services.kdeconnect.enable = true;
+
+      xsession.windowManager.i3 = {
         enable = true;
 
-        # package = inputs.hyprland.packages.${system}.hyprland;
-
-        plugins = [
-          inputs.hy3.packages.${system}.hy3
-        ];
+        packages = pkgs.i3-rounded;
 
         extraConfig = ''
-          monitor=,highres,auto,1
+          # exec_always "xrandr --output HDMI-1 --mode 1920x1080 --scale 0.8"
 
-          exec-once = wl-paste --watch cliphist store
+          exec_always nitrogen --restore
 
-          exec-once = xremap --watch ~/.config/xremap.yaml
+          workspace_layout tabbed
 
-          exec-once = swaybg -o * -m fill -i ~/git/NixOS/colorful-sky.jpg
+          for_window [class="^.*"] border pixel 5
 
-          exec-once = nwg-drawer -r -mt 50 -mr 50 -mb 50 -ml 50
+          gaps inner 15
+          gaps outer 0
+          smart_gaps on
+          smart_borders on
 
-          bindn = , mouse:272, hy3:focustab, mouse
-
-          input {
-            repeat_delay=200
-            repeat_rate=60
-
-            touchpad {
-              natural_scroll = yes
-            }
-
-            sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
-          }
-
-          general {
-              # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-              gaps_in = 0
-              gaps_out = 0
-              border_size = 5
-              col.active_border = rgba(AD8EE6FF) rgba(33ccffFF) 45deg
-              col.inactive_border = rgba(595959FF)
-
-              layout = hy3
-          }
-
-          misc {
-            disable_hyprland_logo = true
-            disable_splash_rendering = true
-          }
-
-          xwayland {
-            force_zero_scaling = true
-          }
-
-          plugin {
-            hy3 {
-              no_gaps_when_only = true
-              tab_first_window = true
-
-              tabs {
-                height = 18
-                text_font = "FiraCode Nerd Font Bold"
-                text_height = 10
-                text_padding = 4
-
-                col.active = rgba(AD8EE6FF)
-                col.inactive = rgba(595959FF)
-              }
-            }
-          }
+          border_radius 5
         '';
+      };
+
+      programs.eww = {
+        enable = true;
+
+        configDir = ../eww;
       };
 
       programs.chromium = {
@@ -197,40 +152,50 @@
         ];
       };
 
-      xdg.configFile = let
-          workspace = pkgs.writeShellScriptBin "run" ''
-            pkill -USR1 nwg-drawer
-            hyprctl keyword general:gaps_out 40
-          '';
-          nwg-drawer-run = pkgs.writeShellScriptBin "run" ''
-            hyprctl keyword general:gaps_out 0
-            if ! hyprctl activeworkspace -j | gojq '.windows'; then nwg-drawer; fi
-          '';
-      in {
+      xdg.configFile = {
         "starship.toml".source = ../starship.toml;
         "lf/icons".source = ../lf/icons;
         "fish/functions/lfcd.fish".source = ../lf/lfcd.fish;
 
-        "xremap.yaml".text = ''
-          keymap:
+        "xremap.yaml".text = let
+          workspace = pkgs.writeShellScriptBin "run" ''
+            eww close app-menu
+            i3-msg gaps outer 40
+          '';
+          eww-app-menu = pkgs.writeShellScriptBin "run" ''
+            i3-msg gaps outer 0
+            count=$(i3-msg -t get_tree | gojq -r 'recurse(.nodes[]) | select(.nodes[].focused == true).nodes | length')
+            if ! $count; then eww open app-menu; fi
+          '';
+          move-workspace = pkgs.writeShellScriptBin "run" ''
+            wsNext=$((`i3-msg -t get_workspaces | gojq '.[] | select(.focused).num'` + $1))
+            i3-msg workspace number $wsNext
+          '';
+        in ''
+          modmap:
+            - name: Global
+              remap:
+                Super_L: brightnessup
+
+          keymap:   
           - name: default mode
             remap:
-              super: { 
-                set_mode: workspace
-                launch: ["bash", "-c", "${workspace}/bin/run"]
-              }
+              brightnessup:
+                [ { set_mode: workspace },
+                { launch: ["bash", "-c", "${workspace}/bin/run"] } ]
             mode: default
 
           - name: workspace mode
             remap:
-              Enter: {
-                set_mode: default
-                launch: ["bash", "-c", "${nwg-drawer-run}/bin/run]
-              }
+              Enter:
+                [ { set_mode: default },
+                { launch: ["bash", "-c", "${eww-app-menu}/bin/run"] } ]
               right:
-                launch: ["hyprctl", "dispatch", "workspace", "r+1"]
+                launch: ["bash", "-c", "${move-workspace}/bin/run 1"]
               left:
-                launch: ["hyprctl", "dispatch", "workspace", "r-1"]
+                launch: ["bash", "-c", "${move-workspace}/bin/run -1"]
+              q:
+                launch: ["i3-msg", "kill"]
             mode: workspace
         '';
       };
@@ -401,23 +366,8 @@
     # System
     inputs.xremap.packages.${system}.xremap-wlroots
 
-    # Wayland
-    swaybg
-    fuzzel
-    nwg-drawer
-    wofi
-    hyprpicker
-
-    grim
-    slurp
-    swappy
-    wf-recorder
-
-    wl-clipboard
-    cliphist
-    clipboard-jh
-
-    wtype
+    # X11
+    nitrogen
 
     # Apps
     jellyfin-media-player

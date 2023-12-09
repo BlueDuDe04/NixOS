@@ -1,0 +1,27 @@
+/** Applications ***************************************/
+
+.appbg {
+	margin : 25px 0px 25px 0px;
+}
+
+.appbox {
+	margin : 0px 25px 0px 25px;
+}
+
+.app_fox, .app_telegram, .app_discord, .app_terminal,
+.app_files, .app_geany, .app_code, .app_gimp, .app_vbox {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: 8px 8px 8px 8px;
+}
+
+.app_fox {}
+.app_telegram {}
+.app_discord {}
+.app_terminal {}
+.app_files {}
+.app_geany {}
+.app_code {}
+.app_gimp {}
+.app_vbox {}
+
