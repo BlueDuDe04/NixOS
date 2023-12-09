@@ -51,7 +51,7 @@
     };
 
     getty = {
-      loginProgram = "startx";
+      loginProgram = "${pkgs.i3-rounded}/bin/i3";
       autologinUser = "tv";
     };
 
