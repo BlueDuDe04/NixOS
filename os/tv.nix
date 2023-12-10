@@ -387,7 +387,7 @@
     # X11
     nitrogen
     xdotool
-    xprop
+    xorg.xprop
 
     # Apps
     jellyfin-media-player
