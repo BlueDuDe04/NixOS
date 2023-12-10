@@ -100,12 +100,14 @@
         intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
       ];
     };
+
+    uinput.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tv = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "input" "uinput" ];
   };
 
   home-manager = {
