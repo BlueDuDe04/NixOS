@@ -180,7 +180,7 @@
           eww-app-menu = pkgs.writeShellScriptBin "run" ''
             i3-msg gaps outer 0
             count=$(i3-msg -t get_tree | gojq -r 'recurse(.nodes[]) | select(.nodes[].focused == true).nodes | length')
-            if ! $count; then eww open app-menu; fi
+            if ! (($count)); then eww open app-menu; fi
           '';
           move-workspace = pkgs.writeShellScriptBin "run" ''
             wsNext=$((`i3-msg -t get_workspaces | gojq '.[] | select(.focused).num'` + $1))
