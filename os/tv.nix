@@ -175,13 +175,15 @@
         "xremap.yaml".text = let
           workspace = pkgs.writeShellScriptBin "run" ''
             eww close app-menu
-            i3-msg gaps outer 40
           '';
           eww-app-menu = pkgs.writeShellScriptBin "run" ''
-            i3-msg gaps outer 0
-            count=$(i3-msg -t get_tree | gojq -r 'recurse(.nodes[]) | select(.nodes[].focused == true).nodes | length')
-            kitty nvim $count
-            if ! (($count)); then eww open app-menu; fi
+            # count=$(i3-msg -t get_tree | gojq -r 'recurse(.nodes[]) | select(.nodes[].focused == true).nodes | length')
+            # if ! (($count)); then eww open app-menu; fi
+            WINDOWS=$(xdotool search --all --onlyvisible --desktop $(xprop -notype -root _NET_CURRENT_DESKTOP | cut -c 24-) "" 2>/dev/null)
+            NUM=$(echo "$WINDOWS" | wc -l)
+            if [ $NUM -eq 0 ]; then
+              eww open app-menu
+            fi
           '';
           move-workspace = pkgs.writeShellScriptBin "run" ''
             wsNext=$((`i3-msg -t get_workspaces | gojq '.[] | select(.focused).num'` + $1))
@@ -384,6 +386,8 @@
 
     # X11
     nitrogen
+    xdotool
+    xprop
 
     # Apps
     jellyfin-media-player
