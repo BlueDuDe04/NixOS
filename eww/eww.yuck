@@ -15,6 +15,6 @@
 			(button :style "background-image: url('images/icons/virtualbox.svg');" :class "app_vbox" :onclick "scripts/open_apps --vb"))))
 
 ;; apps
-(defwindow app-menu :stacking "bg" :monitor 0
+(defwindow app-menu :stacking "bg" :wm-ignore "true" :monitor 0
 	    :geometry (geometry :x 500 :y 200 :width 1000 :height 1000)
 					(apps))
