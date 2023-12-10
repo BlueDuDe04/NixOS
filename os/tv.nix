@@ -53,14 +53,14 @@
       displayManager = {
         defaultSession = "none+i3"; 
 
+        autoLogin = {
+          enable = true;
+          user = "tv";
+        };
+
         lightdm = {
           enable = true;
           greeter.enable = false;
-
-          autoLogin = {
-            enable = true;
-            user = "tv";
-          };
         };
       };
     };
