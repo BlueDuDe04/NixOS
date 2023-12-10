@@ -48,7 +48,11 @@
     xserver = {
       enable = true;
 
-      windowManager.i3.enable = true;
+      windowManager.i3 = {
+        enable = true;
+
+        package = pkgs.i3-rounded;
+      };
 
       displayManager = {
         defaultSession = "none+i3"; 
