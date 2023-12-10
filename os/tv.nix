@@ -46,18 +46,23 @@
     };
 
     xserver = {
+      enable = true;
+
+      windowManager.i3.enable = true;
+
       displayManager = {
         defaultSession = "none+i3"; 
+
         lightdm = {
           enable = true;
           greeter.enable = false;
+
           autoLogin = {
             enable = true;
             user = "tv";
           };
         };
       };
-      windowManager.i3.enable = true;
     };
 
     openssh = {
