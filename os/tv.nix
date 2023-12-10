@@ -33,8 +33,6 @@
 
   services.dbus.enable = true;
 
-  programs.kdeconnect.enable = true;
-
   services = {
     pipewire = {
       enable = true;
@@ -45,27 +43,13 @@
       jack.enable = true;
     };
 
-    xserver = {
+    greetd ={
       enable = true;
-
-      windowManager.i3 = {
-        enable = true;
-
-        package = pkgs.i3-rounded;
-      };
-
-      displayManager = {
-        defaultSession = "none+i3"; 
-
-        autoLogin = {
-          enable = true;
-          user = "tv";
-        };
-
-        lightdm = {
-          enable = true;
-          greeter.enable = false;
-        };
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+          user = "greeter";
+       };
       };
     };
 
@@ -73,15 +57,6 @@
       enable = true;
       settings.PermitRootLogin = "yes";
     };
-  };
-
-  networking.firewall = {
-    enable = false;
-    allowedTCPPorts = [ 80 443 22067 ];
-    allowedUDPPortRanges = [
-      { from = 4000; to = 4007; }
-      { from = 8000; to = 9010; }
-    ];
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
@@ -121,12 +96,71 @@
 
       home.stateVersion = "22.11"; # Please read the comment before changing.
 
-      services.kdeconnect.enable = true;
-
-      programs.eww = {
+      wayland.windowManager.hyprland = {
         enable = true;
 
-        configDir = ../eww;
+        plugins = [
+          inputs.hy3.packages.${system}.hy3
+        ];
+
+        extraConfig = ''
+          monitor=,highres,auto,1
+
+          exec-once = wl-paste --watch cliphist store
+
+          exec-once = xremap --watch ~/.config/xremap.yaml
+
+          exec-once = swaybg -o * -m fill -i ${../Sunset-Deer-Wallpaper.jpg}
+
+          exec-once = nwg-drawer -r -mt 50 -mr 50 -mb 50 -ml 50
+          exec-once = nwg-drawer
+
+          bindn = , mouse:272, hy3:focustab, mouse
+
+          input {
+            repeat_delay=200
+            repeat_rate=60
+            touchpad {
+              natural_scroll = yes
+            }
+            sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+          }
+
+          general {
+              # See https://wiki.hyprland.org/Configuring/Variables/ for more
+              gaps_in = 0
+              gaps_out = 0
+              border_size = 5
+              col.active_border = rgba(AD8EE6FF) rgba(33ccffFF) 45deg
+              col.inactive_border = rgba(595959FF)
+              layout = hy3
+          }
+
+          misc {
+            disable_hyprland_logo = true
+            disable_splash_rendering = true
+          }
+
+          xwayland {
+            force_zero_scaling = true
+          }
+
+          plugin {
+            hy3 {
+              no_gaps_when_only = true
+              tab_first_window = true
+
+              tabs {
+                height = 18
+                text_font = "FiraCode Nerd Font Bold"
+                text_height = 10
+                text_padding = 4
+                col.active = rgba(AD8EE6FF)
+                col.inactive = rgba(595959FF)
+              }
+            }
+          }
+        '';
       };
 
       programs.chromium = {
@@ -149,45 +183,15 @@
         "starship.toml".source = ../starship.toml;
         "lf/icons".source = ../lf/icons;
         "fish/functions/lfcd.fish".source = ../lf/lfcd.fish;
-        "i3/config".text = ''
-          # exec_always "xrandr --output HDMI-1 --mode 1920x1080 --scale 0.8"
-
-          exec_always xremap --watch ~/.config/xremap.yaml
-
-          exec_always eww daemon && eww open app-menu
-
-          exec_always nitrogen --restore
-
-          workspace_layout tabbed
-
-          for_window [class="^.*"] border pixel 5
-
-          gaps inner 15
-          gaps outer 0
-          smart_gaps on
-          smart_borders on
-
-          border_radius 5
-
-          bindsym Mod1+a exec kitty
-        '';
 
         "xremap.yaml".text = let
           workspace = pkgs.writeShellScriptBin "run" ''
-            # eww close app-menu
+            pkill -USR1 nwg-drawer
+            hyprctl keyword general:gaps_out 40
           '';
-          eww-app-menu = pkgs.writeShellScriptBin "run" ''
-            # count=$(i3-msg -t get_tree | gojq -r 'recurse(.nodes[]) | select(.nodes[].focused == true).nodes | length')
-            # if ! (($count)); then eww open app-menu; fi
-            # WINDOWS=$(xdotool search --all --onlyvisible --desktop $(xprop -notype -root _NET_CURRENT_DESKTOP | cut -c 24-) "" 2>/dev/null)
-            # NUM=$(echo "$WINDOWS" | wc -l)
-            # if [ $NUM -eq 0 ]; then
-            #   eww open app-menu
-            # fi
-          '';
-          move-workspace = pkgs.writeShellScriptBin "run" ''
-            wsNext=$((`i3-msg -t get_workspaces | gojq '.[] | select(.focused).num'` + $1))
-            i3-msg workspace number $wsNext
+          nwg-drawer-run = pkgs.writeShellScriptBin "run" ''
+            hyprctl keyword general:gaps_out 0
+            if ! hyprctl activeworkspace -j | gojq '.windows'; then nwg-drawer; fi
           '';
         in ''
           modmap:
@@ -207,13 +211,13 @@
             remap:
               Enter:
                 [ { set_mode: default },
-                { launch: ["bash", "-c", "${eww-app-menu}/bin/run"] } ]
+                { launch: ["bash", "-c", "${nwg-drawer-run}/bin/run"] } ]
               right:
-                launch: ["bash", "-c", "${move-workspace}/bin/run 1"]
+                launch: ["hyprctl", "dispatch", "workspace", "r+1"]
               left:
-                launch: ["bash", "-c", "${move-workspace}/bin/run -1"]
+                launch: ["hyprctl", "dispatch", "workspace", "r-1"]
               q:
-                launch: ["i3-msg", "kill"]
+                launch: ["hyprctl", "dispatch", "killactive"]
             mode: workspace
         '';
       };
