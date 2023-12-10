@@ -152,6 +152,8 @@
 
           exec_always xremap --watch ~/.config/xremap.yaml
 
+          exec_always eww daemon
+
           exec_always nitrogen --restore
 
           workspace_layout tabbed
@@ -164,6 +166,8 @@
           smart_borders on
 
           border_radius 5
+
+          bindsym Mod1+a exec kitty
         '';
 
         "xremap.yaml".text = let
