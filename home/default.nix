@@ -151,6 +151,8 @@
     profiles.mason = {
       extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
        ublock-origin 
+       sponsorblock
+       dearrow
        darkreader
        bitwarden
        adsum-notabs
@@ -162,16 +164,21 @@
       userChrome = builtins.readFile ../userChrome.css;
 
       settings = {
+        # Theme
         "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
+        # New Tab
         "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
         "browser.newtabpage.enabled" = false;
 
+        # Options
         "browser.toolbars.bookmarks.visibility" = "never";
         "signon.rememberSignons" = false;
         "browser.download.useDownloadDir" = false;
+        "browser.aboutConfig.showWarning" = false;
 
+        # Security
         "dom.security.https_only_mode" = true;
       };
 
