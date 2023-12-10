@@ -46,13 +46,18 @@
     };
 
     xserver = {
-      displayManager.startx.enable = true;
+      displayManager = {
+        defaultSession = "none+i3"; 
+        lightdm = {
+          enable = true;
+          greeter.enable = false;
+          autoLogin = {
+            enable = true;
+            user = "tv";
+          };
+        };
+      };
       windowManager.i3.enable = true;
-    };
-
-    getty = {
-      loginProgram = "${pkgs.i3-rounded}/bin/i3";
-      autologinUser = "tv";
     };
 
     openssh = {
