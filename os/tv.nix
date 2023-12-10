@@ -121,31 +121,6 @@
 
       services.kdeconnect.enable = true;
 
-      xsession.windowManager.i3 = {
-        enable = true;
-
-        package = pkgs.i3-rounded;
-
-        extraConfig = ''
-          # exec_always "xrandr --output HDMI-1 --mode 1920x1080 --scale 0.8"
-
-          exec_always xremap --watch ~/.config/xremap.yaml
-
-          exec_always nitrogen --restore
-
-          workspace_layout tabbed
-
-          for_window [class="^.*"] border pixel 5
-
-          gaps inner 15
-          gaps outer 0
-          smart_gaps on
-          smart_borders on
-
-          border_radius 5
-        '';
-      };
-
       programs.eww = {
         enable = true;
 
@@ -172,6 +147,24 @@
         "starship.toml".source = ../starship.toml;
         "lf/icons".source = ../lf/icons;
         "fish/functions/lfcd.fish".source = ../lf/lfcd.fish;
+        "i3/config".text = ''
+          # exec_always "xrandr --output HDMI-1 --mode 1920x1080 --scale 0.8"
+
+          exec_always xremap --watch ~/.config/xremap.yaml
+
+          exec_always nitrogen --restore
+
+          workspace_layout tabbed
+
+          for_window [class="^.*"] border pixel 5
+
+          gaps inner 15
+          gaps outer 0
+          smart_gaps on
+          smart_borders on
+
+          border_radius 5
+        '';
 
         "xremap.yaml".text = let
           workspace = pkgs.writeShellScriptBin "run" ''
