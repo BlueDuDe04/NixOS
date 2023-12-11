@@ -123,5 +123,12 @@
         ];
       };
     };
+
+    templates = {
+      zig = {
+        path = templates/zig/simple;
+        description = "A simple Zig template.";
+      };
+    };
   };
 }
