@@ -1,6 +1,6 @@
 {input, config, pkgs, stylix, ...}:
 let
-  font = pkgs.nerdfonts.override { fonts = ["FiraCode"]; };
+  font = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
 in {
   stylix.image = ./colorful-sky.jpg;
   # stylix.polarity = "dark";
@@ -28,11 +28,6 @@ in {
     monospace = {
       package = font;
       name = "Firacode Nerd Font Mono:style=Bold";
-    };
-
-    emoji = {
-      package = pkgs.noto-fonts-emoji;
-      name = "Noto Color Emoji";
     };
   };
 }

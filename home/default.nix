@@ -34,7 +34,7 @@
 
   home.packages = with pkgs; [
     # System
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "VictorMono" "JetBrainsMono" ]; })
     inputs.xremap.packages.${system}.xremap-wlroots
     inputs.nixgl.packages.${system}.nixGLIntel
 
@@ -138,10 +138,11 @@
       touch_scroll_multiplier 10.0
       window_padding_width 0 6
 
-      font_family FiraCode Nerd Font SemBd
-      bold_font FiraCode Nerd Font Bold
-      bold_italic_font FiraCode Nerd Font Bold
-      font_size 12
+      font_family Victor Mono Nerd Font
+      bold_font        auto
+      italic_font      auto
+      bold_italic_font auto
+      font_size 13
     '';
   };
 
