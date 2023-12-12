@@ -1,5 +1,6 @@
 { inputs, system, config, pkgs, ... }:
 
+
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -138,7 +139,7 @@
       touch_scroll_multiplier 10.0
       window_padding_width 0 6
 
-      font_family Victor Mono Nerd Font
+      font_family      Victor Mono Nerd Font
       bold_font        auto
       italic_font      auto
       bold_italic_font auto
