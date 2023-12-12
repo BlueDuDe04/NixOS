@@ -22,34 +22,34 @@ format = '[$symbol($profile )(\($region\) )]($style)'
 [golang]
 symbol = '󱇄GO '
 style = 'bold #00AED5'
-format = '[$symbol$version]($style) '
+format = '[$symbol $version]($style) '
 
 [lua]
 symbol = ' '
 style = 'bold #1A6BC7'
-format = '[$symbol$version]($style) '
+format = '[$symbol $version]($style) '
 
 [nix_shell]
 symbol = ' '
 style = 'bold blue'
-format = '[$symbol$name]($style) '
+format = '[$symbol $name]($style) '
 
 [rust]
 symbol = ' '
 style = 'bold #F74C00'
-format = '[$symbol$version]($style) '
+format = '[$symbol $version]($style) '
 
 [zig]
 symbol = ' '
 style = '#F7A41D'
-format = '[$symbol$version]($style) '
+format = '[$symbol $version]($style) '
 
 [nodejs]
 symbol = '󰎙 '
 style = 'bold #5DAE47'
-format = '[$symbol$version]($style) '
+format = '[$symbol $version]($style) '
 
 [python]
 symbol = ' '
 style = 'bold #FFCD37'
-format = '[$symbol$version]($style) '
+format = '[$symbol $version]($style) '
