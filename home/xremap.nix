@@ -25,7 +25,7 @@ let
   # '';
 
   yankSearch = pkgs.writeShellScriptBin "run" ''
-    cliphist list | wofi -d | cliphist decode | wl-copy
+    cliphist list | fuzzel -p '❯  ' -b 2A2B3DFF -s AD8EE6FF -t DDDDDDFF -S DDDDDDFF -d | cliphist decode | wl-copy
   '';
 
   yankDisplay = pkgs.writeShellScriptBin "run" ''
@@ -43,13 +43,13 @@ let
   '';
 
   pasteSearch = pkgs.writeShellScriptBin "run" ''
-    cliphist list | wofi -d | cliphist decode | wtype -
+    cliphist list | fuzzel -p '❯  ' -b 2A2B3DFF -s AD8EE6FF -t DDDDDDFF -S DDDDDDFF -d | cliphist decode | wtype -
   '';
 
   pasteFrom = pkgs.writeShellScriptBin "run" ''cb p$1 | wtype -'';
 
   bitwardenSearch = pkgs.writeShellScriptBin "run" ''
-    rbw get "$(rbw unlock; rbw list | wofi -d)" | tr -d '\n' | wtype -
+    rbw get "$(rbw unlock; rbw list | fuzzel -p '❯  ' -b 2A2B3DFF -s AD8EE6FF -t DDDDDDFF -S DDDDDDFF -d)" | tr -d '\n' | wtype -
   '';
 in ''
 keymap:
@@ -70,7 +70,7 @@ keymap:
     super-l:
       remap:
         l:
-          launch: ["wofi", "--show", "drun"]
+          launch: ["fuzzel", "-p", "❯  ", "-b", "2A2B3DFF", "-s", "AD8EE6FF", "-t", "DDDDDDFF", "-S", "DDDDDDFF"]
         t:
           launch: ["kitty"]
         w:
