@@ -103,7 +103,23 @@
         extraSpecialArgs = { inherit inputs system; };
 
         modules = [
-          ./home ./home/mason.nix
+          ./home home/wayland.nix {
+            home = {
+              username = "mason"; homeDirectory = "/home/mason";
+              packages = [ inputs.nixgl.packages.${system}.nixGLIntel ];
+            };
+
+            targets.genericLinux.enable = true;
+
+            wayland.windowManager.hyprland = {
+              enable = true;
+              plugins = [ inputs.hy3.packages.${system}.hy3 ];
+              extraConfig = (import ./hypr.nix) inputs ''
+                monitor=eDP-1,2256x1504@59.999,0x0,1.3
+                exec-once = swaybg -m fill -i ~/git/NixOS/colorful-sky.jpg
+              '';
+            };
+          }
 
           stylix.homeManagerModules.stylix ./stylix.nix stylixIgnore 
         ];
@@ -115,7 +131,28 @@
         extraSpecialArgs = { inherit inputs system; };
 
         modules = [
-          ./home ./home/work.nix
+          ./home home/wayland.nix {
+            home = {
+              username = "work"; homeDirectory = "/home/work";
+              packages = [ inputs.nixgl.packages.${system}.nixGLIntel ];
+            };
+
+            targets.genericLinux.enable = true;
+
+            wayland.windowManager.hyprland = {
+              enable = true;
+              plugins = [ inputs.hy3.packages.${system}.hy3 ];
+              extraConfig = (import ./hypr.nix) inputs ''
+                monitor=eDP-1,2256x1504@59.999,0x0,1.3
+                exec-once = swaybg -m fill -i ~/git/NixOS/colorful-sky.jpg
+              '';
+            };
+
+            programs.google-chrome = {
+              enable = true;
+              commandLineArgs = [ "--ozone-platform-hint=auto" ];
+            };
+          }
 
           stylix.homeManagerModules.stylix ./stylix.nix stylixIgnore
         ];

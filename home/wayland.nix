@@ -1,4 +1,4 @@
-{inputs, pkgs}: {
+{inputs, system, pkgs, ...}: {
 
   xdg.configFile = {
     "sway".source = ../sway;

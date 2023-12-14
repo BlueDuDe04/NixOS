@@ -1,28 +1,6 @@
-{ inputs, system, config, pkgs, ... }:
-
-
-{
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  home = {
-    stateVersion = "22.11"; # Please read the comment before changing.
-
-    sessionVariables = {
-      EDITOR = "nvim";
-      BROWSER = "firefox";
-      DIRENV_LOG_FORMAT = "";
-      CLIPBOARD_NOGUI = 1;
-    };
-
-    file = {};
-  };
+{ pkgs, ... }: {
 
   xdg.configFile = {
-    "sway".source = ../sway;
-    # "hypr/hyprland.conf".text = (import ./hypr.nix) inputs;
-    "xremap.yaml".text = (import ./xremap.nix) pkgs;
-    "waybar".source = ../waybar;
     "starship.toml".source = ../starship.toml;
     "lf/icons".source = ../lf/icons;
     "fish/functions/lfcd.fish".source = ../lf/lfcd.fish;
@@ -33,336 +11,153 @@
     allowUnfree = true;
   };
 
-  home.packages = with pkgs; [
-    # System
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "VictorMono" "JetBrainsMono" ]; })
-    inputs.xremap.packages.${system}.xremap-wlroots
-    inputs.nixgl.packages.${system}.nixGLIntel
+  home = {
+    stateVersion = "22.11"; # Please read the comment before changing.
 
-    # Wayland
-    # waybar
-    swaybg
-    waylock
-    fuzzel
-    nwg-drawer
-    wofi
-    hyprpicker
-
-    grim
-    slurp
-    swappy
-    wf-recorder
-
-    wl-clipboard
-    cliphist
-    clipboard-jh
-
-    wtype
-
-    # Tools
-    ripgrep
-    fd
-    fzf
-    remmina
-    openfortivpn
-    gnome.zenity
-
-    # Apps
-    freetube
-    bottles
-    luakit
-    wezterm
-    pavucontrol
-    obs-studio
-    lapce
-    helix
-    ranger
-
-    blender
-    godot_4
-    krita
-    gimp
-
-    gnome.gnome-calculator
-    gnome.nautilus
-
-    # Dbeaver
-    (pkgs.writeShellScriptBin "dbeaver" ''GDK_BACKEND=x11 GTK_THEME=Adwaita ${dbeaver}/bin/dbeaver'')
-    (makeDesktopItem {
-      name = "dbeaver";
-      exec = "dbeaver";
-      icon = "dbeaver";
-      desktopName = "dbeaver";
-      comment = "SQL Integrated Development Environment";
-      genericName = "SQL Integrated Development Environment";
-      categories = [ "Development" ];
-    })
-
-    # Discord
-    (pkgs.writeShellScriptBin "discord" ''chromium --app=https://discord.com/channels/@me'')
-    (makeDesktopItem {
-      name = "discord";
-      exec = "discord";
-      icon = "discord";
-      desktopName = "discord";
-      comment = "All-in-one cross-platform voice and text chat for gamers";
-    })
-
-    # Slack
-    (pkgs.writeShellScriptBin "slack" ''chromium --app=https://app.slack.com/client/T7C5M4HRS/C014RKD8T3R'')
-    (makeDesktopItem {
-      name = "slack";
-      exec = "slack";
-      icon = "slack";
-      desktopName = "slack";
-      comment = "All-in-one cross-platform voice and text chat for work";
-    })
-  ];
-
-  services.syncthing.enable = true;
-
-  programs.git = {
-    enable = true;
-    userName = "BlueDuDe04";
-    userEmail = "Bennettmason04@gmail.com";
+    sessionVariables = {
+      DIRENV_LOG_FORMAT = "";
+    };
   };
 
-  programs.kitty = {
-    enable = true;
+  # Let Home Manager install and manage itself.
+  programs = {
+    home-manager.enable = true;
 
-    theme = "Tokyo Night";
+    git = {
+      enable = true;
+      userName = "BlueDuDe04";
+      userEmail = "Bennettmason04@gmail.com";
+    };
 
-    extraConfig = ''
-      shell fish
-      background_opacity 0.9
-      cursor_blink_interval 0
-      touch_scroll_multiplier 10.0
-      window_padding_width 0 6
-
-      font_family      Victor Mono Nerd Font
-      bold_font        auto
-      italic_font      auto
-      bold_italic_font auto
-      font_size 13
-    '';
-  };
-
-  programs.firefox = {
-    enable = true;
-
-    profiles.mason = {
-      extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
-       ublock-origin 
-       sponsorblock
-       dearrow
-       darkreader
-       bitwarden
-       adsum-notabs
-       libredirect
-       vimium
-       sidebery
-      ];
-
-      userChrome = builtins.readFile ../userChrome.css;
+    lf = {
+      enable = true;
 
       settings = {
-        # Theme
-        "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-
-        # New Tab
-        "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
-        "browser.newtabpage.enabled" = false;
-
-        # Options
-        "browser.toolbars.bookmarks.visibility" = "never";
-        "signon.rememberSignons" = false;
-        "browser.download.useDownloadDir" = false;
-        "browser.aboutConfig.showWarning" = false;
-
-        # Security
-        "dom.security.https_only_mode" = true;
+        preview = true;
+        hidden = true;
+        drawbox = true;
+        icons = true;
+        ignorecase = true;
       };
 
-      search = {
-        default = "DuckDuckGo";
+      # commands = {
+      # };
 
-        force = true;
-
-        order = [
-          "DuckDuckGo"
-          "Nix Packages"
-          "NixOs Wiki"
-        ];
-
-        engines = {
-          "Nix Packages" = {
-            urls = [{
-              template = "https://search.nixos.org/packages";
-              params = [
-                { name = "type"; value = "packages"; }
-                { name = "query"; value = "{searchTerms}"; }
-              ];
-            }];
-
-            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            definedAliases = [ "@np" ];
-          };
-
-          "NixOS Wiki" = {
-            urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
-            iconUpdateURL = "https://nixos.wiki/favicon.png";
-            updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@nw" ];
-          };
-        };
+      keybindings = {
+        "<esc>" = '':quit'';
       };
-    };
-  };
 
-  programs.chromium = {
-    enable = true;
+      extraConfig = 
+      let 
+        previewer = 
+          pkgs.writeShellScriptBin "pv.sh" ''
+          file=$1
+          w=$2
+          h=$3
+          x=$4
+          y=$5
+          
+          if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
+              ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+              exit 1
+          fi
+          
+          ${pkgs.pistol}/bin/pistol "$file"
+        '';
 
-    # package = pkgs.ungoogled-chromium;
-
-    commandLineArgs = [
-      "--ozone-platform-hint=auto"
-    ];
-
-    extensions = [
-      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
-      { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
-    ];
-  };
-
-  programs.lf = {
-    enable = true;
-
-    settings = {
-      preview = true;
-      hidden = true;
-      drawbox = true;
-      icons = true;
-      ignorecase = true;
-    };
-
-    # commands = {
-    # };
-
-    keybindings = {
-      "<esc>" = '':quit'';
-    };
-
-    extraConfig = 
-    let 
-      previewer = 
-        pkgs.writeShellScriptBin "pv.sh" ''
-        file=$1
-        w=$2
-        h=$3
-        x=$4
-        y=$5
-        
-        if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
-            ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
-            exit 1
-        fi
-        
-        ${pkgs.pistol}/bin/pistol "$file"
+        cleaner = pkgs.writeShellScriptBin "clean.sh" ''
+          ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
+        '';
+      in ''
+        set cleaner ${cleaner}/bin/clean.sh
+        set previewer ${previewer}/bin/pv.sh
       '';
-
-      cleaner = pkgs.writeShellScriptBin "clean.sh" ''
-        ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
-      '';
-    in ''
-      set cleaner ${cleaner}/bin/clean.sh
-      set previewer ${previewer}/bin/pv.sh
-    '';
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-
-    shellAliases = {
-      nv = "nvim";
     };
 
-    initExtra = ''
-      ${pkgs.nix-your-shell}/bin/nix-your-shell zsh | source /dev/stdin
-    '';
-  };
+    zsh = {
+      enable = true;
+      enableAutosuggestions = true;
+      enableCompletion = true;
+      syntaxHighlighting.enable = true;
 
-  programs.fish = {
-    enable = true;
+      shellAliases = {
+        nv = "nvim";
+      };
 
-    shellInit = ''
-      set fish_greeting
+      initExtra = ''
+        ${pkgs.nix-your-shell}/bin/nix-your-shell zsh | source /dev/stdin
+      '';
+    };
 
-      ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
+    fish = {
+      enable = true;
 
-      bind \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
+      shellInit = ''
+        set fish_greeting
 
-      # TokyoNight Color Palette
-      set -l foreground c0caf5
-      set -l selection 283457
-      set -l comment 565f89
-      set -l red f7768e
-      set -l orange ff9e64
-      set -l yellow e0af68
-      set -l green 9ece6a
-      set -l purple 9d7cd8
-      set -l cyan 7dcfff
-      set -l pink bb9af7
+        ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
 
-      # Syntax Highlighting Colors
-      set -g fish_color_normal $foreground
-      set -g fish_color_command $cyan
-      set -g fish_color_keyword $pink
-      set -g fish_color_quote $yellow
-      set -g fish_color_redirection $foreground
-      set -g fish_color_end $orange
-      set -g fish_color_error $red
-      set -g fish_color_param $purple
-      set -g fish_color_comment $comment
-      set -g fish_color_selection --background=$selection
-      set -g fish_color_search_match --background=$selection
-      set -g fish_color_operator $green
-      set -g fish_color_escape $pink
-      set -g fish_color_autosuggestion $comment
+        bind \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
 
-      # Completion Pager Colors
-      set -g fish_pager_color_progress $comment
-      set -g fish_pager_color_prefix $cyan
-      set -g fish_pager_color_completion $foreground
-      set -g fish_pager_color_description $comment
-      set -g fish_pager_color_selected_background --background=$selection
-    '';
-  };
+        # TokyoNight Color Palette
+        set -l foreground c0caf5
+        set -l selection 283457
+        set -l comment 565f89
+        set -l red f7768e
+        set -l orange ff9e64
+        set -l yellow e0af68
+        set -l green 9ece6a
+        set -l purple 9d7cd8
+        set -l cyan 7dcfff
+        set -l pink bb9af7
 
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
-    enableZshIntegration = true;
-  };
+        # Syntax Highlighting Colors
+        set -g fish_color_normal $foreground
+        set -g fish_color_command $cyan
+        set -g fish_color_keyword $pink
+        set -g fish_color_quote $yellow
+        set -g fish_color_redirection $foreground
+        set -g fish_color_end $orange
+        set -g fish_color_error $red
+        set -g fish_color_param $purple
+        set -g fish_color_comment $comment
+        set -g fish_color_selection --background=$selection
+        set -g fish_color_search_match --background=$selection
+        set -g fish_color_operator $green
+        set -g fish_color_escape $pink
+        set -g fish_color_autosuggestion $comment
 
-  programs.zoxide = {
-    enable = true;
-    enableFishIntegration = true;
-    enableZshIntegration = true;
-  };
+        # Completion Pager Colors
+        set -g fish_pager_color_progress $comment
+        set -g fish_pager_color_prefix $cyan
+        set -g fish_pager_color_completion $foreground
+        set -g fish_pager_color_description $comment
+        set -g fish_pager_color_selected_background --background=$selection
+      '';
+    };
 
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-    # enableFishIntegration = true;
-    enableZshIntegration = true;
-  };
+    starship = {
+      enable = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+    };
 
-  programs.go = {
-    enable = true;
-    goPath = ".go";
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      # enableFishIntegration = true;
+      enableZshIntegration = true;
+    };
+
+    go = {
+      enable = true;
+      goPath = ".go";
+    };
   };
 }
