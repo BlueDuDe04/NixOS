@@ -15,20 +15,18 @@
 
     xremap.url = "github:xremap/nix-flake";
 
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.32.3";
     hy3.url = "github:outfoxxed/hy3?ref=hl0.32.0";
-    hy3.inputs.hyprland.follows = "hyprland";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, kmonad, stylix, ... }@inputs: 
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-    };
+
+    pkgs = import nixpkgs { inherit system; };
+
     stylixIgnore = {
       stylix.targets.hyprland.enable = false;
       stylix.targets.wezterm.enable = false;
