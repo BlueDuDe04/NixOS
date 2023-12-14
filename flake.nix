@@ -59,6 +59,17 @@
         modules = [
           ./os ./os/desktop.nix
 
+          kmonad.nixosModules.default { services.kmonad = {
+            enable = true;
+            keyboards = {
+              keyboard = {
+                device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd";
+                config = builtins.readFile kmonad/colemak-dh-wide.kbd;
+              };
+            };
+          };}
+
+          home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix ./stylix.nix
         ];
       })
@@ -71,6 +82,17 @@
         modules = [
           ./os ./os/laptop.nix
 
+          kmonad.nixosModules.default { services.kmonad = {
+            enable = true;
+            keyboards = {
+              framework = {
+                device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+                config = builtins.readFile kmonad/colemak-dh-wide.kbd;
+              };
+            };
+          };}
+
+          home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix ./stylix.nix
         ];
       })
@@ -81,7 +103,9 @@
         specialArgs = { inherit inputs system; };
 
         modules = [
-          ./os/tv.nix
+          ./os os/tv.nix
+
+          home-manager.nixosModules.home-manager
         ];
       })
 
@@ -91,7 +115,16 @@
         specialArgs = { inherit inputs system; };
 
         modules = [
-          ./os/server.nix
+          ./os os/server.nix
+
+          home-manager.nixosModules.home-manager {
+            home-manager = {
+              users.mason = { 
+                imports = [ ./home ];
+                home.username = "mason"; home.homeDirectory = "/home/mason";
+              };
+            };
+          }
         ];
       })
     ;

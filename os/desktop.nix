@@ -2,16 +2,6 @@
 
   networking.hostName = "Desktop";
 
-  services.kmonad = {
-    enable = true;
-    keyboards = {
-      keyboard = {
-        device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd";
-        config = builtins.readFile ../kmonad/colemak-dh-wide.kbd;
-      };
-    };
-  };
-
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
@@ -25,13 +15,19 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  home-manager.sharedModules = [
-    stylixIgnore
-    { wayland.windowManager.hyprland = {
+  home-manager = {
+    extraSpecialArgs = { inherit inputs system; };
+
+    users.mason = {
+      imports = [ ../home ../home/wayland.nix stylixIgnore ];
+
+      home.username = "mason"; home.homeDirectory = "/home/mason";
+
+      services.syncthing.enable = true;
+
+      wayland.windowManager.hyprland = {
         enable = true;
         enableNvidiaPatches = true;
-
-        # package = inputs.hyprland.packages.${system}.hyprland;
 
         plugins = [
           inputs.hy3.packages.${system}.hy3
@@ -57,6 +53,6 @@
           workspace = HDMI-A-1, 8
         '';
       };
-    }
-  ];
+    };
+  };
 }

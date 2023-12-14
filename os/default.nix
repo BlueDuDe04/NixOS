@@ -1,12 +1,7 @@
 { inputs, system, config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      inputs.kmonad.nixosModules.default
-      inputs.home-manager.nixosModules.home-manager
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
@@ -42,10 +37,6 @@
   };
 
   programs.xwayland.enable = true;
-
-  programs.river = {
-    enable = true;
-  };
 
   services.dbus.enable = true;
   xdg.portal = {
@@ -104,12 +95,12 @@
     opengl = {
       enable = true;
       driSupport = true;
-      driSupport32Bit = true;
       extraPackages = with pkgs; [
         intel-media-driver
-        intel-ocl
         vaapiIntel
-        libglvnd
+        vaapiVdpau
+        libvdpau-va-gl
+        intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
       ];
     };
 
@@ -120,19 +111,6 @@
   users.users.mason = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "docker" "input" "uinput" ];
-    # packages = with pkgs; [];
-  };
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs system; };
-
-    users = {
-      mason = import ../home;
-    };
-
-    sharedModules = [
-      { home.username = "mason"; home.homeDirectory = "/home/mason"; }
-    ];
   };
 
   # Allow unfree packages
@@ -160,6 +138,7 @@
     brightnessctl
     imagemagick
     acct
+    gojq
 
     # Wayland 
     waybar
@@ -167,9 +146,6 @@
     swaybg
     swaylock
     swayidle
-
-    river-luatile
-    river-tag-overlay
 
     # Other
     docker
