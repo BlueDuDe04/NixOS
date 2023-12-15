@@ -15,7 +15,9 @@
 
     xremap.url = "github:xremap/nix-flake";
 
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.32.3";
     hy3.url = "github:outfoxxed/hy3?ref=hl0.32.0";
+    hy3.inputs.hyprland.follows = "hyprland";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
@@ -63,7 +65,7 @@
             enable = true;
             keyboards = {
               keyboard = {
-                device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd";
+                device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd";
                 config = builtins.readFile kmonad/colemak-dh-wide.kbd;
               };
             };

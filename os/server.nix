@@ -20,7 +20,7 @@
         };
       };
 
-      virtualHosts."192.168.0.3" =  {
+      virtualHosts."192.168.0.10" =  {
         locations."/" = {
           proxyPass = "http://127.0.0.1:8096";
           proxyWebsockets = true;
