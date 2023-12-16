@@ -65,7 +65,7 @@
             enable = true;
             keyboards = {
               keyboard = {
-                device = "/dev/input/by-path/pci-0000:00:14.0-usb-0:4:1.0-event-kbd";
+                device = "/dev/input/by-id/usb-SINO_WEALTH_USB_KEYBOARD-event-kbd";
                 config = builtins.readFile kmonad/colemak-dh-wide.kbd;
               };
             };
