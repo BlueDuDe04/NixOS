@@ -90,25 +90,25 @@ keymap:
       remap:
         c:
           { set_mode: workspace }
-${numRowBinds (x: let tabs = 4; in ''
+${numRowBinds (x: let tabs = 4; n = if x.num != 0 then x.num else 10; in ''
   ${tab tabs}${x.key}: # ${toString x.num}
-    ${tab tabs}launch: ["hyprctl", "dispatch", "workspace", "${toString x.num}"]''
+    ${tab tabs}launch: ["hyprctl", "dispatch", "workspace", "${toString n}"]''
 )}
 
     super-m:
       remap:
         c:
           { set_mode: move }
-${numRowBinds (x: let tabs = 4; in ''
+${numRowBinds (x: let tabs = 4; n = if x.num != 0 then x.num else 10; in ''
   ${tab tabs}${x.key}: # ${toString x.num}
-    ${tab tabs}launch: ["hyprctl", "dispatch", "movetoworkspace", "${toString x.num}"]''
+    ${tab tabs}launch: ["hyprctl", "dispatch", "movetoworkspace", "${toString n}"]''
 )}
 
     super-g:
       remap:
-${numRowBinds (x: let tabs = 4; in ''
+${numRowBinds (x: let tabs = 4; n = if x.num != 0 then x.num else 10; in ''
   ${tab tabs}${x.key}: # ${toString x.num}
-    ${tab tabs}launch: ["hyprctl", "dispatch", "movetoworkspacesilent", "${toString x.num}"]''
+    ${tab tabs}launch: ["hyprctl", "dispatch", "movetoworkspacesilent", "${toString n}"]''
 )}
 
     super-y:

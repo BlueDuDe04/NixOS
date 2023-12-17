@@ -34,9 +34,9 @@
         ];
 
         extraConfig = (import ../home/hypr.nix) inputs ''
-          monitor=HDMI-A-1,2560x1440@59.95100,0x0,1
-          monitor=DP-1,2560x1440@59.95100,-1440x-580,1,transform,1
-          monitor=DP-2,2560x1440@59.95100,2560x-495,1,transform,3
+          monitor = HDMI-A-1,2560x1440@59.95100,0x0,1
+          monitor = DP-1,2560x1440@59.95100,-1440x-580,1,transform,1
+          monitor = DP-2,2560x1440@59.95100,2560x-495,1,transform,3
 
           exec-once = swaybg -o HDMI-A-1 -m stretch -i ~/git/NixOS/colorful-sky.jpg
           exec-once = swaybg -o DP-1 -m fill -i ~/git/NixOS/Colorful-Sky-Vertical.jpg
@@ -53,7 +53,7 @@
 
           workspace = DP-2, 8
           workspace = DP-2, 9
-          workspace = DP-2, 0
+          workspace = DP-2, 10
         '';
       };
     };
