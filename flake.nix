@@ -65,7 +65,7 @@
             enable = true;
             keyboards = {
               keyboard = {
-                device = "/dev/input/by-id/usb-SINO_WEALTH_USB_KEYBOARD-event-kbd";
+                device = "/dev/input/by-id/usb-LiteOn_Lenovo_Essential_Wired_Combo-event-kbd";
                 config = builtins.readFile kmonad/colemak-dh-wide.kbd;
               };
             };
