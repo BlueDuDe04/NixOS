@@ -24,6 +24,8 @@
       wayland.windowManager.hyprland = {
         enable = true;
 
+        package = inputs.hyprland.packages.${system}.default;
+
         plugins = [ inputs.hy3.packages.${system}.hy3 ];
 
         extraConfig = ''

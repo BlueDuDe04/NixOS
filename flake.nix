@@ -15,8 +15,8 @@
 
     xremap.url = "github:xremap/nix-flake";
 
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.32.3";
-    hy3.url = "github:outfoxxed/hy3?ref=hl0.32.0";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.33.0";
+    hy3.url = "github:outfoxxed/hy3?ref=hl0.33.0";
     hy3.inputs.hyprland.follows = "hyprland";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -148,7 +148,11 @@
 
             wayland.windowManager.hyprland = {
               enable = true;
+
+              package = inputs.hyprland.packages.${system}.default;
+
               plugins = [ inputs.hy3.packages.${system}.hy3 ];
+
               extraConfig = (import ./hypr.nix) inputs ''
                 monitor=eDP-1,2256x1504@59.999,0x0,1.3
                 exec-once = swaybg -m fill -i ~/git/NixOS/colorful-sky.jpg
@@ -176,7 +180,11 @@
 
             wayland.windowManager.hyprland = {
               enable = true;
+
+              package = inputs.hyprland.packages.${system}.default;
+
               plugins = [ inputs.hy3.packages.${system}.hy3 ];
+
               extraConfig = (import ./hypr.nix) inputs ''
                 monitor=eDP-1,2256x1504@59.999,0x0,1.3
                 exec-once = swaybg -m fill -i ~/git/NixOS/colorful-sky.jpg

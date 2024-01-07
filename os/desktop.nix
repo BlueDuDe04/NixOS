@@ -27,7 +27,8 @@
 
       wayland.windowManager.hyprland = {
         enable = true;
-        enableNvidiaPatches = true;
+
+        package = inputs.hyprland.packages.${system}.default;
 
         plugins = [
           inputs.hy3.packages.${system}.hy3
