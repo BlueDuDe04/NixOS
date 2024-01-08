@@ -51,7 +51,10 @@
   };
 
   systemd.services.Gameyfin = {
-    serviceConfig.ExecStart = "${pkgs.jdk21}/bin/java -jar /var/lib/gameyfin/gameyfin-1.4.4.jar";
+    serviceConfig = {
+      WorkingDirectory = "/var/lib/gameyfin";
+      ExecStart = "${pkgs.jdk21}/bin/java -jar gameyfin-1.4.4.jar";
+    };
   };
 
   networking.firewall = {
