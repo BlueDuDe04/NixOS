@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
 
   networking.hostName = "Server";
 
@@ -26,6 +26,13 @@
           proxyWebsockets = true;
         };
       };
+
+      virtualHosts."192.168.0.28" =  {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8080";
+          proxyWebsockets = true;
+        };
+      };
     };
 
     openssh = {
@@ -41,6 +48,10 @@
     # Set: sudo setfacl -m u:jellyfin:rx /media/*
     # https://www.reddit.com/r/jellyfin/comments/gaojft/the_path_could_not_be_found_please_ensure_the/
     jellyfin.enable = true;
+  };
+
+  systemd.services.Gameyfin = {
+    serviceConfig.ExecStart = "${pkgs.jdk21}/bin/java -jar /var/lib/gameyfin/gameyfin-1.4.4.jar";
   };
 
   networking.firewall = {
